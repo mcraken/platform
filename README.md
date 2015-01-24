@@ -14,4 +14,15 @@ The platform is built on:
 - LMAX disruptor. 
 - Quartz. 
 
-Participants needed!
+Participants needed to do:
+- An initial documentation.
+- A parent POM for all the bundles.
+- More oauth authorizers implementations (Now Google only).
+- More oauth invokers (Now Google profile only).
+- ORM/SQL based implementation in the repository bundle.
+- Clustered deployment testing.
+- Localization bundle implementation.
+- Key based SOLR index search (Now Cache and repository supported).
+- Support for REST API secure access tokens.
+- Support for Web socket channels security.
+- Cache index factory.

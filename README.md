@@ -1,5 +1,5 @@
 # OSGified Containerless Platform
-
+![alt tag](https://cloud.githubusercontent.com/assets/6278849/5888274/49582d5a-a401-11e4-9f45-17aea3bb1a89.jpg)
 A platform to create a scaleable and containerless applications.  
 
 The platform is built on:

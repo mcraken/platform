@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Licensed to the Apache Software Foundation (ASF) under one or more contributor 
+	license agreements. See the NOTICE file distributed with this work for additional 
+	information regarding copyright ownership. The ASF licenses this file to 
+	You under the Apache License, Version 2.0 (the "License"); you may not use 
+	this file except in compliance with the License. You may obtain a copy of 
+	the License at http://www.apache.org/licenses/LICENSE-2.0 Unless required 
+	by applicable law or agreed to in writing, software distributed under the 
+	License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS 
+	OF ANY KIND, either express or implied. See the License for the specific 
+	language governing permissions and limitations under the License. xsi:schemaLocation="http://www.osgi.org/xmlns/blueprint/v1.0.0 
+	http://www.osgi.org/xmlns/blueprint/v1.0.0/blueprint.xsd" -->
+	
+<blueprint xmlns="http://www.osgi.org/xmlns/blueprint/v1.0.0" >
+
+	<bean id="mailSystemReporting"
+		class="org.mcplissken.reporting.mail.TLSMailSystemReportingService">
+		<property name="to" value="mubasher-forex-team@googlegroups.com" />
+		<property name="mailService" ref="mailService" />
+	</bean>
+
+	<bean id="log4jSystemReporting"
+		class="org.mcplissken.reporting.log4j.Log4JSystemReportingService" init-method="init">
+		<property name="path" value="log4j/log4j.properties" />
+	</bean>
+
+	<bean id="systemReporting"
+		class="org.mcplissken.reporting.SystemReportingServiceProxy"
+		init-method="init" destroy-method="destroy">
+		<property name="concurrency" value="4" />
+		<property name="reportingServices">
+			<map key-type="java.lang.String">
+				<entry key="console" value-ref="log4jSystemReporting" />
+				<entry key="file" value-ref="log4jSystemReporting" />
+				<entry key="mail" value-ref="mailSystemReporting" />
+			</map>
+		</property>
+	</bean>
+	
+	<reference id="mailService" interface="com.mubasher.market.mail.MailService" />
+	
+	<service ref="systemReporting"
+		interface="org.mcplissken.reporting.SystemReportingService" />
+
+</blueprint>

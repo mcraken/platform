@@ -1,0 +1,21 @@
+/**/mods
+/**/zipfiles
+/**/logs
+/**/target
+/**/.metadata
+/**/.settings
+/**/.classpath
+/**/.project
+/**/bin 
+/**/*/*/data/index
+/**/*/*/data/tlog
+
+# Backup files
+*~
+
+# IntelliJ IDEA
+/**/.idea/
+/**/*.iml
+
+# Local log4j files (used to supply different logging parameters during development)
+log4j-local.properties

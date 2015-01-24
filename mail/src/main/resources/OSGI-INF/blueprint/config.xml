@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Licensed to the Apache Software Foundation (ASF) under one or more contributor 
+	license agreements. See the NOTICE file distributed with this work for additional 
+	information regarding copyright ownership. The ASF licenses this file to 
+	You under the Apache License, Version 2.0 (the "License"); you may not use 
+	this file except in compliance with the License. You may obtain a copy of 
+	the License at http://www.apache.org/licenses/LICENSE-2.0 Unless required 
+	by applicable law or agreed to in writing, software distributed under the 
+	License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS 
+	OF ANY KIND, either express or implied. See the License for the specific 
+	language governing permissions and limitations under the License. xsi:schemaLocation="http://www.osgi.org/xmlns/blueprint/v1.0.0 
+	http://www.osgi.org/xmlns/blueprint/v1.0.0/blueprint.xsd" -->
+<blueprint xmlns="http://www.osgi.org/xmlns/blueprint/v1.0.0">
+
+	<bean id="tlsMailService" class="or.mcplissken.mail.TLSMailService"
+		init-method="init">
+		<property name="userName" value="" />
+		<property name="password" value="" />
+		<property name="fromAddress" value="" />
+		<property name="properties">
+			<props>
+				<prop key="mail.smtp.auth" value="true" />
+				<prop key="mail.smtp.starttls.enable" value="true" />
+				<prop key="mail.smtp.host" value="smtp.gmail.com" />
+				<prop key="mail.smtp.port" value="587" />
+			</props>
+		</property>
+
+	</bean>
+	
+	<service ref="tlsMailService"
+		interface="or.mcplissken.mail.MailService" />
+		
+</blueprint>
+

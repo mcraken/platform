@@ -1,0 +1,119 @@
+<blueprint xmlns="http://www.osgi.org/xmlns/blueprint/v1.0.0">
+
+
+	<bean id="cassandraContext"
+		class="com.mubasher.market.repository.cassandra.CassandraContext"
+		init-method="init" destroy-method="destroy">
+		<property name="reportingService" ref="systemReporting" />
+	</bean>
+
+	<bean id="cassandraStructuredRepository"
+		class="com.mubasher.market.repository.cassandra.CassandraStructuredRepository"
+		init-method="init">
+		<property name="cassandraContext" ref="cassandraContext" />
+		<property name="criteriaHandlers">
+			<map key-type="java.lang.String">
+				<entry key="eq">
+					<bean
+						class="com.mubasher.market.repository.cassandra.criteriahandlers.EqualCriteria" />
+				</entry>
+				<entry key="in">
+					<bean
+						class="com.mubasher.market.repository.cassandra.criteriahandlers.InCriteria" />
+				</entry>
+				<entry key="le">
+					<bean
+						class="com.mubasher.market.repository.cassandra.criteriahandlers.LeCriteria" />
+				</entry>
+			</map>
+		</property>
+		<property name="serverFunctionHandlers">
+			<map key-type="java.lang.String">
+				<entry key="dateBack">
+					<bean
+						class="com.mubasher.market.repository.key.functions.dateback.DateBack">
+						<property name="resultFormatters">
+							<map
+								value-type="com.mubasher.market.repository.key.functions.dateback.formatter.DateBackResultFormatter">
+								<entry key="list">
+									<bean
+										class="com.mubasher.market.repository.key.functions.dateback.formatter.ListDateBackResultFormatter" />
+								</entry>
+								<entry key="item">
+									<bean
+										class="com.mubasher.market.repository.key.functions.dateback.formatter.OneItemDateBackResultFormatter" />
+								</entry>
+							</map>
+						</property>
+						<property name="dateStrategies">
+							<map key-type="java.lang.String">
+								<entry key="halfHourWindow">
+									<bean class="com.mubasher.datetime.dateback.WindowDateBackStrategy">
+										<property name="minutes" value="30" />
+									</bean>
+								</entry>
+								<entry key="hours">
+									<bean class="com.mubasher.datetime.dateback.HoursDateBackStrategy" />
+								</entry>
+								<entry key="days">
+									<bean class="com.mubasher.datetime.dateback.DaysDateBackStrategy" />
+								</entry>
+								<entry key="weeks">
+									<bean class="com.mubasher.datetime.dateback.WeeksDateBackStrategy" />
+								</entry>
+								<entry key="month">
+									<bean class="com.mubasher.datetime.dateback.MonthsDateBackStrategy" />
+								</entry>
+								<entry key="years">
+									<bean class="com.mubasher.datetime.dateback.YearsDateBackStrategy" />
+								</entry>
+							</map>
+						</property>
+
+					</bean>
+				</entry>
+			</map>
+		</property>
+	</bean>
+
+	<bean id="marketMapper"
+		class="com.mubasher.market.repository.med.mapper.MedMarketMapperImpl">
+		<property name="marketMap">
+			<map>
+				<entry key="AE" value="PFX" />
+				<entry key="BI" value="XETRA" />
+				<entry key="BV" value="GTISPM" />
+				<entry key="S" value="NSDQ" />
+				<entry key="AP" value="FTSE" />
+				<entry key="J" value="DJI" />
+				<entry key="AI" value="S&amp;P" />
+
+			</map>
+		</property>
+	</bean>
+
+	<service ref="marketMapper"
+		interface="com.mubasher.market.repository.med.mapper.MedMarketMapper" />
+
+	<bean id="solrjIndexRepository"
+		class="com.mubasher.market.respository.index.solrj.SolrjIndexRepository" init-method="init">
+		<property name="solrUrl" value="http://localhost:8983/solr/" />
+		<property name="cores">
+			<map>
+				<entry key="news_ar" value="storyid,title,date,body,category,symbol,exchange" />
+				<entry key="news_en" value="storyid,title,date,body,category,symbol,exchange" />
+			</map>
+		</property>
+	</bean>
+
+	<bean id="modelRepository" class="com.mubasher.market.repository.ModelRepositoryProxy">
+		<property name="structuredRepository" ref="cassandraStructuredRepository" />
+		<property name="indexRepository" ref="solrjIndexRepository" />
+	</bean>
+
+	<service ref="modelRepository" interface="com.mubasher.market.repository.ModelRepository" />
+
+	<reference id="systemReporting"
+		interface="com.mubasher.system.reporting.SystemReportingService" />
+
+</blueprint>

@@ -47,9 +47,9 @@ public abstract class OAuthInvoker<T> {
 		
 		try {
 
-			SimpleSelectionAdapter selectionAdapter = repository.createSimpleSelectionAdapter("oauth");
+			SimpleSelectionAdapter<Oauth> selectionAdapter = repository.createSimpleSelectionAdapter("oauth");
 
-			oauth =  (Oauth) selectionAdapter
+			oauth =  selectionAdapter
 					.eq("email", email)
 					.eq("provider", provider)
 					.result().get(0);

@@ -123,11 +123,11 @@ public class ContentRequestHandler implements Handler<HttpServerRequest>{
 		
 		String contentName = contentPathParts[2].split("\\.")[0];
 		
-		SimpleSelectionAdapter selectionAdapter = repository.createSimpleSelectionAdapter("content");
+		SimpleSelectionAdapter<Content> selectionAdapter = repository.createSimpleSelectionAdapter("content");
 		
 		reportingService.info(getClass().getSimpleName(), SystemReportingService.CONSOLE, type + "/" + id + "/" + contentName);
 		
-		Content content = (Content)selectionAdapter.eq("id", id).eq("name", contentName).eq("type", type).result().get(0);
+		Content content = selectionAdapter.eq("id", id).eq("name", contentName).eq("type", type).result().get(0);
 		
 		return content;
 	}

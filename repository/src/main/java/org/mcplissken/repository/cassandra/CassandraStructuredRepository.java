@@ -8,9 +8,15 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import org.mcplissken.repository.BasicRowMapper;
 import org.mcplissken.repository.StructuredRepository;
 import org.mcplissken.repository.cassandra.criteriahandlers.CriteriaHandler;
+import org.mcplissken.repository.cassandra.mappers.AccountRowMapper;
 import org.mcplissken.repository.cassandra.mappers.ContentRowMapper;
+import org.mcplissken.repository.cassandra.mappers.OauthRowMapper;
+import org.mcplissken.repository.cassandra.mappers.ProfileRowMapper;
+import org.mcplissken.repository.cassandra.mappers.RoleRowMapper;
+import org.mcplissken.repository.cassandra.mappers.TrackingLogRowMapper;
 import org.mcplissken.repository.cassandra.query.CassandraSimpleSelectionAdapter;
 import org.mcplissken.repository.key.RestCriteria;
 import org.mcplissken.repository.key.RestSearchKey;
@@ -32,7 +38,7 @@ import com.datastax.driver.core.querybuilder.Select.Where;
  
 /**
  * @author Sherief Shawky
- * @email sherif.shawki@mubasher.info
+ * @email mcrakens@gmail.com
  * @date Jul 22, 2014
  */
 public class CassandraStructuredRepository implements StructuredRepository {
@@ -42,7 +48,7 @@ public class CassandraStructuredRepository implements StructuredRepository {
 
 	private CassandraContext cassandraContext;
 
-	private Map<String, RowMapper<?>> rowMappers;
+	private Map<String, CassandraRowMapper<?>> rowMappers;
 	private Map<String, CriteriaHandler> criteriaHandlers;
 	private Map<String, ServerFunctionHandler> serverFunctionHandlers;
 	
@@ -53,13 +59,6 @@ public class CassandraStructuredRepository implements StructuredRepository {
 			Map<String, CriteriaHandler> criteriaHandlers) {
 
 		this.criteriaHandlers = criteriaHandlers;
-	}
-
-	/**
-	 * @param rowMappers the rowMappers to set
-	 */
-	public void setRowMappers(Map<String, RowMapper<?>> rowMappers) {
-		this.rowMappers = rowMappers;
 	}
 
 	/**
@@ -83,15 +82,32 @@ public class CassandraStructuredRepository implements StructuredRepository {
 
 		writeOptions = cassandraContext.getWriteOptions();
 
-		createRowMappers();
+		rowMappers = new HashMap<String, CassandraRowMapper<?>>();
+		
+		registerDefaultRowMappers();
 
 	}
 
-	private void createRowMappers() {
+	@Override
+	public <T> void registerMapper(String modelName, BasicRowMapper<T> mapper){
 		
-		ContentRowMapper contentRowMapper = new ContentRowMapper();
+		rowMappers.put(modelName, new CassandraRowMapper<T>(mapper));
 		
-		rowMappers.put("content", contentRowMapper);
+	}
+	
+	private void registerDefaultRowMappers() {
+		
+		registerMapper("account", new AccountRowMapper());
+		
+		registerMapper("role", new RoleRowMapper());
+		
+		registerMapper("content", new ContentRowMapper());
+		
+		registerMapper("trackinglog", new TrackingLogRowMapper());
+
+		registerMapper("profile", new ProfileRowMapper());
+		
+		registerMapper("oauth", new OauthRowMapper());
 		
 	}
 
@@ -99,7 +115,7 @@ public class CassandraStructuredRepository implements StructuredRepository {
 	 * (non-Javadoc)
 	 * 
 	 * @see
-	 * com.mubasher.market.repository.ModelRepository#write(java.lang.Object)
+	 * org.mcplissken.repository.ModelRepository#write(java.lang.Object)
 	 */
 	@Override
 	public void write(RestModel model) {
@@ -115,7 +131,7 @@ public class CassandraStructuredRepository implements StructuredRepository {
 	}
 	
 	/* (non-Javadoc)
-	 * @see com.mubasher.market.repository.StructuredRepository#update(com.mubasher.market.repository.models.RestModel)
+	 * @see org.mcplissken.repository.StructuredRepository#update(org.mcplissken.repository.models.RestModel)
 	 */
 	@Override
 	public void update(RestModel model) {
@@ -124,7 +140,7 @@ public class CassandraStructuredRepository implements StructuredRepository {
 	}
 
 	/* (non-Javadoc)
-	 * @see com.mubasher.market.repository.StructuredRepository#delete(com.mubasher.market.repository.models.RestModel)
+	 * @see org.mcplissken.repository.StructuredRepository#delete(org.mcplissken.repository.models.RestModel)
 	 */
 	@Override
 	public void delete(RestModel model) {
@@ -133,23 +149,25 @@ public class CassandraStructuredRepository implements StructuredRepository {
 	}
 	
 	/* (non-Javadoc)
-	 * @see com.mubasher.market.repository.ModelRepository#createSimpleSelectionAdapter(java.lang.String)
+	 * @see org.mcplissken.repository.ModelRepository#createSimpleSelectionAdapter(java.lang.String)
 	 */
+	@SuppressWarnings("unchecked")
 	@Override
-	public SimpleSelectionAdapter createSimpleSelectionAdapter(String modelName) {
+	public <T> SimpleSelectionAdapter<T> createSimpleSelectionAdapter(String modelName) {
 
-		return new CassandraSimpleSelectionAdapter(
+		return new CassandraSimpleSelectionAdapter<T>(
 				modelName, 
 				cassandraTemplate,
-				rowMappers.get(modelName)
+				 (CassandraRowMapper<T>) rowMappers.get(modelName)
 				);
 	}
 
 	/* (non-Javadoc)
-	 * @see com.mubasher.market.repository.ModelRepository#read(com.mubasher.market.repository.key.RestSearchKey)
+	 * @see org.mcplissken.repository.ModelRepository#read(org.mcplissken.repository.key.RestSearchKey)
 	 */
+	@SuppressWarnings("unchecked")
 	@Override
-	public List<?> read(RestSearchKey key) throws InvalidCriteriaException {
+	public <T> List<T> read(RestSearchKey key) throws InvalidCriteriaException {
 
 		String resourceName = key.getResourceName();
 
@@ -161,7 +179,7 @@ public class CassandraStructuredRepository implements StructuredRepository {
 
 		Clause[] criterions = crtsMap.values().toArray(new Clause[]{});
 
-		RowMapper<?> rowMapper = rowMappers.get(resourceName);
+		CassandraRowMapper<T> rowMapper = (CassandraRowMapper<T>) rowMappers.get(resourceName);
 
 		return executeSearchQuery(key, select, where, criterions, rowMapper);
 	}
@@ -195,8 +213,8 @@ public class CassandraStructuredRepository implements StructuredRepository {
 	 * @param rowMapper 
 	 * @return
 	 */
-	private List<?> executeSearchQuery(RestSearchKey key, Select select, Where where,
-			Clause[] criterions, RowMapper<?> rowMapper) {
+	private <T> List<T> executeSearchQuery(RestSearchKey key, Select select, Where where,
+			Clause[] criterions, RowMapper<T> rowMapper) {
 
 		for(Clause crt : criterions){
 			where = where.and(crt);

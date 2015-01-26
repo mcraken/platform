@@ -10,7 +10,7 @@ import org.quartz.JobExecutionContext;
 
 /**
  * @author 	Sherief Shawky
- * @email 	sherif.shawki@mubasher.info
+ * @email 	mcrakens@gmail.com
  * @date 	Sep 11, 2014
  */
 public class QuartzScheduleContext implements ScheduleContext{
@@ -23,7 +23,7 @@ public class QuartzScheduleContext implements ScheduleContext{
 	}
 
 	/* (non-Javadoc)
-	 * @see com.mubasher.market.schedule.ScheduleContext#getScheduledTime()
+	 * @see org.mcplissken.schedule.ScheduleContext#getScheduledTime()
 	 */
 	@Override
 	public Date getScheduledTime() {
@@ -32,7 +32,7 @@ public class QuartzScheduleContext implements ScheduleContext{
 	}
 
 	/* (non-Javadoc)
-	 * @see com.mubasher.market.schedule.ScheduleContext#getNextFireTime()
+	 * @see org.mcplissken.schedule.ScheduleContext#getNextFireTime()
 	 */
 	@Override
 	public Date getNextFireTime() {

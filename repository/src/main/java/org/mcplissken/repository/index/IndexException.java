@@ -5,7 +5,7 @@ package org.mcplissken.repository.index;
 
 /**
  * @author 	Sherief Shawky
- * @email 	sherif.shawki@mubasher.info
+ * @email 	mcrakens@gmail.com
  * @date 	Nov 19, 2014
  */
 public class IndexException extends Exception {

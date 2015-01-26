@@ -10,7 +10,7 @@ import org.mcplissken.disruptor.workerpool.WorkerPoolOperation;
 
 /**
  * @author 	Sherief Shawky
- * @email 	sherif.shawki@mubasher.info
+ * @email 	mcrakens@gmail.com
  * @date 	Oct 3, 2014
  */
 public class SystemReportingServiceProxy implements SystemReportingService {
@@ -54,7 +54,7 @@ public class SystemReportingServiceProxy implements SystemReportingService {
 	}
 	
 	/* (non-Javadoc)
-	 * @see com.mubasher.system.reporting.SystemReportingService#info(java.lang.String, java.lang.String, java.lang.String)
+	 * @see org.mcplissken.system.reporting.SystemReportingService#info(java.lang.String, java.lang.String, java.lang.String)
 	 */
 	@Override
 	public void info(String reporter, String channel, String message) {
@@ -63,7 +63,7 @@ public class SystemReportingServiceProxy implements SystemReportingService {
 	}
 
 	/* (non-Javadoc)
-	 * @see com.mubasher.system.reporting.SystemReportingService#exception(java.lang.String, java.lang.String, java.lang.Exception)
+	 * @see org.mcplissken.system.reporting.SystemReportingService#exception(java.lang.String, java.lang.String, java.lang.Exception)
 	 */
 	@Override
 	public void exception(String reporter, String channel, Throwable ex) {

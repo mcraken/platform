@@ -16,7 +16,7 @@ import com.lmax.disruptor.dsl.ProducerType;
 
 /**
  * @author 	Sherief Shawky
- * @email 	sherif.shawki@mubasher.info
+ * @email 	mcrakens@gmail.com
  * @date 	Jul 6, 2014
  */
 public class DisruptorOperation<T> extends RingBufferOperation<T> {

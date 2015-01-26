@@ -12,7 +12,7 @@ import org.mcplissken.repository.models.RestModel;
 
 /**
  * @author 	Sherief Shawky
- * @email 	sherif.shawki@mubasher.info
+ * @email 	mcrakens@gmail.com
  * @date 	Jan 11, 2015
  */
 public class TrackingWorkEvent implements WorkEvent {
@@ -35,7 +35,7 @@ public class TrackingWorkEvent implements WorkEvent {
 	}
 
 	/* (non-Javadoc)
-	 * @see com.mubasher.disruptor.workerpool.WorkEvent#execute()
+	 * @see org.mcplissken.disruptor.workerpool.WorkEvent#execute()
 	 */
 	@Override
 	public void execute() {

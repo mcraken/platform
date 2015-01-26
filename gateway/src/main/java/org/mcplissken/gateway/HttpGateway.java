@@ -7,7 +7,7 @@ import org.mcplissken.gateway.restful.filter.RESTfullServiceFilterConfig;
 
 /**
  * @author 	Sherief Shawky
- * @email 	sherif.shawki@mubasher.info
+ * @email 	mcrakens@gmail.com
  * @date 	Aug 5, 2014
  */
 public interface HttpGateway {

@@ -8,7 +8,7 @@ import org.mcplissken.reporting.SystemReportingService;
 
 /**
  * @author 	Sherief Shawky
- * @email 	sherif.shawki@mubasher.info
+ * @email 	mcrakens@gmail.com
  * @date 	Oct 12, 2014
  */
 public abstract class SessionObserver extends DisruptorEventHandler<SessionStatus> implements SessionStatusCallback{
@@ -24,7 +24,7 @@ public abstract class SessionObserver extends DisruptorEventHandler<SessionStatu
 	}
 	
 	/* (non-Javadoc)
-	 * @see com.mubasher.disruptor.DisruptorEventHandler#consume(java.lang.Object)
+	 * @see org.mcplissken.disruptor.DisruptorEventHandler#consume(java.lang.Object)
 	 */
 	@Override
 	protected void consume(SessionStatus status) {

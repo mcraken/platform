@@ -7,7 +7,7 @@ import org.mcplissken.schedule.exception.ScheduleException;
 
 /**
  * @author 	Sherief Shawky
- * @email 	sherif.shawki@mubasher.info
+ * @email 	mcrakens@gmail.com
  * @date 	Sep 11, 2014
  */
 public interface JobBuilder {

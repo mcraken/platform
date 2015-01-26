@@ -9,7 +9,7 @@ import org.mcplissken.repository.key.RestSearchKey;
 
 /**
  * @author 	Sherief Shawky
- * @email 	sherif.shawki@mubasher.info
+ * @email 	mcrakens@gmail.com
  * @date 	Jan 12, 2015
  */
 public class GETTrackingLogConfig {

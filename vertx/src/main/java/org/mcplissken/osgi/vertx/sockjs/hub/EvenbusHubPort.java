@@ -13,7 +13,7 @@ import org.vertx.java.core.json.JsonObject;
 
 /**
  * @author 	Sherief Shawky
- * @email 	sherif.shawki@mubasher.info
+ * @email 	mcrakens@gmail.com
  * @date 	Sep 22, 2014
  */
 public class EvenbusHubPort extends BasicHubPort implements HubPort {
@@ -40,7 +40,7 @@ public class EvenbusHubPort extends BasicHubPort implements HubPort {
 	}
 
 	/* (non-Javadoc)
-	 * @see com.mubasher.osgi.vertx.sockjs.hub.HubPort#portRequest(org.vertx.java.core.json.JsonObject)
+	 * @see org.mcplissken.osgi.vertx.sockjs.hub.HubPort#portRequest(org.vertx.java.core.json.JsonObject)
 	 */
 	@Override
 	public void portRequest(String message) {

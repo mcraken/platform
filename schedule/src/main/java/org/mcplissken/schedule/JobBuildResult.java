@@ -5,7 +5,7 @@ package org.mcplissken.schedule;
 
 /**
  * @author 	Sherief Shawky
- * @email 	sherif.shawki@mubasher.info
+ * @email 	mcrakens@gmail.com
  * @date 	Sep 21, 2014
  */
 public class JobBuildResult {

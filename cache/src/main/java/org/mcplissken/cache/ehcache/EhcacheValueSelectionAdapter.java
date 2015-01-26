@@ -10,7 +10,7 @@ import net.sf.ehcache.search.Attribute;
 
 /**
  * @author 	Sherief Shawky
- * @email 	sherif.shawki@mubasher.info
+ * @email 	mcrakens@gmail.com
  * @date 	Sep 3, 2014
  */
 public class EhcacheValueSelectionAdapter extends EhcacheSelectionAdapter implements ValueSelectionAdapter{
@@ -25,7 +25,7 @@ public class EhcacheValueSelectionAdapter extends EhcacheSelectionAdapter implem
 
 
 	/* (non-Javadoc)
-	 * @see com.mubasher.market.cache.ValueSelectionAdapter#eq(java.lang.String, java.lang.Object)
+	 * @see org.mcplissken.cache.ValueSelectionAdapter#eq(java.lang.String, java.lang.Object)
 	 */
 	@Override
 	public ValueSelectionAdapter eq(String name, Object value) {
@@ -39,7 +39,7 @@ public class EhcacheValueSelectionAdapter extends EhcacheSelectionAdapter implem
 
 
 	/* (non-Javadoc)
-	 * @see com.mubasher.market.cache.ValueSelectionAdapter#in(java.lang.String, java.lang.Object[])
+	 * @see org.mcplissken.cache.ValueSelectionAdapter#in(java.lang.String, java.lang.Object[])
 	 */
 	@Override
 	public ValueSelectionAdapter in(String name, Object[] values) {
@@ -53,7 +53,7 @@ public class EhcacheValueSelectionAdapter extends EhcacheSelectionAdapter implem
 
 	
 	/* (non-Javadoc)
-	 * @see com.mubasher.market.cache.ValueSelectionAdapter#orderBy(boolean)
+	 * @see org.mcplissken.cache.ValueSelectionAdapter#orderBy(boolean)
 	 */
 	@Override
 	public ValueSelectionAdapter orderBy(boolean asc, String name) {

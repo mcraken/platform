@@ -18,7 +18,7 @@ import org.mcplissken.repository.query.SimpleSelectionAdapter;
 
 /**
  * @author 	Sherief Shawky
- * @email 	sherif.shawki@mubasher.info
+ * @email 	mcrakens@gmail.com
  * @date 	Nov 20, 2014
  */
 public class ModelRepositoryProxy implements ModelRepository{
@@ -45,16 +45,16 @@ public class ModelRepositoryProxy implements ModelRepository{
 	}
 	
 	/* (non-Javadoc)
-	 * @see com.mubasher.market.repository.StructuredRepository#read(com.mubasher.market.repository.key.RestSearchKey)
+	 * @see org.mcplissken.repository.StructuredRepository#read(org.mcplissken.repository.key.RestSearchKey)
 	 */
 	@Override
-	public List<?> read(RestSearchKey key) throws InvalidCriteriaException {
+	public <T> List<T> read(RestSearchKey key) throws InvalidCriteriaException {
 		
 		return structuredRepository.read(key);
 	}
 
 	/* (non-Javadoc)
-	 * @see com.mubasher.market.repository.StructuredRepository#write(com.mubasher.market.repository.models.RestModel)
+	 * @see org.mcplissken.repository.StructuredRepository#write(org.mcplissken.repository.models.RestModel)
 	 */
 	@Override
 	public void write(RestModel model) {
@@ -63,16 +63,16 @@ public class ModelRepositoryProxy implements ModelRepository{
 	}
 
 	/* (non-Javadoc)
-	 * @see com.mubasher.market.repository.StructuredRepository#createSimpleSelectionAdapter(java.lang.String)
+	 * @see org.mcplissken.repository.StructuredRepository#createSimpleSelectionAdapter(java.lang.String)
 	 */
 	@Override
-	public SimpleSelectionAdapter createSimpleSelectionAdapter(String modelName) {
+	public <T> SimpleSelectionAdapter<T> createSimpleSelectionAdapter(String modelName) {
 		
 		return structuredRepository.createSimpleSelectionAdapter(modelName);
 	}
 
 	/* (non-Javadoc)
-	 * @see com.mubasher.market.repository.StructuredRepository#write(java.util.List)
+	 * @see org.mcplissken.repository.StructuredRepository#write(java.util.List)
 	 */
 	@Override
 	public void write(List<RestModel> entities) {
@@ -81,7 +81,7 @@ public class ModelRepositoryProxy implements ModelRepository{
 	}
 
 	/* (non-Javadoc)
-	 * @see com.mubasher.market.repository.IndexRepository#indexPorter(java.lang.String, java.lang.String[])
+	 * @see org.mcplissken.repository.IndexRepository#indexPorter(java.lang.String, java.lang.String[])
 	 */
 	@Override
 	public IndexPorter indexPorter(String coreName) {
@@ -90,7 +90,7 @@ public class ModelRepositoryProxy implements ModelRepository{
 	}
 
 	/* (non-Javadoc)
-	 * @see com.mubasher.market.repository.IndexRepository#queryAdapter(java.lang.String, com.mubasher.market.repository.index.IndexDocumentObjectFactory, java.lang.String[])
+	 * @see org.mcplissken.repository.IndexRepository#queryAdapter(java.lang.String, org.mcplissken.repository.index.IndexDocumentObjectFactory, java.lang.String[])
 	 */
 	@Override
 	public <T> IndexQueryAdapter<T> queryAdapter(String coreName,
@@ -100,7 +100,7 @@ public class ModelRepositoryProxy implements ModelRepository{
 	}
 
 	/* (non-Javadoc)
-	 * @see com.mubasher.market.repository.ModelRepository#createContent(java.lang.String, java.lang.String, java.lang.String, java.io.File)
+	 * @see org.mcplissken.repository.ModelRepository#createContent(java.lang.String, java.lang.String, java.lang.String, java.io.File)
 	 */
 	@Override
 	public Content createContent(String id, String name, String type,
@@ -117,7 +117,7 @@ public class ModelRepositoryProxy implements ModelRepository{
 	}
 
 	/* (non-Javadoc)
-	 * @see com.mubasher.market.repository.StructuredRepository#update(com.mubasher.market.repository.models.RestModel)
+	 * @see org.mcplissken.repository.StructuredRepository#update(org.mcplissken.repository.models.RestModel)
 	 */
 	@Override
 	public void update(RestModel model) {
@@ -126,12 +126,21 @@ public class ModelRepositoryProxy implements ModelRepository{
 	}
 
 	/* (non-Javadoc)
-	 * @see com.mubasher.market.repository.StructuredRepository#delete(com.mubasher.market.repository.models.RestModel)
+	 * @see org.mcplissken.repository.StructuredRepository#delete(org.mcplissken.repository.models.RestModel)
 	 */
 	@Override
 	public void delete(RestModel model) {
 		
 		structuredRepository.delete(model);
+	}
+
+	/* (non-Javadoc)
+	 * @see org.mcplissken.repository.StructuredRepository#registerMapper(java.lang.String, org.mcplissken.repository.BasicRowMapper)
+	 */
+	@Override
+	public <T> void registerMapper(String modelName, BasicRowMapper<T> mapper) {
+		
+		structuredRepository.registerMapper(modelName, mapper);
 	}
 
 }

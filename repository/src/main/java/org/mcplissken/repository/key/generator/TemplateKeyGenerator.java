@@ -12,7 +12,7 @@ import org.mcplissken.repository.key.parsers.GsonKeyParser;
 
 /**
  * @author 	Sherief Shawky
- * @email 	sherif.shawki@mubasher.info
+ * @email 	mcrakens@gmail.com
  * @date 	Sep 23, 2014
  */
 public class TemplateKeyGenerator implements KeyGenerator {
@@ -30,7 +30,7 @@ public class TemplateKeyGenerator implements KeyGenerator {
 	}
 
 	/* (non-Javadoc)
-	 * @see com.mubasher.market.broadcast.tracks.minute.key.KeyGenerator#generateKeys(java.util.Map)
+	 * @see org.mcplissken.broadcast.tracks.minute.key.KeyGenerator#generateKeys(java.util.Map)
 	 */
 	@Override
 	public List<RestSearchKey> generateKeys(Map<String, Object> params) throws InvalidKeyException {

@@ -11,7 +11,7 @@ import org.mcplissken.repository.models.RestModel;
 
 /**
  * @author 	Sherief Shawky
- * @email 	sherif.shawki@mubasher.info
+ * @email 	mcrakens@gmail.com
  * @date 	Aug 4, 2014
  */
 public interface CacheService {

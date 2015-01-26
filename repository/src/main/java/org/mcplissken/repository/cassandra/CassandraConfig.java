@@ -25,12 +25,12 @@ import com.datastax.driver.core.TableMetadata;
 
 /**
  * @author 	Sherief Shawky
- * @email 	sherif.shawki@mubasher.info
+ * @email 	mcrakens@gmail.com
  * @date 	Jul 12, 2014
  */
 @Configuration
-@ComponentScan({"com.mubasher.market.repository.models"})
-@EnableCassandraRepositories(basePackages = {"com.mubasher.market.repository.models"})
+@ComponentScan({"org.mcplissken.repository.models"})
+@EnableCassandraRepositories(basePackages = {"org.mcplissken.repository.models"})
 public class CassandraConfig extends AbstractCassandraConfiguration {
 
 	private static final String TABLES_PROPERTY_KEY = "tables";

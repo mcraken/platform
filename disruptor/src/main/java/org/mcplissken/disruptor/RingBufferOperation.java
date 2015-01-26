@@ -7,7 +7,7 @@ import com.lmax.disruptor.RingBuffer;
 
 /**
  * @author 	Sherief Shawky
- * @email 	sherif.shawki@mubasher.info
+ * @email 	mcrakens@gmail.com
  * @date 	Oct 1, 2014
  * @param <T>
  */

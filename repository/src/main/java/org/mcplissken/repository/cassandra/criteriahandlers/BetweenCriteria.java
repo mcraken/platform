@@ -11,13 +11,13 @@ import com.datastax.driver.core.querybuilder.Select.Where;
 
 /**
  * @author 	Sherief Shawky
- * @email 	sherif.shawki@mubasher.info
+ * @email 	mcrakens@gmail.com
  * @date 	Sep 9, 2014
  */
 public class BetweenCriteria extends BasicCriteriaHandler {
 
 	/* (non-Javadoc)
-	 * @see com.mubasher.market.repository.cassandra.criteriahandlers.BasicCriteriaHandler#resolveCriteria(com.mubasher.market.repository.key.RestCriteria, com.datastax.driver.core.querybuilder.Select.Where)
+	 * @see org.mcplissken.repository.cassandra.criteriahandlers.BasicCriteriaHandler#resolveCriteria(org.mcplissken.repository.key.RestCriteria, com.datastax.driver.core.querybuilder.Select.Where)
 	 */
 	@Override
 	protected void resolveCriteria(RestCriteria criteria, Where query)

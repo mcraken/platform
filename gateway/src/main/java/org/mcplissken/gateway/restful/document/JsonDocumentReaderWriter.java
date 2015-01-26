@@ -10,7 +10,7 @@ import com.google.gson.GsonBuilder;
 
 /**
  * @author 	Sherief Shawky
- * @email 	sherif.shawki@mubasher.info
+ * @email 	mcrakens@gmail.com
  * @date 	Aug 11, 2014
  */
 public class JsonDocumentReaderWriter implements DocumentWriter, DocumentReader {
@@ -23,7 +23,7 @@ public class JsonDocumentReaderWriter implements DocumentWriter, DocumentReader 
 	}
 
 	/* (non-Javadoc)
-	 * @see com.mubasher.osgi.vertx.restful.document.DocumentWriter#write(java.lang.Object)
+	 * @see org.mcplissken.osgi.vertx.restful.document.DocumentWriter#write(java.lang.Object)
 	 */
 	@Override
 	public void write(Object document, ByteBuffer output) {
@@ -32,7 +32,7 @@ public class JsonDocumentReaderWriter implements DocumentWriter, DocumentReader 
 	}
 
 	/* (non-Javadoc)
-	 * @see com.mubasher.osgi.vertx.restful.document.DocumentReader#readDocument(java.lang.Class, java.io.Reader)
+	 * @see org.mcplissken.osgi.vertx.restful.document.DocumentReader#readDocument(java.lang.Class, java.io.Reader)
 	 */
 	@Override
 	public Object read(Class<?> documentType, ByteBuffer input) {
@@ -63,7 +63,7 @@ public class JsonDocumentReaderWriter implements DocumentWriter, DocumentReader 
 	}
 
 	/* (non-Javadoc)
-	 * @see com.mubasher.gateway.restful.document.DocumentWriter#write(java.lang.Object, java.lang.StringBuffer)
+	 * @see org.mcplissken.gateway.restful.document.DocumentWriter#write(java.lang.Object, java.lang.StringBuffer)
 	 */
 	@Override
 	public void write(Object document, StringBuffer buffer) {

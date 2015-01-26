@@ -14,7 +14,7 @@ import com.google.gson.GsonBuilder;
 
 /**
  * @author 	Sherief Shawky
- * @email 	sherif.shawki@mubasher.info
+ * @email 	mcrakens@gmail.com
  * @date 	Jan 18, 2015
  */
 
@@ -34,7 +34,7 @@ public class GoogleProfileInvoker extends GoogleOAuthInvoker<Profile>{
 	}
 
 	/* (non-Javadoc)
-	 * @see com.mubasher.market.security.oauth.OAuthInvoker#response(org.scribe.model.Response)
+	 * @see org.mcplissken.security.oauth.OAuthInvoker#response(org.scribe.model.Response)
 	 */
 	@Override
 	protected Profile response(Response response) {

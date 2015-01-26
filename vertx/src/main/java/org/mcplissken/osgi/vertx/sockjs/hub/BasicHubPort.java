@@ -6,7 +6,7 @@ package org.mcplissken.osgi.vertx.sockjs.hub;
 
 /**
  * @author 	Sherief Shawky
- * @email 	sherif.shawki@mubasher.info
+ * @email 	mcrakens@gmail.com
  * @date 	Sep 23, 2014
  */
 public abstract class BasicHubPort  {

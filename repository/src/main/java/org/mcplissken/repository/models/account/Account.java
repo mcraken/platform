@@ -77,9 +77,9 @@ public class Account implements RestModel, Serializable{
 	
 	public void find() throws NoResultException {
 		
-		SimpleSelectionAdapter selectionAdapter = modelRepository.createSimpleSelectionAdapter("account");
+		SimpleSelectionAdapter<Account> selectionAdapter = modelRepository.createSimpleSelectionAdapter("account");
 
-		Account foundAccount = (Account) selectionAdapter
+		Account foundAccount = selectionAdapter
 				.eq("email", email)
 				.eq("password", password)
 				.result().get(0);
@@ -89,9 +89,9 @@ public class Account implements RestModel, Serializable{
 	
 	public void findByEmail() throws NoResultException {
 		
-		SimpleSelectionAdapter selectionAdapter = modelRepository.createSimpleSelectionAdapter("account");
+		SimpleSelectionAdapter<Account> selectionAdapter = modelRepository.createSimpleSelectionAdapter("account");
 
-		Account foundAccount = (Account) selectionAdapter
+		Account foundAccount = selectionAdapter
 				.eq("email", email)
 				.result().get(0);
 		
@@ -145,7 +145,7 @@ public class Account implements RestModel, Serializable{
 	}
 
 	/* (non-Javadoc)
-	 * @see com.mubasher.market.repository.models.RestModel#getUniqueId()
+	 * @see org.mcplissken.repository.models.RestModel#getUniqueId()
 	 */
 	@Override
 	public Object getUniqueId() {

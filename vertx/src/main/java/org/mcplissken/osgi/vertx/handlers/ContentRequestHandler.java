@@ -19,7 +19,7 @@ import org.vertx.java.core.streams.Pump;
 
 /**
  * @author 	Sherief Shawky
- * @email 	sherif.shawki@mubasher.info
+ * @email 	mcrakens@gmail.com
  * @date 	Nov 11, 2014
  */
 public class ContentRequestHandler implements Handler<HttpServerRequest>{

@@ -25,7 +25,7 @@ import org.mcplissken.security.User;
 
 /**
  * @author 	Sherief Shawky
- * @email 	sherif.shawki@mubasher.info
+ * @email 	mcrakens@gmail.com
  * @date 	Nov 9, 2014
  */
 public class ShiroSecurityService implements SecurityService{
@@ -69,7 +69,7 @@ public class ShiroSecurityService implements SecurityService{
 	}
 
 	/* (non-Javadoc)
-	 * @see com.mubasher.market.security.SecurityService#identify(java.lang.String)
+	 * @see org.mcplissken.security.SecurityService#identify(java.lang.String)
 	 */
 	@Override
 	public User identify(String sessionId) {
@@ -110,7 +110,7 @@ public class ShiroSecurityService implements SecurityService{
 	}
 
 	/* (non-Javadoc)
-	 * @see com.mubasher.market.security.SecurityService#register(com.mubasher.market.repository.models.account.Account)
+	 * @see org.mcplissken.security.SecurityService#register(org.mcplissken.repository.models.account.Account)
 	 */
 	@Override
 	public void register(Account account) {

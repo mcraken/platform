@@ -3,7 +3,7 @@ package org.mcplissken.disruptor;
 /**
  * Author: Sherief Shawky
  * Date: 7/9/2014.
- * Email: sherif.shawki@mubasher.info
+ * Email: mcrakens@gmail.com
  */
 public interface OnDataCallBack<T> {
 

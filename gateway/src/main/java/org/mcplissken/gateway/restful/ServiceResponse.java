@@ -13,7 +13,7 @@ import org.mcplissken.localization.Localized;
 
 /**
  * @author 	Sherief Shawky
- * @email 	sherif.shawki@mubasher.info
+ * @email 	mcrakens@gmail.com
  * @date 	Jan 20, 2015
  */
 public class ServiceResponse{

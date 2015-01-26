@@ -5,7 +5,7 @@ package org.mcplissken.repository.models;
 
 /**
  * @author 	Sherief Shawky
- * @email 	sherif.shawki@mubasher.info
+ * @email 	mcrakens@gmail.com
  * @date 	Sep 3, 2014
  */
 public interface RestModel {

@@ -16,7 +16,7 @@ import org.mcplissken.localization.LocalizationService;
 
 /**
  * @author 	Sherief Shawky
- * @email 	sherif.shawki@mubasher.info
+ * @email 	mcrakens@gmail.com
  * @date 	Aug 10, 2014
  */
 public abstract class BasicHttpHandler {

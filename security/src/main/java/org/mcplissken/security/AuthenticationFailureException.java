@@ -5,7 +5,7 @@ package org.mcplissken.security;
 
 /**
  * @author 	Sherief Shawky
- * @email 	sherif.shawki@mubasher.info
+ * @email 	mcrakens@gmail.com
  * @date 	Jan 18, 2015
  */
 public class AuthenticationFailureException extends Exception {

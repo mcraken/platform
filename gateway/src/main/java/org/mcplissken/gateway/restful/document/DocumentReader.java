@@ -7,7 +7,7 @@ import java.nio.ByteBuffer;
 
 /**
  * @author 	Sherief Shawky
- * @email 	sherif.shawki@mubasher.info
+ * @email 	mcrakens@gmail.com
  * @date 	Aug 11, 2014
  */
 public interface DocumentReader {

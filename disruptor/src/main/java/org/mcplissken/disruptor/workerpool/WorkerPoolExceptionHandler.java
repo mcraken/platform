@@ -7,7 +7,7 @@ import com.lmax.disruptor.ExceptionHandler;
 
 /**
  * @author 	Sherief Shawky
- * @email 	sherif.shawki@mubasher.info
+ * @email 	mcrakens@gmail.com
  * @date 	Oct 1, 2014
  */
 public class WorkerPoolExceptionHandler implements ExceptionHandler {

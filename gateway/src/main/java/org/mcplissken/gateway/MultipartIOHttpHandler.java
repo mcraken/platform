@@ -16,13 +16,13 @@ import org.mcplissken.gateway.restful.exception.UnauthorizedException;
 
 /**
  * @author 	Sherief Shawky
- * @email 	sherif.shawki@mubasher.info
+ * @email 	mcrakens@gmail.com
  * @date 	Jan 20, 2015
  */
 public abstract  class MultipartIOHttpHandler extends BasicHttpHandler implements MultipartRequestHandler{
 
 	/* (non-Javadoc)
-	 * @see com.mubasher.gateway.BasicHttpHandler#service(com.mubasher.gateway.HttpAdapter, com.mubasher.gateway.restful.RESTfulRequest, com.mubasher.gateway.restful.RESTfulResponse)
+	 * @see org.mcplissken.gateway.BasicHttpHandler#service(org.mcplissken.gateway.HttpAdapter, org.mcplissken.gateway.restful.RESTfulRequest, org.mcplissken.gateway.restful.RESTfulResponse)
 	 */
 	@Override
 	public void service(
@@ -36,7 +36,7 @@ public abstract  class MultipartIOHttpHandler extends BasicHttpHandler implement
 	}
 
 	/* (non-Javadoc)
-	 * @see com.mubasher.gateway.restful.MultipartRequestHandler#handle(com.mubasher.gateway.HttpAdapter, java.lang.Object, java.util.List)
+	 * @see org.mcplissken.gateway.restful.MultipartRequestHandler#handle(org.mcplissken.gateway.HttpAdapter, java.lang.Object, java.util.List)
 	 */
 	@Override
 	public void handle(HttpAdapter httpAdapter, RESTfulRequest request, RESTfulResponse response,  Object form, List<File> uploads) {

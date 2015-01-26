@@ -6,7 +6,7 @@ package org.mcplissken.osgi.vertx.sockjs;
 
 /**
  * @author 	Sherief Shawky
- * @email 	sherif.shawki@mubasher.info
+ * @email 	mcrakens@gmail.com
  * @date 	Aug 14, 2014
  */
 public interface SockJsGateway {

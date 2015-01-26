@@ -14,7 +14,7 @@ import org.vertx.java.core.http.HttpClientResponse;
 
 /**
  * @author 	Sherief Shawky
- * @email 	sherif.shawki@mubasher.info
+ * @email 	mcrakens@gmail.com
  * @date 	Aug 27, 2014
  */
 public class DocumentRequestHandler implements Handler<HttpClientResponse> {

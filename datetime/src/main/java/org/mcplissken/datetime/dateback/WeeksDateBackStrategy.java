@@ -7,13 +7,13 @@ import org.mcplissken.datetime.DateTimeOperation;
 
 /**
  * @author 	Sherief Shawky
- * @email 	sherif.shawki@mubasher.info
+ * @email 	mcrakens@gmail.com
  * @date 	Sep 17, 2014
  */
 public class WeeksDateBackStrategy implements DateBackStrategy{
 
 	/* (non-Javadoc)
-	 * @see com.mubasher.market.repository.key.functions.dateback.DateBackStrategy#substractDate(org.joda.time.DateTime, int)
+	 * @see org.mcplissken.repository.key.functions.dateback.DateBackStrategy#substractDate(org.joda.time.DateTime, int)
 	 */
 	@Override
 	public DateTimeOperation back(DateTimeOperation start, int amount) {
@@ -22,7 +22,7 @@ public class WeeksDateBackStrategy implements DateBackStrategy{
 	}
 
 	/* (non-Javadoc)
-	 * @see com.mubasher.market.repository.key.functions.dateback.strategy.DateBackStrategy#shift(com.mubasher.datetime.DateTimeOperation)
+	 * @see org.mcplissken.repository.key.functions.dateback.strategy.DateBackStrategy#shift(org.mcplissken.datetime.DateTimeOperation)
 	 */
 	@Override
 	public DateTimeOperation shift(DateTimeOperation start) {

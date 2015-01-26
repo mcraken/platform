@@ -9,7 +9,7 @@ import org.scribe.oauth.OAuthService;
 
 /**
  * @author 	Sherief Shawky
- * @email 	sherif.shawki@mubasher.info
+ * @email 	mcrakens@gmail.com
  * @date 	Jan 18, 2015
  */
 public abstract class OAuthAuthorizer {

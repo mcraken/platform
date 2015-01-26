@@ -7,7 +7,7 @@ import com.lmax.disruptor.EventHandler;
 
 /**
  * @author 	Sherief Shawky
- * @email 	sherif.shawki@mubasher.info
+ * @email 	mcrakens@gmail.com
  * @date 	Jul 6, 2014
  */
 public abstract class DisruptorEventHandler<T> implements EventHandler<DisruptorEvent<T>> {

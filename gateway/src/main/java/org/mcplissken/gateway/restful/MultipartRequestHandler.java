@@ -10,7 +10,7 @@ import org.mcplissken.gateway.HttpAdapter;
 
 /**
  * @author 	Sherief Shawky
- * @email 	sherif.shawki@mubasher.info
+ * @email 	mcrakens@gmail.com
  * @date 	Jan 4, 2015
  */
 public interface MultipartRequestHandler {

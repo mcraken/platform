@@ -10,7 +10,7 @@ import org.mcplissken.gateway.restful.exception.UnknownResourceException;
 
 /**
  * @author 	Sherief Shawky
- * @email 	sherif.shawki@mubasher.info
+ * @email 	mcrakens@gmail.com
  * @date 	Aug 25, 2014
  */
 public interface RESTfulFilter {

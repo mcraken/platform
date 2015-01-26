@@ -9,7 +9,7 @@ import org.mcplissken.repository.index.IndexQueryAdapter;
 
 /**
  * @author 	Sherief Shawky
- * @email 	sherif.shawki@mubasher.info
+ * @email 	mcrakens@gmail.com
  * @date 	Nov 19, 2014
  */
 public interface IndexRepository {

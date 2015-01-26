@@ -12,7 +12,7 @@ import org.scribe.oauth.OAuthService;
 
 /**
  * @author 	Sherief Shawky
- * @email 	sherif.shawki@mubasher.info
+ * @email 	mcrakens@gmail.com
  * @date 	Dec 23, 2014
  */
 
@@ -41,7 +41,7 @@ public abstract class GoogleOAuthInvoker<T> extends OAuthInvoker<T>{
 	}
 
 	/* (non-Javadoc)
-	 * @see com.mubasher.market.security.oauth.OAuthInvoker#request(org.scribe.model.OAuthRequest)
+	 * @see org.mcplissken.security.oauth.OAuthInvoker#request(org.scribe.model.OAuthRequest)
 	 */
 	@Override
 	protected void request(OAuthRequest request) {

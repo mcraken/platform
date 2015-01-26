@@ -16,7 +16,7 @@ import org.mcplissken.gateway.restful.document.DocumentReadingExcetion;
 
 /**
  * @author 	Sherief Shawky
- * @email 	sherif.shawki@mubasher.info
+ * @email 	mcrakens@gmail.com
  * @date 	Aug 6, 2014
  */
 public abstract class RESTfulRequest {

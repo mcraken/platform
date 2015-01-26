@@ -14,7 +14,7 @@ import javax.mail.internet.MimeMessage;
 
 /**
  * @author 	Sherief Shawky
- * @email 	sherif.shawki@mubasher.info
+ * @email 	mcrakens@gmail.com
  * @date 	Aug 28, 2014
  */
 public class TLSMailService implements MailService {
@@ -85,7 +85,7 @@ public class TLSMailService implements MailService {
 	}
 
 	/* (non-Javadoc)
-	 * @see com.mubasher.market.broadcast.mail.MailService#sendMail(java.lang.String, java.lang.String, java.lang.String)
+	 * @see org.mcplissken.broadcast.mail.MailService#sendMail(java.lang.String, java.lang.String, java.lang.String)
 	 */
 	@Override
 	public void sendMail(String to, String subject, String body) throws MailSendingException{

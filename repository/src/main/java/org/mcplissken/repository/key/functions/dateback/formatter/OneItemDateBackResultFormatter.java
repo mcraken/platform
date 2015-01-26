@@ -8,13 +8,13 @@ import org.mcplissken.datetime.dateback.DateBackStrategy;
 
 /**
  * @author 	Sherief Shawky
- * @email 	sherif.shawki@mubasher.info
+ * @email 	mcrakens@gmail.com
  * @date 	Sep 17, 2014
  */
 public class OneItemDateBackResultFormatter implements DateBackResultFormatter {
 
 	/* (non-Javadoc)
-	 * @see com.mubasher.market.repository.key.functions.dateback.DateBackResult#createResult()
+	 * @see org.mcplissken.repository.key.functions.dateback.DateBackResult#createResult()
 	 */
 	@Override
 	public String createResult(DateBackStrategy strategy, int amount, DateTimeOperation start) {

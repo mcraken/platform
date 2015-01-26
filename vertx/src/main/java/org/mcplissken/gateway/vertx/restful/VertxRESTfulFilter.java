@@ -18,7 +18,7 @@ import org.mcplissken.gateway.restful.filter.BasicRESTfulFilter;
 
 /**
  * @author 	Sherief Shawky
- * @email 	sherif.shawki@mubasher.info
+ * @email 	mcrakens@gmail.com
  * @date 	Jan 20, 2015
  */
 public class VertxRESTfulFilter extends BasicRESTfulFilter {
@@ -44,7 +44,7 @@ public class VertxRESTfulFilter extends BasicRESTfulFilter {
 	}
 	
 	/* (non-Javadoc)
-	 * @see com.mubasher.gateway.restful.filter.BasicRESTfulFilter#doFilter(com.mubasher.gateway.HttpAdapter)
+	 * @see org.mcplissken.gateway.restful.filter.BasicRESTfulFilter#doFilter(org.mcplissken.gateway.HttpAdapter)
 	 */
 	@Override
 	protected void doFilter(HttpAdapter httpAdapter)

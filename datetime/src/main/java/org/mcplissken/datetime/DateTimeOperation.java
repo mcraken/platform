@@ -12,7 +12,7 @@ import org.joda.time.format.DateTimeFormat;
 
 /**
  * @author 	Sherief Shawky
- * @email 	sherif.shawki@mubasher.info
+ * @email 	mcrakens@gmail.com
  * @date 	Sep 27, 2014
  */
 public class DateTimeOperation  {

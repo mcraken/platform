@@ -15,7 +15,7 @@
 
 	<bean id="mailSystemReporting"
 		class="org.mcplissken.reporting.mail.TLSMailSystemReportingService">
-		<property name="to" value="mubasher-forex-team@googlegroups.com" />
+		<property name="to" value="" />
 		<property name="mailService" ref="mailService" />
 	</bean>
 
@@ -37,7 +37,7 @@
 		</property>
 	</bean>
 	
-	<reference id="mailService" interface="com.mubasher.market.mail.MailService" />
+	<reference id="mailService" interface="org.mcplissken.mail.MailService" />
 	
 	<service ref="systemReporting"
 		interface="org.mcplissken.reporting.SystemReportingService" />

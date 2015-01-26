@@ -24,7 +24,7 @@ import org.quartz.TriggerBuilder;
 
 /**
  * @author 	Sherief Shawky
- * @email 	sherif.shawki@mubasher.info
+ * @email 	mcrakens@gmail.com
  * @date 	Sep 11, 2014
  */
 public class QuartzJobBuilder implements JobBuilder {
@@ -66,7 +66,7 @@ public class QuartzJobBuilder implements JobBuilder {
 
 
 	/* (non-Javadoc)
-	 * @see com.mubasher.market.schedule.ScheduleBuilder#scheulde()
+	 * @see org.mcplissken.schedule.ScheduleBuilder#scheulde()
 	 */
 	@Override
 	public void scheulde() throws ScheduleException {
@@ -86,7 +86,7 @@ public class QuartzJobBuilder implements JobBuilder {
 
 
 	/* (non-Javadoc)
-	 * @see com.mubasher.market.schedule.JobBuilder#scheulde(java.lang.String)
+	 * @see org.mcplissken.schedule.JobBuilder#scheulde(java.lang.String)
 	 */
 	@Override
 	public void scheulde(String calendarName) throws ScheduleException {
@@ -132,7 +132,7 @@ public class QuartzJobBuilder implements JobBuilder {
 	}
 	
 	/* (non-Javadoc)
-	 * @see com.mubasher.market.schedule.JobBuilder#secondly(int)
+	 * @see org.mcplissken.schedule.JobBuilder#secondly(int)
 	 */
 	@Override
 	public JobBuilder secondly(int interval) {
@@ -143,7 +143,7 @@ public class QuartzJobBuilder implements JobBuilder {
 	}
 
 	/* (non-Javadoc)
-	 * @see com.mubasher.market.schedule.JobBuilder#secondly(int, int)
+	 * @see org.mcplissken.schedule.JobBuilder#secondly(int, int)
 	 */
 	@Override
 	public JobBuilder secondly(int count, int interval) {
@@ -156,7 +156,7 @@ public class QuartzJobBuilder implements JobBuilder {
 	}
 	
 	/* (non-Javadoc)
-	 * @see com.mubasher.market.schedule.ScheduleBuilder#daily()
+	 * @see org.mcplissken.schedule.ScheduleBuilder#daily()
 	 */
 	@Override
 	public JobBuilder daily(int hour, int minute) {
@@ -169,7 +169,7 @@ public class QuartzJobBuilder implements JobBuilder {
 	}
 
 	/* (non-Javadoc)
-	 * @see com.mubasher.market.schedule.JobBuilder#weekly(int, int, int)
+	 * @see org.mcplissken.schedule.JobBuilder#weekly(int, int, int)
 	 */
 	@Override
 	public JobBuilder weekly(int day, int hour, int minute) {
@@ -193,7 +193,7 @@ public class QuartzJobBuilder implements JobBuilder {
 
 
 	/* (non-Javadoc)
-	 * @see com.mubasher.market.schedule.JobBuilder#ignoreMisfires()
+	 * @see org.mcplissken.schedule.JobBuilder#ignoreMisfires()
 	 */
 	@Override
 	public JobBuilder ignoreMisfires() {
@@ -204,7 +204,7 @@ public class QuartzJobBuilder implements JobBuilder {
 	}
 
 	/* (non-Javadoc)
-	 * @see com.mubasher.market.schedule.JobBuilder#runOnceOnMisfire()
+	 * @see org.mcplissken.schedule.JobBuilder#runOnceOnMisfire()
 	 */
 	@Override
 	public JobBuilder runOnceOnMisfire() {
@@ -216,7 +216,7 @@ public class QuartzJobBuilder implements JobBuilder {
 
 
 	/* (non-Javadoc)
-	 * @see com.mubasher.market.schedule.JobBuilder#inTimeZone()
+	 * @see org.mcplissken.schedule.JobBuilder#inTimeZone()
 	 */
 	@Override
 	public JobBuilder inTimeZone(String timeZone) {

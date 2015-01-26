@@ -25,7 +25,7 @@ import org.vertx.java.core.http.HttpServerRequest;
 
 /**
  * @author 	Sherief Shawky
- * @email 	sherif.shawki@mubasher.info
+ * @email 	mcrakens@gmail.com
  * @date 	Aug 12, 2014
  */
 public class VertxAsynchronusRESTfulRequest extends RESTfulRequest implements Handler<Buffer>{
@@ -60,7 +60,7 @@ public class VertxAsynchronusRESTfulRequest extends RESTfulRequest implements Ha
 
 
 	/* (non-Javadoc)
-	 * @see com.mubasher.osgi.restful.RESTfulRequest#readDocumentObjectAsynchronously(com.mubasher.osgi.restful.AsynchronusRESTfulRequestHandler)
+	 * @see org.mcplissken.osgi.restful.RESTfulRequest#readDocumentObjectAsynchronously(org.mcplissken.osgi.restful.AsynchronusRESTfulRequestHandler)
 	 */
 	@Override
 	public void readDocumentObjectAsynchronously(
@@ -88,7 +88,7 @@ public class VertxAsynchronusRESTfulRequest extends RESTfulRequest implements Ha
 	}
 
 	/* (non-Javadoc)
-	 * @see com.mubasher.gateway.restful.RESTfulRequest#readMultipartRequest(com.mubasher.gateway.multipart.MultipartRequestHandler)
+	 * @see org.mcplissken.gateway.restful.RESTfulRequest#readMultipartRequest(org.mcplissken.gateway.multipart.MultipartRequestHandler)
 	 */
 	@Override
 	public void readMultipartRequest(final MultipartRequestHandler handler, final RESTfulResponse response) {

@@ -18,7 +18,7 @@ import net.sf.ehcache.search.Result;
 
 /**
  * @author 	Sherief Shawky
- * @email 	sherif.shawki@mubasher.info
+ * @email 	mcrakens@gmail.com
  * @date 	Sep 4, 2014
  */
 public class EhcacheSelectionAdapter implements SelectionAdapter{
@@ -89,7 +89,7 @@ public class EhcacheSelectionAdapter implements SelectionAdapter{
 
 
 	/* (non-Javadoc)
-	 * @see com.mubasher.market.cache.SelectionAdapter#page(int)
+	 * @see org.mcplissken.cache.SelectionAdapter#page(int)
 	 */
 	@Override
 	public SelectionAdapter page(int size) {
@@ -101,7 +101,7 @@ public class EhcacheSelectionAdapter implements SelectionAdapter{
 
 
 	/* (non-Javadoc)
-	 * @see com.mubasher.market.cache.SelectionAdapter#result()
+	 * @see org.mcplissken.cache.SelectionAdapter#result()
 	 */
 	@Override
 	public Map<Object, Object> result() {

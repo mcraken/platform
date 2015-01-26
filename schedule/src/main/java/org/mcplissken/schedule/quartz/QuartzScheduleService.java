@@ -21,7 +21,7 @@ import org.quartz.impl.StdSchedulerFactory;
 
 /**
  * @author 	Sherief Shawky
- * @email 	sherif.shawki@mubasher.info
+ * @email 	mcrakens@gmail.com
  * @date 	Aug 17, 2014
  */
 public class QuartzScheduleService implements ScheduleService{
@@ -74,7 +74,7 @@ public class QuartzScheduleService implements ScheduleService{
 	}
 
 	/* (non-Javadoc)
-	 * @see com.mubasher.market.schedule.ScheduleService#addJob(java.lang.String, java.lang.String, com.mubasher.market.schedule.ScheduledJob)
+	 * @see org.mcplissken.schedule.ScheduleService#addJob(java.lang.String, java.lang.String, org.mcplissken.schedule.ScheduledJob)
 	 */
 	@Override
 	public JobBuildResult buildJob(String jobName, String scheduleName, ScheduledJob job, boolean replace) throws ScheduleException {
@@ -141,7 +141,7 @@ public class QuartzScheduleService implements ScheduleService{
 	}
 
 	/* (non-Javadoc)
-	 * @see com.mubasher.market.schedule.ScheduleService#removeJob(java.lang.String, java.lang.String)
+	 * @see org.mcplissken.schedule.ScheduleService#removeJob(java.lang.String, java.lang.String)
 	 */
 	@Override
 	public void removeJob(String jobName, String scheduleName) throws ScheduleException {
@@ -164,7 +164,7 @@ public class QuartzScheduleService implements ScheduleService{
 	}
 
 	/* (non-Javadoc)
-	 * @see com.mubasher.market.schedule.ScheduleService#getFireTime(java.lang.String, java.lang.String)
+	 * @see org.mcplissken.schedule.ScheduleService#getFireTime(java.lang.String, java.lang.String)
 	 */
 	@Override
 	public Date getFireTime(String jobName, String scheduleName) throws ScheduleException {

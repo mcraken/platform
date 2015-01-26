@@ -16,7 +16,7 @@ import org.vertx.java.core.http.HttpClientRequest;
 
 /**
  * @author 	Sherief Shawky
- * @email 	sherif.shawki@mubasher.info
+ * @email 	mcrakens@gmail.com
  * @date 	Aug 27, 2014
  */
 public class VertxReadingHttpClient implements AsynchronousReadingHttpClient {
@@ -36,7 +36,7 @@ public class VertxReadingHttpClient implements AsynchronousReadingHttpClient {
 	}
 
 	/* (non-Javadoc)
-	 * @see com.mubasher.gateway.restful.client.AsynchronousReadingHttpClient#configure(java.lang.String, int, int)
+	 * @see org.mcplissken.gateway.restful.client.AsynchronousReadingHttpClient#configure(java.lang.String, int, int)
 	 */
 	@Override
 	public void configure(String host, int port, int poolSize) {
@@ -58,7 +58,7 @@ public class VertxReadingHttpClient implements AsynchronousReadingHttpClient {
 	}
 
 	/* (non-Javadoc)
-	 * @see com.mubasher.gateway.restful.client.AsynchronousReadingHttpClient#read(java.lang.String, java.util.Map, java.lang.String, com.mubasher.gateway.restful.client.HttpClientResponse)
+	 * @see org.mcplissken.gateway.restful.client.AsynchronousReadingHttpClient#read(java.lang.String, java.util.Map, java.lang.String, org.mcplissken.gateway.restful.client.HttpClientResponse)
 	 */
 	@Override
 	public void read(String uri, Map<String, String> headers,
@@ -84,7 +84,7 @@ public class VertxReadingHttpClient implements AsynchronousReadingHttpClient {
 	}
 
 	/* (non-Javadoc)
-	 * @see com.mubasher.gateway.restful.client.AsynchronousReadingHttpClient#read(java.lang.String, java.lang.String, com.mubasher.gateway.restful.client.HttpClientResponse)
+	 * @see org.mcplissken.gateway.restful.client.AsynchronousReadingHttpClient#read(java.lang.String, java.lang.String, org.mcplissken.gateway.restful.client.HttpClientResponse)
 	 */
 	@Override
 	public void read(String uri, String documentType,
@@ -123,7 +123,7 @@ public class VertxReadingHttpClient implements AsynchronousReadingHttpClient {
 	}
 
 	/* (non-Javadoc)
-	 * @see com.mubasher.gateway.restful.client.AsynchronousReadingHttpClient#download(java.lang.String)
+	 * @see org.mcplissken.gateway.restful.client.AsynchronousReadingHttpClient#download(java.lang.String)
 	 */
 	@Override
 	public void download(String uri, String name, final HttpFileResponseCallback callback) {

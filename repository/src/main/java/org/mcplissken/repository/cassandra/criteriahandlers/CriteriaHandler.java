@@ -13,7 +13,7 @@ import com.datastax.driver.core.querybuilder.Select.Where;
 
 /**
  * @author 	Sherief Shawky
- * @email 	sherif.shawki@mubasher.info
+ * @email 	mcrakens@gmail.com
  * @date 	Sep 8, 2014
  */
 public interface CriteriaHandler {

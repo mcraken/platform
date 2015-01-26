@@ -10,7 +10,7 @@ import org.mcplissken.repository.key.RestSearchKey;
 
 /**
  * @author 	Sherief Shawky
- * @email 	sherif.shawki@mubasher.info
+ * @email 	mcrakens@gmail.com
  * @date 	Nov 20, 2014
  */
 public class RepositoryFactory implements CacheEntryFactory{

@@ -179,7 +179,10 @@
 							org.mcplissken.repository.key,
 							org.mcplissken.repository.key.exception,
 							org.mcplissken.repository.key.parsers,
-							org.mcplissken.repository.key.generator
+							org.mcplissken.repository.key.generator,
+							org.springframework.data.annotation,
+							org.springframework.data.cassandra.mapping,
+							org.springframework.cassandra.core
 						</Export-Package>
 					</instructions>
 					<excludes>

@@ -12,7 +12,7 @@
 	http://www.osgi.org/xmlns/blueprint/v1.0.0/blueprint.xsd" -->
 <blueprint xmlns="http://www.osgi.org/xmlns/blueprint/v1.0.0">
 
-	<bean id="ehcacheService" class="com.mubasher.market.cache.ehcache.EhcacheService"
+	<bean id="ehcacheService" class="org.mcplissken.cache.ehcache.EhcacheService"
 		init-method="init">
 		<property name="config" value="ehcache/config/ehcache.xml" />
 		<property name="modelRepository" ref="modelRepository" />
@@ -20,29 +20,28 @@
 			<map key-type="java.lang.String">
 				<entry key="eq">
 					<bean
-						class="com.mubasher.market.cache.ehcache.criteriahandlers.EqualCriteria" />
+						class="org.mcplissken.cache.ehcache.criteriahandlers.EqualCriteria" />
 				</entry>
 				<entry key="in">
 					<bean
-						class="com.mubasher.market.cache.ehcache.criteriahandlers.InCriteria" />
+						class="org.mcplissken.cache.ehcache.criteriahandlers.InCriteria" />
 				</entry>
 				<entry key="lg">
 					<bean
-						class="com.mubasher.market.cache.ehcache.criteriahandlers.LogicalCriteria" />
+						class="org.mcplissken.cache.ehcache.criteriahandlers.LogicalCriteria" />
 				</entry>
 			</map>
 		</property>
 		<property name="repoFactoryCaches">
 			<array value-type="java.lang.String">
-				<value>historicalCurrencyRates</value>
-				<value>news</value>
+
 			</array>
 		</property>
 	</bean>
 
-	<service ref="ehcacheService" interface="com.mubasher.market.cache.CacheService" />
+	<service ref="ehcacheService" interface="org.mcplissken.cache.CacheService" />
 
 	<reference id="modelRepository"
-		interface="com.mubasher.market.repository.ModelRepository" />
+		interface="org.mcplissken.repository.ModelRepository" />
 
 </blueprint>

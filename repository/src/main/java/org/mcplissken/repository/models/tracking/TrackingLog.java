@@ -12,7 +12,7 @@ import org.springframework.data.cassandra.mapping.Table;
 
 /**
  * @author 	Sherief Shawky
- * @email 	sherif.shawki@mubasher.info
+ * @email 	mcrakens@gmail.com
  * @date 	Jan 12, 2015
  */
 @Table("trackinglog")
@@ -74,7 +74,7 @@ public class TrackingLog implements RestModel{
 	}
 
 	/* (non-Javadoc)
-	 * @see com.mubasher.market.repository.models.RestModel#getUniqueId()
+	 * @see org.mcplissken.repository.models.RestModel#getUniqueId()
 	 */
 	@Override
 	public Object getUniqueId() {

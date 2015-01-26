@@ -13,7 +13,7 @@ import com.datastax.driver.core.querybuilder.Select.Where;
 
 /**
  * @author 	Sherief Shawky
- * @email 	sherif.shawki@mubasher.info
+ * @email 	mcrakens@gmail.com
  * @date 	Sep 8, 2014
  */
 public abstract class BasicCriteriaHandler implements CriteriaHandler {
@@ -22,7 +22,7 @@ public abstract class BasicCriteriaHandler implements CriteriaHandler {
 	private String id;
 	
 	/* (non-Javadoc)
-	 * @see com.mubasher.market.repository.cassandra.criteriahandlers.CriteriaHandler#handle(com.mubasher.market.repository.key.RestCriteria, java.util.Map, com.datastax.driver.core.querybuilder.Select.Where)
+	 * @see org.mcplissken.repository.cassandra.criteriahandlers.CriteriaHandler#handle(org.mcplissken.repository.key.RestCriteria, java.util.Map, com.datastax.driver.core.querybuilder.Select.Where)
 	 */
 	@Override
 	public void handle(RestCriteria criteria, Map<String, Clause> criterias,

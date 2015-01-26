@@ -8,7 +8,7 @@ import java.util.Map;
 
 /**
  * @author 	Sherief Shawky
- * @email 	sherif.shawki@mubasher.info
+ * @email 	mcrakens@gmail.com
  * @date 	Sep 23, 2014
  */
 public interface QueryResultFormatter {

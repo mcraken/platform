@@ -13,7 +13,7 @@ import org.vertx.java.core.streams.Pump;
 
 /**
  * @author 	Sherief Shawky
- * @email 	sherif.shawki@mubasher.info
+ * @email 	mcrakens@gmail.com
  * @date 	Aug 11, 2014
  */
 public class VertxHttpAdapter extends BasicHttpAdapter{
@@ -34,7 +34,7 @@ public class VertxHttpAdapter extends BasicHttpAdapter{
 	}
 
 	/* (non-Javadoc)
-	 * @see com.mubasher.osgi.gateway.HttpAdapter#readParameter(java.lang.String)
+	 * @see org.mcplissken.osgi.gateway.HttpAdapter#readParameter(java.lang.String)
 	 */
 	@Override
 	public String readParameter(String name) {
@@ -42,7 +42,7 @@ public class VertxHttpAdapter extends BasicHttpAdapter{
 	}
 
 	/* (non-Javadoc)
-	 * @see com.mubasher.osgi.gateway.HttpAdapter#writeHeader(java.lang.String, java.lang.String)
+	 * @see org.mcplissken.osgi.gateway.HttpAdapter#writeHeader(java.lang.String, java.lang.String)
 	 */
 	@Override
 	public void writeHeader(String name, String value) {
@@ -51,7 +51,7 @@ public class VertxHttpAdapter extends BasicHttpAdapter{
 	}
 
 	/* (non-Javadoc)
-	 * @see com.mubasher.osgi.gateway.HttpAdapter#readHeader(java.lang.String)
+	 * @see org.mcplissken.osgi.gateway.HttpAdapter#readHeader(java.lang.String)
 	 */
 	@Override
 	public String readHeader(String name) {
@@ -60,7 +60,7 @@ public class VertxHttpAdapter extends BasicHttpAdapter{
 	}
 
 	/* (non-Javadoc)
-	 * @see com.mubasher.osgi.gateway.HttpAdapter#writeResponse(java.nio.ByteBuffer)
+	 * @see org.mcplissken.osgi.gateway.HttpAdapter#writeResponse(java.nio.ByteBuffer)
 	 */
 	@Override
 	public void writeResponse(ByteBuffer buffer) {
@@ -90,7 +90,7 @@ public class VertxHttpAdapter extends BasicHttpAdapter{
 	}
 
 	/* (non-Javadoc)
-	 * @see com.mubasher.gateway.HttpAdapter#sessionId()
+	 * @see org.mcplissken.gateway.HttpAdapter#sessionId()
 	 */
 	@Override
 	public String sessionId() {
@@ -109,7 +109,7 @@ public class VertxHttpAdapter extends BasicHttpAdapter{
 	}
 
 	/* (non-Javadoc)
-	 * @see com.mubasher.gateway.HttpAdapter#setCookie()
+	 * @see org.mcplissken.gateway.HttpAdapter#setCookie()
 	 */
 	@Override
 	public void setCookie(String name, String value) {
@@ -124,7 +124,7 @@ public class VertxHttpAdapter extends BasicHttpAdapter{
 
 
 	/* (non-Javadoc)
-	 * @see com.mubasher.gateway.HttpAdapter#method()
+	 * @see org.mcplissken.gateway.HttpAdapter#method()
 	 */
 	@Override
 	public String method() {
@@ -147,7 +147,7 @@ public class VertxHttpAdapter extends BasicHttpAdapter{
 	}
 
 	/* (non-Javadoc)
-	 * @see com.mubasher.gateway.HttpAdapter#path()
+	 * @see org.mcplissken.gateway.HttpAdapter#path()
 	 */
 	@Override
 	public String path() {
@@ -164,7 +164,7 @@ public class VertxHttpAdapter extends BasicHttpAdapter{
 	}
 
 	/* (non-Javadoc)
-	 * @see com.mubasher.gateway.HttpAdapter#getContentLangauge()
+	 * @see org.mcplissken.gateway.HttpAdapter#getContentLangauge()
 	 */
 	@Override
 	public String getContentLangauge() {
@@ -180,7 +180,7 @@ public class VertxHttpAdapter extends BasicHttpAdapter{
 	}
 	
 	/* (non-Javadoc)
-	 * @see com.mubasher.gateway.HttpAdapter#sendRedirect(java.lang.String)
+	 * @see org.mcplissken.gateway.HttpAdapter#sendRedirect(java.lang.String)
 	 */
 	@Override
 	public void sendRedirect(String uri) {

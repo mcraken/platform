@@ -13,13 +13,13 @@ import org.mcplissken.repository.key.RestCriteria;
 
 /**
  * @author 	Sherief Shawky
- * @email 	sherif.shawki@mubasher.info
+ * @email 	mcrakens@gmail.com
  * @date 	Sep 4, 2014
  */
 public class InCriteria extends BasicCriteriaHandler{
 
 	/* (non-Javadoc)
-	 * @see com.mubasher.market.cache.ehcache.criteriahandlers.BasicCriteriaHandler#resolveCriteria(java.lang.String, com.mubasher.market.cache.key.RestCriteria, java.util.Map)
+	 * @see org.mcplissken.cache.ehcache.criteriahandlers.BasicCriteriaHandler#resolveCriteria(java.lang.String, org.mcplissken.cache.key.RestCriteria, java.util.Map)
 	 */
 	@Override
 	protected Criteria resolveCriteria(RestCriteria criteria,

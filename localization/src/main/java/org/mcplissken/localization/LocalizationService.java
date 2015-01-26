@@ -7,7 +7,7 @@ import java.util.List;
 
 /**
  * @author 	Sherief Shawky
- * @email 	sherif.shawki@mubasher.info
+ * @email 	mcrakens@gmail.com
  * @date 	Jan 21, 2015
  */
 public interface LocalizationService {

@@ -34,7 +34,7 @@ import org.mcplissken.repository.models.RestModel;
 
 /**
  * @author 	Sherief Shawky
- * @email 	sherif.shawki@mubasher.info
+ * @email 	mcrakens@gmail.com
  * @date 	Jul 30, 2014
  */
 public class EhcacheService implements CacheService {
@@ -118,7 +118,7 @@ public class EhcacheService implements CacheService {
 	}
 	
 	/* (non-Javadoc)
-	 * @see com.mubasher.market.cache.CacheService#writeThrough(java.lang.String, java.lang.Object, java.lang.Object)
+	 * @see org.mcplissken.cache.CacheService#writeThrough(java.lang.String, java.lang.Object, java.lang.Object)
 	 */
 	@Override
 	public void writeThrough(String cacheName, Object key, Object modelObject) {
@@ -151,7 +151,7 @@ public class EhcacheService implements CacheService {
 	}
 
 	/* (non-Javadoc)
-	 * @see com.mubasher.market.cache.CacheService#createIntegerKeySelectionAdapter()
+	 * @see org.mcplissken.cache.CacheService#createIntegerKeySelectionAdapter()
 	 */
 	@Override
 	public KeySelectionAdapter createKeySelectionAdapter(String cacheName) {
@@ -160,7 +160,7 @@ public class EhcacheService implements CacheService {
 	}
 
 	/* (non-Javadoc)
-	 * @see com.mubasher.market.cache.CacheService#read(java.lang.String, java.lang.Object)
+	 * @see org.mcplissken.cache.CacheService#read(java.lang.String, java.lang.Object)
 	 */
 	@Override
 	public Object read(String modelName, Object key) {
@@ -173,7 +173,7 @@ public class EhcacheService implements CacheService {
 	}
 
 	/* (non-Javadoc)
-	 * @see com.mubasher.market.cache.CacheService#createValueSelectionAdapter(java.lang.String)
+	 * @see org.mcplissken.cache.CacheService#createValueSelectionAdapter(java.lang.String)
 	 */
 	@Override
 	public ValueSelectionAdapter createValueSelectionAdapter(String cacheName) {
@@ -181,7 +181,7 @@ public class EhcacheService implements CacheService {
 	}
 
 	/* (non-Javadoc)
-	 * @see com.mubasher.market.cache.CacheService#read(com.mubasher.market.cache.key.RestSearchKey)
+	 * @see org.mcplissken.cache.CacheService#read(org.mcplissken.cache.key.RestSearchKey)
 	 */
 	@Override
 	public Object read(RestSearchKey key) 
@@ -262,7 +262,7 @@ public class EhcacheService implements CacheService {
 	}
 
 	/* (non-Javadoc)
-	 * @see com.mubasher.market.cache.CacheService#write(java.lang.String, java.util.List)
+	 * @see org.mcplissken.cache.CacheService#write(java.lang.String, java.util.List)
 	 */
 	@Override
 	public void write(String cacheName, RestModel[] models) {

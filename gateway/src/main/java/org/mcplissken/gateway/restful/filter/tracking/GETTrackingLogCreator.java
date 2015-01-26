@@ -16,7 +16,7 @@ import org.mcplissken.repository.models.tracking.TrackingLog;
 
 /**
  * @author 	Sherief Shawky
- * @email 	sherif.shawki@mubasher.info
+ * @email 	mcrakens@gmail.com
  * @date 	Jan 12, 2015
  */
 public class GETTrackingLogCreator implements TrackingLogCreator {
@@ -39,7 +39,7 @@ public class GETTrackingLogCreator implements TrackingLogCreator {
 	}
 	
 	/* (non-Javadoc)
-	 * @see com.mubasher.gateway.restful.filter.tracking.TrackingLogCreator#create(com.mubasher.gateway.HttpAdapter)
+	 * @see org.mcplissken.gateway.restful.filter.tracking.TrackingLogCreator#create(org.mcplissken.gateway.HttpAdapter)
 	 */
 	@Override
 	public List<RestModel> create(HttpAdapter httpAdapter) {

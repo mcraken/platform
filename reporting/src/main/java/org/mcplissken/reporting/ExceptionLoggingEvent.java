@@ -5,7 +5,7 @@ package org.mcplissken.reporting;
 
 /**
  * @author 	Sherief Shawky
- * @email 	sherif.shawki@mubasher.info
+ * @email 	mcrakens@gmail.com
  * @date 	Oct 3, 2014
  */
 public class ExceptionLoggingEvent extends BasicLoggingEvent {
@@ -21,7 +21,7 @@ public class ExceptionLoggingEvent extends BasicLoggingEvent {
 	}
 
 	/* (non-Javadoc)
-	 * @see com.mubasher.system.reporting.LoggingEvent#execute()
+	 * @see org.mcplissken.system.reporting.LoggingEvent#execute()
 	 */
 	@Override
 	public void execute() {

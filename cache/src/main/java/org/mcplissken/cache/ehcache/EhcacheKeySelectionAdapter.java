@@ -11,7 +11,7 @@ import net.sf.ehcache.search.Attribute;
 
 /**
  * @author 	Sherief Shawky
- * @email 	sherif.shawki@mubasher.info
+ * @email 	mcrakens@gmail.com
  * @date 	Sep 4, 2014
  */
 public class EhcacheKeySelectionAdapter extends EhcacheSelectionAdapter implements KeySelectionAdapter {
@@ -28,7 +28,7 @@ public class EhcacheKeySelectionAdapter extends EhcacheSelectionAdapter implemen
 	}
 
 	/* (non-Javadoc)
-	 * @see com.mubasher.market.cache.SelectionAdapter#page(int)
+	 * @see org.mcplissken.cache.SelectionAdapter#page(int)
 	 */
 	@Override
 	public SelectionAdapter page(int size) {
@@ -39,7 +39,7 @@ public class EhcacheKeySelectionAdapter extends EhcacheSelectionAdapter implemen
 	}
 
 	/* (non-Javadoc)
-	 * @see com.mubasher.market.cache.KeySelectionAdapter#eq(java.lang.Object)
+	 * @see org.mcplissken.cache.KeySelectionAdapter#eq(java.lang.Object)
 	 */
 	@Override
 	public SelectionAdapter eq(Object value) {
@@ -58,7 +58,7 @@ public class EhcacheKeySelectionAdapter extends EhcacheSelectionAdapter implemen
 	}
 
 	/* (non-Javadoc)
-	 * @see com.mubasher.market.cache.KeySelectionAdapter#in(java.lang.Object[])
+	 * @see org.mcplissken.cache.KeySelectionAdapter#in(java.lang.Object[])
 	 */
 	@Override
 	public SelectionAdapter in(Object[] values) {
@@ -69,7 +69,7 @@ public class EhcacheKeySelectionAdapter extends EhcacheSelectionAdapter implemen
 	}
 
 	/* (non-Javadoc)
-	 * @see com.mubasher.market.cache.KeySelectionAdapter#orderBy(boolean)
+	 * @see org.mcplissken.cache.KeySelectionAdapter#orderBy(boolean)
 	 */
 	@Override
 	public SelectionAdapter orderBy(boolean asc) {

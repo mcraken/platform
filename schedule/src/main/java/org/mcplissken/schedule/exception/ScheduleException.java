@@ -5,7 +5,7 @@ package org.mcplissken.schedule.exception;
 
 /**
  * @author 	Sherief Shawky
- * @email 	sherif.shawki@mubasher.info
+ * @email 	mcrakens@gmail.com
  * @date 	Sep 11, 2014
  */
 public class ScheduleException extends Exception {

@@ -5,7 +5,7 @@ package org.mcplissken.gateway.restful.document;
 
 /**
  * @author 	Sherief Shawky
- * @email 	sherif.shawki@mubasher.info
+ * @email 	mcrakens@gmail.com
  * @date 	Nov 6, 2014
  */
 public class DocumentReadingExcetion extends Exception {

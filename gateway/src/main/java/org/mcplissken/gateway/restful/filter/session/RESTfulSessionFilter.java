@@ -12,7 +12,7 @@ import org.mcplissken.security.User;
 
 /**
  * @author 	Sherief Shawky
- * @email 	sherif.shawki@mubasher.info
+ * @email 	mcrakens@gmail.com
  * @date 	Nov 9, 2014
  */
 public class RESTfulSessionFilter extends BasicRESTfulFilter {
@@ -24,7 +24,7 @@ public class RESTfulSessionFilter extends BasicRESTfulFilter {
 	}
 
 	/* (non-Javadoc)
-	 * @see com.mubasher.gateway.restful.filter.RESTfulFilter#filter(com.mubasher.gateway.HttpAdapter)
+	 * @see org.mcplissken.gateway.restful.filter.RESTfulFilter#filter(org.mcplissken.gateway.HttpAdapter)
 	 */
 	@Override
 	public void doFilter(HttpAdapter httpAdapter) throws BadRequestException,

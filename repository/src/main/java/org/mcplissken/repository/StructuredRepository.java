@@ -9,6 +9,11 @@ import org.mcplissken.repository.key.RestSearchKey;
 import org.mcplissken.repository.key.exception.InvalidCriteriaException;
 import org.mcplissken.repository.models.RestModel;
 import org.mcplissken.repository.query.SimpleSelectionAdapter;
+/**
+ * @author 	Sherief Shawky
+ * @email 	mcrakens@gmail.com
+ * @date 	Nov 20, 2014
+ */
 
 /**
  * @author 	Sherief Shawky
@@ -17,7 +22,7 @@ import org.mcplissken.repository.query.SimpleSelectionAdapter;
  */
 public interface StructuredRepository {
 	
-	public List<?> read(RestSearchKey key) throws InvalidCriteriaException;
+	public <T> List<T> read(RestSearchKey key) throws InvalidCriteriaException;
 
 	public void write(RestModel model);
 	
@@ -27,6 +32,9 @@ public interface StructuredRepository {
 	
 	public void delete(RestModel model);
 
-	public SimpleSelectionAdapter createSimpleSelectionAdapter(String modelName);
+	public <T> SimpleSelectionAdapter<T> createSimpleSelectionAdapter(String modelName);
+	
+	public <T> void registerMapper(String modelName, BasicRowMapper<T> mapper);
 
 }
+

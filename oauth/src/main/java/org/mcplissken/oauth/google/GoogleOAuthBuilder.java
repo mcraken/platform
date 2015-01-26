@@ -16,7 +16,7 @@ import org.scribe.oauth.OAuthService;
 
 /**
  * @author 	Sherief Shawky
- * @email 	sherif.shawki@mubasher.info
+ * @email 	mcrakens@gmail.com
  * @date 	Dec 23, 2014
  */
 public class GoogleOAuthBuilder implements OAuthBuilder {
@@ -62,7 +62,7 @@ public class GoogleOAuthBuilder implements OAuthBuilder {
 	}
 
 	/* (non-Javadoc)
-	 * @see com.mubasher.market.security.oauth.OAuthBuilder#buildAuthorizer()
+	 * @see org.mcplissken.security.oauth.OAuthBuilder#buildAuthorizer()
 	 */
 	@Override
 	public OAuthAuthorizer buildAuthorizer() {
@@ -79,7 +79,7 @@ public class GoogleOAuthBuilder implements OAuthBuilder {
 	}
 
 	/* (non-Javadoc)
-	 * @see com.mubasher.market.security.oauth.OAuthBuilder#buildProfileInvoker()
+	 * @see org.mcplissken.security.oauth.OAuthBuilder#buildProfileInvoker()
 	 */
 	@Override
 	public OAuthInvoker<Profile> buildProfileInvoker(Oauth oauth) {

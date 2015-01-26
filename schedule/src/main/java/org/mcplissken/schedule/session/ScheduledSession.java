@@ -13,7 +13,7 @@ import org.mcplissken.schedule.exception.ScheduleException;
 
 /**
  * @author 	Sherief Shawky
- * @email 	sherif.shawki@mubasher.info
+ * @email 	mcrakens@gmail.com
  * @date 	Oct 9, 2014
  */
 public abstract class ScheduledSession {

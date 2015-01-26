@@ -10,7 +10,7 @@ import com.lmax.disruptor.WorkHandler;
 /**
  * @author 	Sherief Shawky
  * @param <T>
- * @email 	sherif.shawki@mubasher.info
+ * @email 	mcrakens@gmail.com
  * @date 	Oct 1, 2014
  */
 public abstract class WorkEventHandler<T> implements WorkHandler<DisruptorEvent<T>> {

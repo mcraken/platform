@@ -9,7 +9,7 @@ import org.mcplissken.schedule.tracks.TrackException;
 
 /**
  * @author 	Sherief Shawky
- * @email 	sherif.shawki@mubasher.info
+ * @email 	mcrakens@gmail.com
  * @date 	Oct 12, 2014
  */
 public class SessionTrackObserver extends SessionObserver {
@@ -50,7 +50,7 @@ public class SessionTrackObserver extends SessionObserver {
 
 	
 	/* (non-Javadoc)
-	 * @see com.mubasher.market.schedule.session.SessionStatusCallback#inSession()
+	 * @see org.mcplissken.schedule.session.SessionStatusCallback#inSession()
 	 */
 	@Override
 	public void inSession() {
@@ -59,7 +59,7 @@ public class SessionTrackObserver extends SessionObserver {
 	}
 
 	/* (non-Javadoc)
-	 * @see com.mubasher.market.schedule.session.SessionStatusCallback#outSession()
+	 * @see org.mcplissken.schedule.session.SessionStatusCallback#outSession()
 	 */
 	@Override
 	public void outSession() {
@@ -67,7 +67,7 @@ public class SessionTrackObserver extends SessionObserver {
 	}
 
 	/* (non-Javadoc)
-	 * @see com.mubasher.market.schedule.session.SessionStatusCallback#startSession()
+	 * @see org.mcplissken.schedule.session.SessionStatusCallback#startSession()
 	 */
 	@Override
 	public void startSession() {
@@ -76,7 +76,7 @@ public class SessionTrackObserver extends SessionObserver {
 	}
 
 	/* (non-Javadoc)
-	 * @see com.mubasher.market.schedule.session.SessionStatusCallback#endSession()
+	 * @see org.mcplissken.schedule.session.SessionStatusCallback#endSession()
 	 */
 	@Override
 	public void endSession() {

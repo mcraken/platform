@@ -12,7 +12,7 @@ import scala.collection.mutable.HashMap;
 
 /**
  * @author Sherief Shawky
- * @email sherif.shawki@mubasher.info
+ * @email mcrakens@gmail.com
  * @date Sep 21, 2014
  */
 public class HubSockJsAgent extends SockJsAgent {
@@ -31,7 +31,7 @@ public class HubSockJsAgent extends SockJsAgent {
 	 * (non-Javadoc)
 	 * 
 	 * @see
-	 * com.mubasher.osgi.vertx.sockjs.SockJsAgent#socketMessageReceived(byte[])
+	 * org.mcplissken.osgi.vertx.sockjs.SockJsAgent#socketMessageReceived(byte[])
 	 */
 	@Override
 	protected void socketMessageReceived(byte[] message) {

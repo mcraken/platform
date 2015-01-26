@@ -9,7 +9,7 @@ import org.vertx.java.core.Handler;
 
 /**
  * @author 	Sherief Shawky
- * @email 	sherif.shawki@mubasher.info
+ * @email 	mcrakens@gmail.com
  * @date 	Aug 25, 2014
  */
 public class DeploymentReporter implements Handler<AsyncResult<String>>{

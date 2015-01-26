@@ -12,7 +12,7 @@ import org.mcplissken.security.User;
 
 /**
  * @author 	Sherief Shawky
- * @email 	sherif.shawki@mubasher.info
+ * @email 	mcrakens@gmail.com
  * @date 	Nov 9, 2014
  */
 public class ShiroUser implements User {
@@ -45,7 +45,7 @@ public class ShiroUser implements User {
 	}
 
 	/* (non-Javadoc)
-	 * @see com.mubasher.market.security.User#getSessionId()
+	 * @see org.mcplissken.security.User#getSessionId()
 	 */
 	@Override
 	public String sessionId() {
@@ -54,7 +54,7 @@ public class ShiroUser implements User {
 	}
 
 	/* (non-Javadoc)
-	 * @see com.mubasher.market.security.User#sessionIdEquals(java.lang.String)
+	 * @see org.mcplissken.security.User#sessionIdEquals(java.lang.String)
 	 */
 	@Override
 	public boolean hasSession() {
@@ -62,7 +62,7 @@ public class ShiroUser implements User {
 	}
 
 	/* (non-Javadoc)
-	 * @see com.mubasher.market.security.User#isAccessible(java.lang.String, java.lang.String)
+	 * @see org.mcplissken.security.User#isAccessible(java.lang.String, java.lang.String)
 	 */
 	@Override
 	public boolean isAccessible(String method, String path) {
@@ -98,7 +98,7 @@ public class ShiroUser implements User {
 
 
 	/* (non-Javadoc)
-	 * @see com.mubasher.market.security.User#addSessionParameter(java.lang.String, java.lang.String)
+	 * @see org.mcplissken.security.User#addSessionParameter(java.lang.String, java.lang.String)
 	 */
 	@Override
 	public void addSessionParameter(String name, Object value) {
@@ -107,7 +107,7 @@ public class ShiroUser implements User {
 	}
 
 	/* (non-Javadoc)
-	 * @see com.mubasher.market.security.User#readSessionParameter(java.lang.String)
+	 * @see org.mcplissken.security.User#readSessionParameter(java.lang.String)
 	 */
 	@Override
 	public Object readSessionParameter(String name) {
@@ -116,7 +116,7 @@ public class ShiroUser implements User {
 	}
 
 	/* (non-Javadoc)
-	 * @see com.mubasher.market.security.User#userId()
+	 * @see org.mcplissken.security.User#userId()
 	 */
 	@Override
 	public String userId() {

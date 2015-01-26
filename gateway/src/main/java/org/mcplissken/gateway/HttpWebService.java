@@ -7,7 +7,7 @@ import org.mcplissken.gateway.restful.client.AsynchronousReadingHttpClient;
 
 /**
  * @author 	Sherief Shawky
- * @email 	sherif.shawki@mubasher.info
+ * @email 	mcrakens@gmail.com
  * @date 	Oct 8, 2014
  */
 public interface HttpWebService {

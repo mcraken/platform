@@ -8,7 +8,7 @@ import org.mcplissken.reporting.SystemReportingService;
 
 /**
  * @author 	Sherief Shawky
- * @email 	sherif.shawki@mubasher.info
+ * @email 	mcrakens@gmail.com
  * @date 	Oct 12, 2014
  */
 public class ObservableScheduledSession extends ScheduledSession {
@@ -25,7 +25,7 @@ public class ObservableScheduledSession extends ScheduledSession {
 	}
 	
 	/* (non-Javadoc)
-	 * @see com.mubasher.market.schedule.session.ScheduledSession#initSession()
+	 * @see org.mcplissken.schedule.session.ScheduledSession#initSession()
 	 */
 	@Override
 	protected void initSession() throws SessionException {
@@ -39,7 +39,7 @@ public class ObservableScheduledSession extends ScheduledSession {
 	}
 
 	/* (non-Javadoc)
-	 * @see com.mubasher.market.schedule.session.ScheduledSession#startSession()
+	 * @see org.mcplissken.schedule.session.ScheduledSession#startSession()
 	 */
 	@Override
 	protected void startSession() throws SessionException {
@@ -51,7 +51,7 @@ public class ObservableScheduledSession extends ScheduledSession {
 	}
 
 	/* (non-Javadoc)
-	 * @see com.mubasher.market.schedule.session.ScheduledSession#inSession()
+	 * @see org.mcplissken.schedule.session.ScheduledSession#inSession()
 	 */
 	@Override
 	protected void inSession() throws SessionException {
@@ -63,7 +63,7 @@ public class ObservableScheduledSession extends ScheduledSession {
 	}
 
 	/* (non-Javadoc)
-	 * @see com.mubasher.market.schedule.session.ScheduledSession#outSession()
+	 * @see org.mcplissken.schedule.session.ScheduledSession#outSession()
 	 */
 	@Override
 	protected void outSession() throws SessionException {
@@ -74,7 +74,7 @@ public class ObservableScheduledSession extends ScheduledSession {
 	}
 
 	/* (non-Javadoc)
-	 * @see com.mubasher.market.schedule.session.ScheduledSession#endSession()
+	 * @see org.mcplissken.schedule.session.ScheduledSession#endSession()
 	 */
 	@Override
 	protected void endSession() throws SessionException {

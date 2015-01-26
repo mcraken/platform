@@ -7,7 +7,7 @@ import java.io.File;
 
 /**
  * @author 	Sherief Shawky
- * @email 	sherif.shawki@mubasher.info
+ * @email 	mcrakens@gmail.com
  * @date 	Nov 12, 2014
  */
 public interface HttpFileResponseCallback {

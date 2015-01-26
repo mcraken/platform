@@ -9,7 +9,7 @@ import org.quartz.impl.calendar.WeeklyCalendar;
 
 /**
  * @author 	Sherief Shawky
- * @email 	sherif.shawki@mubasher.info
+ * @email 	mcrakens@gmail.com
  * @date 	Oct 8, 2014
  */
 public class WeekCalendarBuilder extends BasicCalendarBuilder {
@@ -34,7 +34,7 @@ public class WeekCalendarBuilder extends BasicCalendarBuilder {
 	}
 
 	/* (non-Javadoc)
-	 * @see com.mubasher.market.schedule.quartz.builder.calendar.BasicCalendarBuilder#buildCalendar()
+	 * @see org.mcplissken.schedule.quartz.builder.calendar.BasicCalendarBuilder#buildCalendar()
 	 */
 	@Override
 	protected BaseCalendar buildCalendar() {

@@ -10,7 +10,7 @@ import org.mcplissken.schedule.exception.ScheduleException;
 
 /**
  * @author 	Sherief Shawky
- * @email 	sherif.shawki@mubasher.info
+ * @email 	mcrakens@gmail.com
  * @date 	Sep 29, 2014
  */
 public abstract class WeeklyTrack extends Track {
@@ -54,7 +54,7 @@ public abstract class WeeklyTrack extends Track {
 	}
 
 	/* (non-Javadoc)
-	 * @see com.mubasher.market.schedule.tracks.Track#scheduleTrack(com.mubasher.market.schedule.JobBuilder)
+	 * @see org.mcplissken.schedule.tracks.Track#scheduleTrack(org.mcplissken.schedule.JobBuilder)
 	 */
 	@Override
 	protected void scheduleTrack(JobBuilder jobBuilder) throws ScheduleException {

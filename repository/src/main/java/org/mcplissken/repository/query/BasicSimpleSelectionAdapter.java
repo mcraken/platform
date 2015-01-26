@@ -12,7 +12,7 @@ import java.util.List;
  * @email 	sherif.shawki@mubasher.info
  * @date 	Aug 31, 2014
  */
-public abstract class BasicSimpleSelectionAdapter<T, O> implements SimpleSelectionAdapter {
+public abstract class BasicSimpleSelectionAdapter<A, T, O> implements SimpleSelectionAdapter<A> {
 
 	private ArrayList<T> criteria;
 
@@ -25,10 +25,10 @@ public abstract class BasicSimpleSelectionAdapter<T, O> implements SimpleSelecti
 	}
 
 	/* (non-Javadoc)
-	 * @see com.mubasher.market.repository.query.SimpleSelectionAdapter#eq(java.lang.String, java.lang.Object)
+	 * @see org.mcplissken.repository.query.SimpleSelectionAdapter#eq(java.lang.String, java.lang.Object)
 	 */
 	@Override
-	public SimpleSelectionAdapter eq(String name, Object value) {
+	public SimpleSelectionAdapter<A> eq(String name, Object value) {
 
 		criteria.add(doEq(name, value));
 
@@ -36,10 +36,10 @@ public abstract class BasicSimpleSelectionAdapter<T, O> implements SimpleSelecti
 	}
 
 	/* (non-Javadoc)
-	 * @see com.mubasher.market.repository.query.SimpleSelectionAdapter#gt(java.lang.String, java.lang.Object)
+	 * @see org.mcplissken.repository.query.SimpleSelectionAdapter#gt(java.lang.String, java.lang.Object)
 	 */
 	@Override
-	public SimpleSelectionAdapter gt(String name, Object value) {
+	public SimpleSelectionAdapter<A> gt(String name, Object value) {
 
 		criteria.add(doGt(name, value));
 
@@ -47,10 +47,10 @@ public abstract class BasicSimpleSelectionAdapter<T, O> implements SimpleSelecti
 	}
 	
 	/* (non-Javadoc)
-	 * @see com.mubasher.market.repository.query.SimpleSelectionAdapter#gte(java.lang.String, java.lang.Object)
+	 * @see org.mcplissken.repository.query.SimpleSelectionAdapter#gte(java.lang.String, java.lang.Object)
 	 */
 	@Override
-	public SimpleSelectionAdapter gte(String name, Object value) {
+	public SimpleSelectionAdapter<A> gte(String name, Object value) {
 		
 		criteria.add(doGte(name, value));
 
@@ -58,10 +58,10 @@ public abstract class BasicSimpleSelectionAdapter<T, O> implements SimpleSelecti
 	}
 	
 	/* (non-Javadoc)
-	 * @see com.mubasher.market.repository.query.SimpleSelectionAdapter#and()
+	 * @see org.mcplissken.repository.query.SimpleSelectionAdapter#and()
 	 */
 	@Override
-	public SimpleSelectionAdapter and() {
+	public SimpleSelectionAdapter<A> and() {
 
 		doAnd(criteria.iterator());
 
@@ -71,10 +71,10 @@ public abstract class BasicSimpleSelectionAdapter<T, O> implements SimpleSelecti
 	}
 
 	/* (non-Javadoc)
-	 * @see com.mubasher.market.repository.query.SimpleSelectionAdapter#or()
+	 * @see org.mcplissken.repository.query.SimpleSelectionAdapter#or()
 	 */
 	@Override
-	public SimpleSelectionAdapter or() {
+	public SimpleSelectionAdapter<A> or() {
 
 		doOr(criteria.iterator());
 
@@ -85,10 +85,10 @@ public abstract class BasicSimpleSelectionAdapter<T, O> implements SimpleSelecti
 	}
 
 	/* (non-Javadoc)
-	 * @see com.mubasher.market.repository.query.SimpleSelectionAdapter#page(int)
+	 * @see org.mcplissken.repository.query.SimpleSelectionAdapter#page(int)
 	 */
 	@Override
-	public SimpleSelectionAdapter page(int size) {
+	public SimpleSelectionAdapter<A> page(int size) {
 
 		if(criteria.size() > 0){
 			doLimit(criteria.get(0), size);
@@ -100,10 +100,10 @@ public abstract class BasicSimpleSelectionAdapter<T, O> implements SimpleSelecti
 	}
 
 	/* (non-Javadoc)
-	 * @see com.mubasher.market.repository.query.SimpleSelectionAdapter#orderBy(boolean, java.lang.String[])
+	 * @see org.mcplissken.repository.query.SimpleSelectionAdapter#orderBy(boolean, java.lang.String[])
 	 */
 	@Override
-	public SimpleSelectionAdapter orderBy(boolean asc, String... columns) {
+	public SimpleSelectionAdapter<A> orderBy(boolean asc, String... columns) {
 
 		ArrayList<O> orderings = new ArrayList<O>(columns.length);
 
@@ -117,7 +117,7 @@ public abstract class BasicSimpleSelectionAdapter<T, O> implements SimpleSelecti
 	}
 
 	@Override
-	public SimpleSelectionAdapter lt(String name, Object value){
+	public SimpleSelectionAdapter<A> lt(String name, Object value){
 		
 		criteria.add(doLt(name, value));
 		

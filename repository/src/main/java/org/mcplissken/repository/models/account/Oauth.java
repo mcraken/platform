@@ -88,7 +88,7 @@ public class Oauth implements RestModel{
 	}
 
 	/* (non-Javadoc)
-	 * @see com.mubasher.market.repository.models.RestModel#getUniqueId()
+	 * @see org.mcplissken.repository.models.RestModel#getUniqueId()
 	 */
 	@Override
 	public Object getUniqueId() {

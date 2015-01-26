@@ -18,7 +18,7 @@ import org.mcplissken.repository.key.RestCriteria;
 public class EqualCriteria extends BasicCriteriaHandler {
 
 	/* (non-Javadoc)
-	 * @see com.mubasher.market.cache.ehcache.criteriahandlers.BasicCriteriaHandler#resolveCriteria(com.mubasher.market.cache.key.RestCriteria, java.util.Map)
+	 * @see org.mcplissken.cache.ehcache.criteriahandlers.BasicCriteriaHandler#resolveCriteria(org.mcplissken.cache.key.RestCriteria, java.util.Map)
 	 */
 	@Override
 	protected Criteria resolveCriteria(

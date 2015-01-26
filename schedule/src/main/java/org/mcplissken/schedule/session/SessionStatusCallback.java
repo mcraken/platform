@@ -5,7 +5,7 @@ package org.mcplissken.schedule.session;
 
 /**
  * @author 	Sherief Shawky
- * @email 	sherif.shawki@mubasher.info
+ * @email 	mcrakens@gmail.com
  * @date 	Oct 12, 2014
  */
 public interface SessionStatusCallback {

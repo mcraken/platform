@@ -11,7 +11,7 @@ import org.quartz.impl.calendar.BaseCalendar;
 
 /**
  * @author 	Sherief Shawky
- * @email 	sherif.shawki@mubasher.info
+ * @email 	mcrakens@gmail.com
  * @date 	Oct 8, 2014
  */
 public abstract class BasicCalendarBuilder implements CalendarBuilder{
@@ -35,7 +35,7 @@ public abstract class BasicCalendarBuilder implements CalendarBuilder{
 	}
 	
 	/* (non-Javadoc)
-	 * @see com.mubasher.market.schedule.quartz.builder.calendar.CalendarBuilder#build(org.quartz.Scheduler)
+	 * @see org.mcplissken.schedule.quartz.builder.calendar.CalendarBuilder#build(org.quartz.Scheduler)
 	 */
 	@Override
 	public void build(Scheduler scheduler) throws SchedulerException {

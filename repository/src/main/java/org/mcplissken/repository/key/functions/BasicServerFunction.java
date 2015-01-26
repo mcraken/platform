@@ -9,13 +9,13 @@ import org.mcplissken.repository.key.exception.ServerFunctionException;
 
 /**
  * @author 	Sherief Shawky
- * @email 	sherif.shawki@mubasher.info
+ * @email 	mcrakens@gmail.com
  * @date 	Sep 9, 2014
  */
 public abstract class BasicServerFunction implements ServerFunctionHandler {
 
 	/* (non-Javadoc)
-	 * @see com.mubasher.market.repository.key.functions.ServerFunctionHandler#handle(com.mubasher.market.repository.key.RestCriteria, com.mubasher.market.repository.ModelRepository, java.lang.String, java.lang.String, java.lang.String)
+	 * @see org.mcplissken.repository.key.functions.ServerFunctionHandler#handle(org.mcplissken.repository.key.RestCriteria, org.mcplissken.repository.ModelRepository, java.lang.String, java.lang.String, java.lang.String)
 	 */
 	public void handle(RestCriteria crt, StructuredRepository repository, String propertyName,
 			String resourceName)

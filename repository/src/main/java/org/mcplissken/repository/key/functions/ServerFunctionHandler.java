@@ -9,7 +9,7 @@ import org.mcplissken.repository.key.exception.ServerFunctionException;
 
 /**
  * @author 	Sherief Shawky
- * @email 	sherif.shawki@mubasher.info
+ * @email 	mcrakens@gmail.com
  * @date 	Sep 9, 2014
  */
 public interface ServerFunctionHandler {

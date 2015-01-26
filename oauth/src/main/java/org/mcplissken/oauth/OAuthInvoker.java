@@ -15,7 +15,7 @@ import org.scribe.oauth.OAuthService;
 
 /**
  * @author 	Sherief Shawky
- * @email 	sherif.shawki@mubasher.info
+ * @email 	mcrakens@gmail.com
  * @date 	Dec 22, 2014
  */
 public abstract class OAuthInvoker<T> {

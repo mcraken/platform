@@ -11,7 +11,7 @@ import org.scribe.oauth.OAuthService;
 
 /**
  * @author 	Sherief Shawky
- * @email 	sherif.shawki@mubasher.info
+ * @email 	mcrakens@gmail.com
  * @date 	Jan 18, 2015
  */
 public class GoogleOauthAuthorizer extends OAuthAuthorizer {
@@ -25,7 +25,7 @@ public class GoogleOauthAuthorizer extends OAuthAuthorizer {
 	}
 
 	/* (non-Javadoc)
-	 * @see com.mubasher.market.security.oauth.OAuthAuthorizer#start(org.scribe.oauth.OAuthService)
+	 * @see org.mcplissken.security.oauth.OAuthAuthorizer#start(org.scribe.oauth.OAuthService)
 	 */
 	@Override
 	public String start() {
@@ -34,7 +34,7 @@ public class GoogleOauthAuthorizer extends OAuthAuthorizer {
 	}
 
 	/* (non-Javadoc)
-	 * @see com.mubasher.market.security.oauth.OAuthAuthorizer#createAccessToken(com.mubasher.market.security.oauth.HandshakeAdpater, org.scribe.oauth.OAuthService)
+	 * @see org.mcplissken.security.oauth.OAuthAuthorizer#createAccessToken(org.mcplissken.security.oauth.HandshakeAdpater, org.scribe.oauth.OAuthService)
 	 */
 	@Override
 	protected Token createAccessToken(HandshakeAdpater handshakeAdpater,

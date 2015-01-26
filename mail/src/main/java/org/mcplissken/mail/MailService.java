@@ -5,7 +5,7 @@ package org.mcplissken.mail;
 
 /**
  * @author 	Sherief Shawky
- * @email 	sherif.shawki@mubasher.info
+ * @email 	mcrakens@gmail.com
  * @date 	Aug 28, 2014
  */
 public interface MailService {

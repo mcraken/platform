@@ -14,7 +14,7 @@ import org.mcplissken.repository.index.IndexQueryAdapter;
 
 /**
  * @author 	Sherief Shawky
- * @email 	sherif.shawki@mubasher.info
+ * @email 	mcrakens@gmail.com
  * @date 	Nov 19, 2014
  */
 public class SolrjIndexRepository implements IndexRepository{
@@ -55,7 +55,7 @@ public class SolrjIndexRepository implements IndexRepository{
 	}
 	
 	/* (non-Javadoc)
-	 * @see com.mubasher.solrj.SolrjService#indexPorter()
+	 * @see org.mcplissken.solrj.SolrjService#indexPorter()
 	 */
 	public IndexPorter indexPorter(String coreName) {
 		
@@ -72,7 +72,7 @@ public class SolrjIndexRepository implements IndexRepository{
 	}
 
 	/* (non-Javadoc)
-	 * @see com.mubasher.market.solrj.SolrjService#queryAdapter(java.lang.String, com.mubasher.market.solrj.SolrDocumentObjectFactory, java.lang.String[])
+	 * @see org.mcplissken.solrj.SolrjService#queryAdapter(java.lang.String, org.mcplissken.solrj.SolrDocumentObjectFactory, java.lang.String[])
 	 */
 	@Override
 	public <T> IndexQueryAdapter<T> queryAdapter(String coreName,

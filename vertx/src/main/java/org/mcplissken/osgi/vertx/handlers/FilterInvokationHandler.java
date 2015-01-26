@@ -13,7 +13,7 @@ import org.vertx.java.core.http.HttpServerRequest;
 
 /**
  * @author Sherief Shawky
- * @email sherif.shawki@mubasher.info
+ * @email mcrakens@gmail.com
  * @date Aug 25, 2014
  */
 public class FilterInvokationHandler implements Handler<HttpServerRequest> {

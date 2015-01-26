@@ -7,7 +7,7 @@ import com.lmax.disruptor.EventFactory;
 
 /**
  * @author 	Sherief Shawky
- * @email 	sherif.shawki@mubasher.info
+ * @email 	mcrakens@gmail.com
  * @date 	Jul 6, 2014
  */
 public class DisruptorEventFactory<T> implements EventFactory<DisruptorEvent<T>> {

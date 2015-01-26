@@ -8,7 +8,7 @@ import org.mcplissken.datetime.dateback.DateBackStrategy;
 
 /**
  * @author 	Sherief Shawky
- * @email 	sherif.shawki@mubasher.info
+ * @email 	mcrakens@gmail.com
  * @date 	Sep 17, 2014
  */
 public interface DateBackResultFormatter {

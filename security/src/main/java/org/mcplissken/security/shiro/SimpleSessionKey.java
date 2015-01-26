@@ -9,7 +9,7 @@ import org.apache.shiro.session.mgt.SessionKey;
 
 /**
  * @author 	Sherief Shawky
- * @email 	sherif.shawki@mubasher.info
+ * @email 	mcrakens@gmail.com
  * @date 	Dec 24, 2014
  */
 public class SimpleSessionKey implements SessionKey {

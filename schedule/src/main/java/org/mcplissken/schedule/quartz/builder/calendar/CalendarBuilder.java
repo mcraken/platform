@@ -8,7 +8,7 @@ import org.quartz.SchedulerException;
 
 /**
  * @author 	Sherief Shawky
- * @email 	sherif.shawki@mubasher.info
+ * @email 	mcrakens@gmail.com
  * @date 	Oct 8, 2014
  */
 public interface CalendarBuilder {

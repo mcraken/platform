@@ -12,7 +12,7 @@
 	http://www.osgi.org/xmlns/blueprint/v1.0.0/blueprint.xsd" -->
 <blueprint xmlns="http://www.osgi.org/xmlns/blueprint/v1.0.0">
 
-	<bean id="tlsMailService" class="or.mcplissken.mail.TLSMailService"
+	<bean id="tlsMailService" class="org.mcplissken.mail.TLSMailService"
 		init-method="init">
 		<property name="userName" value="" />
 		<property name="password" value="" />
@@ -29,7 +29,7 @@
 	</bean>
 	
 	<service ref="tlsMailService"
-		interface="or.mcplissken.mail.MailService" />
+		interface="org.mcplissken.mail.MailService" />
 		
 </blueprint>
 

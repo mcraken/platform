@@ -12,16 +12,16 @@
 	http://www.osgi.org/xmlns/blueprint/v1.0.0/blueprint.xsd" -->
 <blueprint xmlns="http://www.osgi.org/xmlns/blueprint/v1.0.0">
 
-	<bean id="localizationService" class="com.mubasher.market.localization.impl.LocalizationServiceImpl">
+	<bean id="localizationService" class="org.mcplissken.localization.impl.LocalizationServiceImpl">
 		<property name="cacheService" ref="cacheService"/>
 		<property name="repository" ref="modelRepository"/>
 	</bean>
 	
-	<service ref="localizationService" interface="com.mubasher.market.localization.LocalizationService" />
+	<service ref="localizationService" interface="org.mcplissken.localization.LocalizationService" />
 	
-	<reference id="cacheService" interface="com.mubasher.market.cache.CacheService" />
+	<reference id="cacheService" interface="org.mcplissken.cache.CacheService" />
 
 	<reference id="modelRepository"
-		interface="com.mubasher.market.repository.ModelRepository" />
+		interface="org.mcplissken.repository.ModelRepository" />
 
 </blueprint>

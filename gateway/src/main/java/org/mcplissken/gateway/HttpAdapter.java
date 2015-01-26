@@ -12,7 +12,7 @@ import org.mcplissken.security.User;
 
 /**
  * @author 	Sherief Shawky
- * @email 	sherif.shawki@mubasher.info
+ * @email 	mcrakens@gmail.com
  * @date 	Aug 11, 2014
  */
 public interface HttpAdapter {

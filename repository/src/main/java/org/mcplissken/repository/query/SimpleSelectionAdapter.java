@@ -12,24 +12,24 @@ import org.mcplissken.repository.exception.NoResultException;
  * @email 	sherif.shawki@mubasher.info
  * @date 	Aug 31, 2014
  */
-public interface SimpleSelectionAdapter {
+public interface SimpleSelectionAdapter<T> {
 	
-	public SimpleSelectionAdapter eq(String name, Object value);
+	public SimpleSelectionAdapter<T> eq(String name, Object value);
 	
-	public SimpleSelectionAdapter gt(String name, Object value);
+	public SimpleSelectionAdapter<T> gt(String name, Object value);
 	
-	public SimpleSelectionAdapter gte(String name, Object value);
+	public SimpleSelectionAdapter<T> gte(String name, Object value);
 	
-	public SimpleSelectionAdapter and();
+	public SimpleSelectionAdapter<T> and();
 	
-	public SimpleSelectionAdapter or();
+	public SimpleSelectionAdapter<T> or();
 	
-	public SimpleSelectionAdapter orderBy(boolean asc, String... columns);
+	public SimpleSelectionAdapter<T> orderBy(boolean asc, String... columns);
 	
-	public SimpleSelectionAdapter page(int size);
+	public SimpleSelectionAdapter<T> page(int size);
 	
-	public SimpleSelectionAdapter lt(String name, Object value);
+	public SimpleSelectionAdapter<T> lt(String name, Object value);
 	
-	public List<?> result() throws NoResultException;
+	public List<T> result() throws NoResultException;
 
 }

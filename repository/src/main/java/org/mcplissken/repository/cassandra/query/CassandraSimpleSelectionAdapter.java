@@ -6,9 +6,9 @@ package org.mcplissken.repository.cassandra.query;
 import java.util.Iterator;
 import java.util.List;
 
+import org.mcplissken.repository.cassandra.CassandraRowMapper;
 import org.mcplissken.repository.exception.NoResultException;
 import org.mcplissken.repository.query.BasicSimpleSelectionAdapter;
-import org.springframework.cassandra.core.RowMapper;
 import org.springframework.data.cassandra.core.CassandraTemplate;
 
 import com.datastax.driver.core.querybuilder.Clause;
@@ -22,21 +22,21 @@ import com.datastax.driver.core.querybuilder.Select.Where;
  * @email 	sherif.shawki@mubasher.info
  * @date 	Aug 31, 2014
  */
-public class CassandraSimpleSelectionAdapter extends
-		BasicSimpleSelectionAdapter<Clause, Ordering> {
+public class CassandraSimpleSelectionAdapter<T> extends
+		BasicSimpleSelectionAdapter<T, Clause, Ordering> {
 	
 	private Select select;
 	private Where where;
 	
 	private CassandraTemplate cassandraTemplate;
-	private RowMapper<?> rowMapper;
+	private CassandraRowMapper<T> rowMapper;
 	/**
 	 * 
 	 */
 	public CassandraSimpleSelectionAdapter(
 			String modelName, 
 			CassandraTemplate cassandraTemplate,
-			RowMapper<?> rowMapper
+			CassandraRowMapper<T> rowMapper
 			) {
 		
 		this.cassandraTemplate = cassandraTemplate;
@@ -50,7 +50,7 @@ public class CassandraSimpleSelectionAdapter extends
 	}
 	
 	/* (non-Javadoc)
-	 * @see com.mubasher.market.repository.query.BasicSimpleSelectionAdapter#doEq(java.lang.String, java.lang.Object)
+	 * @see org.mcplissken.repository.query.BasicSimpleSelectionAdapter#doEq(java.lang.String, java.lang.Object)
 	 */
 	@Override
 	protected Clause doEq(String name, Object value) {
@@ -58,7 +58,7 @@ public class CassandraSimpleSelectionAdapter extends
 	}
 
 	/* (non-Javadoc)
-	 * @see com.mubasher.market.repository.query.BasicSimpleSelectionAdapter#doGt(java.lang.String, java.lang.Object)
+	 * @see org.mcplissken.repository.query.BasicSimpleSelectionAdapter#doGt(java.lang.String, java.lang.Object)
 	 */
 	@Override
 	protected Clause doGt(String name, Object value) {
@@ -66,7 +66,7 @@ public class CassandraSimpleSelectionAdapter extends
 	}
 	
 	/* (non-Javadoc)
-	 * @see com.mubasher.market.repository.query.BasicSimpleSelectionAdapter#doGte(java.lang.String, java.lang.Object)
+	 * @see org.mcplissken.repository.query.BasicSimpleSelectionAdapter#doGte(java.lang.String, java.lang.Object)
 	 */
 	@Override
 	protected Clause doGte(String name, Object value) {
@@ -74,7 +74,7 @@ public class CassandraSimpleSelectionAdapter extends
 	}
 	
 	/* (non-Javadoc)
-	 * @see com.mubasher.market.repository.query.BasicSimpleSelectionAdapter#doAnd(java.util.Iterator)
+	 * @see org.mcplissken.repository.query.BasicSimpleSelectionAdapter#doAnd(java.util.Iterator)
 	 */
 	@Override
 	protected void doAnd(Iterator<Clause> clauses) {
@@ -86,7 +86,7 @@ public class CassandraSimpleSelectionAdapter extends
 	}
 
 	/* (non-Javadoc)
-	 * @see com.mubasher.market.repository.query.BasicSimpleSelectionAdapter#doOr(java.util.Iterator)
+	 * @see org.mcplissken.repository.query.BasicSimpleSelectionAdapter#doOr(java.util.Iterator)
 	 */
 	@Override
 	protected void doOr(Iterator<Clause> clauses) {
@@ -95,14 +95,14 @@ public class CassandraSimpleSelectionAdapter extends
 	}
 	
 	/* (non-Javadoc)
-	 * @see com.mubasher.market.repository.query.SimpleSelectionAdapter#result()
+	 * @see org.mcplissken.repository.query.SimpleSelectionAdapter#result()
 	 */
 	@Override
-	public List<?> result() throws NoResultException {
+	public List<T> result() throws NoResultException {
 		
 		doAnd(criteria());
 		
-		List<?> result = cassandraTemplate.query(select, rowMapper);
+		List<T> result = cassandraTemplate.query(select, rowMapper);
 		
 		if(result.size() == 0)
 			throw new NoResultException();
@@ -111,7 +111,7 @@ public class CassandraSimpleSelectionAdapter extends
 	}
 
 	/* (non-Javadoc)
-	 * @see com.mubasher.market.repository.query.BasicSimpleSelectionAdapter#doLimit(java.lang.Object)
+	 * @see org.mcplissken.repository.query.BasicSimpleSelectionAdapter#doLimit(java.lang.Object)
 	 */
 	@Override
 	protected void doLimit(Clause clause, int size) {
@@ -119,7 +119,7 @@ public class CassandraSimpleSelectionAdapter extends
 	}
 
 	/* (non-Javadoc)
-	 * @see com.mubasher.market.repository.query.BasicSimpleSelectionAdapter#doLimit(int)
+	 * @see org.mcplissken.repository.query.BasicSimpleSelectionAdapter#doLimit(int)
 	 */
 	@Override
 	protected void doLimit(int size) {
@@ -128,7 +128,7 @@ public class CassandraSimpleSelectionAdapter extends
 	}
 
 	/* (non-Javadoc)
-	 * @see com.mubasher.market.repository.query.BasicSimpleSelectionAdapter#order(boolean)
+	 * @see org.mcplissken.repository.query.BasicSimpleSelectionAdapter#order(boolean)
 	 */
 	@Override
 	protected Ordering order(boolean asc, String column) {
@@ -137,7 +137,7 @@ public class CassandraSimpleSelectionAdapter extends
 	}
 
 	/* (non-Javadoc)
-	 * @see com.mubasher.market.repository.query.BasicSimpleSelectionAdapter#orderBy(java.util.List)
+	 * @see org.mcplissken.repository.query.BasicSimpleSelectionAdapter#orderBy(java.util.List)
 	 */
 	@Override
 	protected void orderBy(List<Ordering> orderings) {

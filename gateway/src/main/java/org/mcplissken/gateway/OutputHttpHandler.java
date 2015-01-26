@@ -14,13 +14,13 @@ import org.mcplissken.gateway.restful.exception.UnauthorizedException;
 
 /**
  * @author 	Sherief Shawky
- * @email 	sherif.shawki@mubasher.info
+ * @email 	mcrakens@gmail.com
  * @date 	Aug 10, 2014
  */
 public abstract class OutputHttpHandler extends BasicHttpHandler {
 
 	/* (non-Javadoc)
-	 * @see com.mubasher.gateway.BasicHttpHandler#service(com.mubasher.gateway.HttpAdapter, com.mubasher.gateway.restful.RESTfulRequest, com.mubasher.gateway.restful.RESTfulResponse)
+	 * @see org.mcplissken.gateway.BasicHttpHandler#service(org.mcplissken.gateway.HttpAdapter, org.mcplissken.gateway.restful.RESTfulRequest, org.mcplissken.gateway.restful.RESTfulResponse)
 	 */
 	@Override
 	public void service(HttpAdapter httpAdapter, RESTfulRequest request,

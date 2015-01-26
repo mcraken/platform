@@ -12,7 +12,7 @@ import org.mcplissken.repository.index.IndexPorter;
 
 /**
  * @author 	Sherief Shawky
- * @email 	sherif.shawki@mubasher.info
+ * @email 	mcrakens@gmail.com
  * @date 	Nov 19, 2014
  */
 public class SolrjIndexPorter implements IndexPorter {
@@ -29,7 +29,7 @@ public class SolrjIndexPorter implements IndexPorter {
 	}
 
 	/* (non-Javadoc)
-	 * @see com.mubasher.solrj.IndexPorter#port(java.lang.Object, java.lang.String[])
+	 * @see org.mcplissken.solrj.IndexPorter#port(java.lang.Object, java.lang.String[])
 	 */
 	public void port(Object target) throws IndexException {
 
@@ -52,7 +52,7 @@ public class SolrjIndexPorter implements IndexPorter {
 	}
 
 	/* (non-Javadoc)
-	 * @see com.mubasher.solrj.IndexPorter#commit()
+	 * @see org.mcplissken.solrj.IndexPorter#commit()
 	 */
 	public void commit() throws IndexException {
 		
@@ -67,7 +67,7 @@ public class SolrjIndexPorter implements IndexPorter {
 	}
 
 	/* (non-Javadoc)
-	 * @see com.mubasher.solrj.IndexPorter#shutdown()
+	 * @see org.mcplissken.solrj.IndexPorter#shutdown()
 	 */
 	public void shutdown() {
 		

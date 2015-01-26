@@ -16,7 +16,7 @@ import org.mcplissken.repository.index.QueryException;
 
 /**
  * @author 	Sherief Shawky
- * @email 	sherif.shawki@mubasher.info
+ * @email 	mcrakens@gmail.com
  * @date 	Jan 21, 2015
  */
 public class LocalizationServiceImpl implements LocalizationService {
@@ -40,7 +40,7 @@ public class LocalizationServiceImpl implements LocalizationService {
 	}
 	
 	/* (non-Javadoc)
-	 * @see com.mubasher.market.localization.LocalizationService#localize(java.lang.String, java.util.List)
+	 * @see org.mcplissken.localization.LocalizationService#localize(java.lang.String, java.util.List)
 	 */
 	@Override
 	public List<Localized> localize(String language, List<String> ids) throws LocalizationException{

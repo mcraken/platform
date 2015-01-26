@@ -5,7 +5,7 @@ package org.mcplissken.gateway.restful.exception;
 
 /**
  * @author 	Sherief Shawky
- * @email 	sherif.shawki@mubasher.info
+ * @email 	mcrakens@gmail.com
  * @date 	Aug 27, 2014
  */
 public class BadContentType extends Throwable {

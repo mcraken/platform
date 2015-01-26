@@ -10,7 +10,7 @@ import org.mcplissken.osgi.vertx.sockjs.SockJsApplication;
 
 /**
  * @author 	Sherief Shawky
- * @email 	sherif.shawki@mubasher.info
+ * @email 	mcrakens@gmail.com
  * @date 	Sep 7, 2014
  */
 public abstract class EventbusSockJsApplication extends SockJsApplication{
@@ -30,7 +30,7 @@ public abstract class EventbusSockJsApplication extends SockJsApplication{
 	}
 	
 	/* (non-Javadoc)
-	 * @see com.mubasher.osgi.vertx.sockjs.BasicSockJsApplication#createAgent(org.vertx.java.core.sockjs.SockJSSocket)
+	 * @see org.mcplissken.osgi.vertx.sockjs.BasicSockJsApplication#createAgent(org.vertx.java.core.sockjs.SockJSSocket)
 	 */
 	@Override
 	protected SockJsAgent createAgent(){

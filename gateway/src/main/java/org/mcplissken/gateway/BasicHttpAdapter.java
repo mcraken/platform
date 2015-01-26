@@ -10,7 +10,7 @@ import org.mcplissken.security.User;
 
 /**
  * @author 	Sherief Shawky
- * @email 	sherif.shawki@mubasher.info
+ * @email 	mcrakens@gmail.com
  * @date 	Nov 9, 2014
  */
 public abstract class BasicHttpAdapter implements HttpAdapter{
@@ -23,7 +23,7 @@ public abstract class BasicHttpAdapter implements HttpAdapter{
 	protected User user;
 
 	/* (non-Javadoc)
-	 * @see com.mubasher.gateway.HttpAdapter#getUser()
+	 * @see org.mcplissken.gateway.HttpAdapter#getUser()
 	 */
 	@Override
 	public User getUser() {
@@ -31,7 +31,7 @@ public abstract class BasicHttpAdapter implements HttpAdapter{
 	}
 
 	/* (non-Javadoc)
-	 * @see com.mubasher.gateway.HttpAdapter#updateSession()
+	 * @see org.mcplissken.gateway.HttpAdapter#updateSession()
 	 */
 	@Override
 	public void setUser(User user) {
@@ -44,7 +44,7 @@ public abstract class BasicHttpAdapter implements HttpAdapter{
 	}
 
 	/* (non-Javadoc)
-	 * @see com.mubasher.gateway.HttpAdapter#isPathAccessible()
+	 * @see org.mcplissken.gateway.HttpAdapter#isPathAccessible()
 	 */
 	@Override
 	public void isPathAccessible() throws PathNotAccessibleException{
@@ -58,7 +58,7 @@ public abstract class BasicHttpAdapter implements HttpAdapter{
 	}
 
 	/* (non-Javadoc)
-	 * @see com.mubasher.gateway.HttpAdapter#exception(com.mubasher.gateway.restful.exception.RESTfulException)
+	 * @see org.mcplissken.gateway.HttpAdapter#exception(org.mcplissken.gateway.restful.exception.RESTfulException)
 	 */
 	@Override
 	public void exception(RESTfulException exception) {
@@ -95,7 +95,7 @@ public abstract class BasicHttpAdapter implements HttpAdapter{
 	}
 
 	/* (non-Javadoc)
-	 * @see com.mubasher.gateway.HttpAdapter#error(java.lang.Exception)
+	 * @see org.mcplissken.gateway.HttpAdapter#error(java.lang.Exception)
 	 */
 	@Override
 	public void error(Exception exception) {
@@ -104,7 +104,7 @@ public abstract class BasicHttpAdapter implements HttpAdapter{
 	}
 	
 	/* (non-Javadoc)
-	 * @see com.mubasher.gateway.HttpAdapter#login(java.lang.String, java.lang.String, boolean)
+	 * @see org.mcplissken.gateway.HttpAdapter#login(java.lang.String, java.lang.String, boolean)
 	 */
 	@Override
 	public void login(String email, String password, boolean rememberMe) throws AuthenticationFailureException {

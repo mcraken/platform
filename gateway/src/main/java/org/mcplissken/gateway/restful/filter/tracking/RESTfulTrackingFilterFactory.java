@@ -14,7 +14,7 @@ import org.mcplissken.repository.ModelRepository;
 
 /**
  * @author 	Sherief Shawky
- * @email 	sherif.shawki@mubasher.info
+ * @email 	mcrakens@gmail.com
  * @date 	Jan 11, 2015
  */
 public class RESTfulTrackingFilterFactory implements RESTfulFilterFactory{
@@ -73,7 +73,7 @@ public class RESTfulTrackingFilterFactory implements RESTfulFilterFactory{
 	}
 	
 	/* (non-Javadoc)
-	 * @see com.mubasher.gateway.restful.filter.RESTfulFilterFactory#createFilter()
+	 * @see org.mcplissken.gateway.restful.filter.RESTfulFilterFactory#createFilter()
 	 */
 	@Override
 	public RESTfulFilter createFilter() {

@@ -5,7 +5,7 @@ package org.mcplissken.repository.key.exception;
 
 /**
  * @author 	Sherief Shawky
- * @email 	sherif.shawki@mubasher.info
+ * @email 	mcrakens@gmail.com
  * @date 	Sep 4, 2014
  */
 public class InvalidCriteriaException extends Exception {

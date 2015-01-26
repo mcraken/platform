@@ -14,7 +14,7 @@ import org.mcplissken.repository.key.exception.InvalidCriteriaException;
 
 /**
  * @author 	Sherief Shawky
- * @email 	sherif.shawki@mubasher.info
+ * @email 	mcrakens@gmail.com
  * @date 	Sep 4, 2014
  */
 public abstract class BasicCriteriaHandler implements CriteriaHandler{

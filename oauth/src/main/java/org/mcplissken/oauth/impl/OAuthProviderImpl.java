@@ -15,7 +15,7 @@ import org.mcplissken.repository.models.account.Profile;
 
 /**
  * @author 	Sherief Shawky
- * @email 	sherif.shawki@mubasher.info
+ * @email 	mcrakens@gmail.com
  * @date 	Jan 19, 2015
  */
 public class OAuthProviderImpl implements OAuthProvider {
@@ -30,7 +30,7 @@ public class OAuthProviderImpl implements OAuthProvider {
 	}
 	
 	/* (non-Javadoc)
-	 * @see com.mubasher.market.oauth.OAuthService#authorizer(java.lang.String)
+	 * @see org.mcplissken.oauth.OAuthService#authorizer(java.lang.String)
 	 */
 	@Override
 	public OAuthAuthorizer authorizer(String provider) throws OauthProviderNotSupported {
@@ -41,7 +41,7 @@ public class OAuthProviderImpl implements OAuthProvider {
 	}
 
 	/* (non-Javadoc)
-	 * @see com.mubasher.market.oauth.OAuthService#profile(java.lang.String)
+	 * @see org.mcplissken.oauth.OAuthService#profile(java.lang.String)
 	 */
 	@Override
 	public OAuthInvoker<Profile> profile(String provider, Oauth oauth) throws OauthProviderNotSupported {

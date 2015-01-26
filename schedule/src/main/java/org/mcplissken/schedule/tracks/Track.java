@@ -13,7 +13,7 @@ import org.mcplissken.schedule.exception.ScheduleException;
 
 /**
  * @author 	Sherief Shawky
- * @email 	sherif.shawki@mubasher.info
+ * @email 	mcrakens@gmail.com
  * @date 	Sep 29, 2014
  */
 public abstract class Track implements ScheduledJob{
@@ -112,7 +112,7 @@ public abstract class Track implements ScheduledJob{
 	}
 
 	/* (non-Javadoc)
-	 * @see com.mubasher.market.schedule.ScheduledJob#execute(com.mubasher.market.schedule.ScheduleContext)
+	 * @see org.mcplissken.schedule.ScheduledJob#execute(org.mcplissken.schedule.ScheduleContext)
 	 */
 	@Override
 	public void execute(ScheduleContext context) throws ScheduleException {

@@ -11,7 +11,7 @@ import org.quartz.SimpleScheduleBuilder;
 
 /**
  * @author 	Sherief Shawky
- * @email 	sherif.shawki@mubasher.info
+ * @email 	mcrakens@gmail.com
  * @date 	Sep 29, 2014
  */
 public class SecondlyScheduleBuilder extends BasicScheduleBuilder {
@@ -32,7 +32,7 @@ public class SecondlyScheduleBuilder extends BasicScheduleBuilder {
 	}
 	
 	/* (non-Javadoc)
-	 * @see com.mubasher.market.schedule.quartz.builder.QuartzScheduleBuilder#ignoreMisfies()
+	 * @see org.mcplissken.schedule.quartz.builder.QuartzScheduleBuilder#ignoreMisfies()
 	 */
 	@Override
 	public void ignoreMisfires() {
@@ -41,7 +41,7 @@ public class SecondlyScheduleBuilder extends BasicScheduleBuilder {
 	}
 
 	/* (non-Javadoc)
-	 * @see com.mubasher.market.schedule.quartz.builder.BasicScheduleBuilder#getScheduleBuilder()
+	 * @see org.mcplissken.schedule.quartz.builder.BasicScheduleBuilder#getScheduleBuilder()
 	 */
 	@Override
 	protected ScheduleBuilder<?> getScheduleBuilder() {
@@ -50,7 +50,7 @@ public class SecondlyScheduleBuilder extends BasicScheduleBuilder {
 	}
 
 	/* (non-Javadoc)
-	 * @see com.mubasher.market.schedule.quartz.builder.schedule.QuartzScheduleBuilder#runOnceOnMisfire()
+	 * @see org.mcplissken.schedule.quartz.builder.schedule.QuartzScheduleBuilder#runOnceOnMisfire()
 	 */
 	@Override
 	public void runOnceOnMisfire() {
@@ -60,7 +60,7 @@ public class SecondlyScheduleBuilder extends BasicScheduleBuilder {
 	}
 
 	/* (non-Javadoc)
-	 * @see com.mubasher.market.schedule.quartz.builder.schedule.QuartzScheduleBuilder#inTimeZone(java.lang.String)
+	 * @see org.mcplissken.schedule.quartz.builder.schedule.QuartzScheduleBuilder#inTimeZone(java.lang.String)
 	 */
 	@Override
 	public void inTimeZone(String timeZone) {

@@ -3,7 +3,6 @@
  */
 package org.mcplissken.security.shiro;
 
-import java.util.Arrays;
 import java.util.List;
 
 import org.apache.shiro.authc.AuthenticationException;
@@ -108,9 +107,9 @@ public class RepositoryRealm extends AuthorizingRealm {
 
 	private void selectAllRoles() throws NoResultException {
 
-		SimpleSelectionAdapter selectionAdapter = modelRepository.createSimpleSelectionAdapter("role");
+		SimpleSelectionAdapter<Role> selectionAdapter = modelRepository.createSimpleSelectionAdapter("role");
 
-		allRoles = Arrays.asList(selectionAdapter.result().toArray(new Role[]{}));
+		allRoles = selectionAdapter.result();
 	}
 
 }

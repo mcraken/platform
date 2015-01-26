@@ -83,7 +83,7 @@
 							org.mcplissken.repository.models.tracking,
 							org.mcplissken.disruptor.workerpool,
 							org.mcplissken.security,
-							com.mubasher.market.localization,
+							org.mcplissken.localization,
 							com.google.gson,
 							org.apache.commons.beanutils,
 							!*

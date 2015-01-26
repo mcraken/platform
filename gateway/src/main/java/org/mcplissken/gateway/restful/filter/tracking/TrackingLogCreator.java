@@ -10,7 +10,7 @@ import org.mcplissken.repository.models.RestModel;
 
 /**
  * @author 	Sherief Shawky
- * @email 	sherif.shawki@mubasher.info
+ * @email 	mcrakens@gmail.com
  * @date 	Jan 12, 2015
  */
 public interface TrackingLogCreator {

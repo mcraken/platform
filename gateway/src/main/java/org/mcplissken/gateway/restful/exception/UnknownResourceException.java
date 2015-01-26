@@ -5,7 +5,7 @@ package org.mcplissken.gateway.restful.exception;
 
 /**
  * @author 	Sherief Shawky
- * @email 	sherif.shawki@mubasher.info
+ * @email 	mcrakens@gmail.com
  * @date 	Jan 6, 2015
  */
 public class UnknownResourceException extends RESTfulException{
@@ -24,7 +24,7 @@ public class UnknownResourceException extends RESTfulException{
 	}
 
 	/* (non-Javadoc)
-	 * @see com.mubasher.gateway.restful.exception.RESTfulException#getErrorCode()
+	 * @see org.mcplissken.gateway.restful.exception.RESTfulException#getErrorCode()
 	 */
 	@Override
 	public int getErrorCode() {

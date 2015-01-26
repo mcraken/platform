@@ -7,7 +7,7 @@ import java.util.Random;
 
 /**
  * @author 	Sherief Shawky
- * @email 	sherif.shawki@mubasher.info
+ * @email 	mcrakens@gmail.com
  * @date 	Oct 1, 2014
  */
 public class WorkerpoolTest {

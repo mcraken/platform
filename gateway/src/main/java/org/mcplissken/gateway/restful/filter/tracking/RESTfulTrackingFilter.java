@@ -14,7 +14,7 @@ import org.mcplissken.repository.ModelRepository;
 
 /**
  * @author 	Sherief Shawky
- * @email 	sherif.shawki@mubasher.info
+ * @email 	mcrakens@gmail.com
  * @date 	Jan 11, 2015
  */
 public class RESTfulTrackingFilter extends BasicRESTfulFilter {
@@ -36,7 +36,7 @@ public class RESTfulTrackingFilter extends BasicRESTfulFilter {
 	}
 
 	/* (non-Javadoc)
-	 * @see com.mubasher.gateway.restful.filter.BasicRESTfulFilter#doFilter(com.mubasher.gateway.HttpAdapter)
+	 * @see org.mcplissken.gateway.restful.filter.BasicRESTfulFilter#doFilter(org.mcplissken.gateway.HttpAdapter)
 	 */
 	@Override
 	protected void doFilter(HttpAdapter httpAdapter)

@@ -8,7 +8,7 @@ import org.mcplissken.schedule.exception.ScheduleException;
 
 /**
  * @author 	Sherief Shawky
- * @email 	sherif.shawki@mubasher.info
+ * @email 	mcrakens@gmail.com
  * @date 	Dec 14, 2014
  */
 public abstract class ScheduledChainJob implements ScheduledJob{
@@ -35,7 +35,7 @@ public abstract class ScheduledChainJob implements ScheduledJob{
 	}
 
 	/* (non-Javadoc)
-	 * @see com.mubasher.market.schedule.ScheduledJob#execute(com.mubasher.market.schedule.ScheduleContext)
+	 * @see org.mcplissken.schedule.ScheduledJob#execute(org.mcplissken.schedule.ScheduleContext)
 	 */
 	@Override
 	public void execute(ScheduleContext context) throws ScheduleException {

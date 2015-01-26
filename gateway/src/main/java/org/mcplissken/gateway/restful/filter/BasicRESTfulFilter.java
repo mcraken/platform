@@ -10,7 +10,7 @@ import org.mcplissken.gateway.restful.exception.UnknownResourceException;
 
 /**
  * @author 	Sherief Shawky
- * @email 	sherif.shawki@mubasher.info
+ * @email 	mcrakens@gmail.com
  * @date 	Nov 9, 2014
  */
 public abstract class BasicRESTfulFilter implements RESTfulFilter {
@@ -18,7 +18,7 @@ public abstract class BasicRESTfulFilter implements RESTfulFilter {
 	private RESTfulFilter nextFilter;
 
 	/* (non-Javadoc)
-	 * @see com.mubasher.gateway.restful.filter.RESTfulFilter#next(com.mubasher.gateway.HttpAdapter)
+	 * @see org.mcplissken.gateway.restful.filter.RESTfulFilter#next(org.mcplissken.gateway.HttpAdapter)
 	 */
 	@Override
 	public void next(HttpAdapter httpAdapter) throws BadRequestException,
@@ -29,7 +29,7 @@ public abstract class BasicRESTfulFilter implements RESTfulFilter {
 	}
 
 	/* (non-Javadoc)
-	 * @see com.mubasher.gateway.restful.filter.RESTfulFilter#setNextFilter(com.mubasher.gateway.restful.filter.RESTfulFilter)
+	 * @see org.mcplissken.gateway.restful.filter.RESTfulFilter#setNextFilter(org.mcplissken.gateway.restful.filter.RESTfulFilter)
 	 */
 	@Override
 	public void setNextFilter(RESTfulFilter nextFilter) {
@@ -39,7 +39,7 @@ public abstract class BasicRESTfulFilter implements RESTfulFilter {
 	}
 
 	/* (non-Javadoc)
-	 * @see com.mubasher.gateway.restful.filter.RESTfulFilter#filter(com.mubasher.gateway.HttpAdapter)
+	 * @see org.mcplissken.gateway.restful.filter.RESTfulFilter#filter(org.mcplissken.gateway.HttpAdapter)
 	 */
 	@Override
 	public void filter(HttpAdapter httpAdapter) throws BadRequestException, UnauthorizedException, UnknownResourceException {

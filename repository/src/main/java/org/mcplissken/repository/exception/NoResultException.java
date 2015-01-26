@@ -5,7 +5,7 @@ package org.mcplissken.repository.exception;
 
 /**
  * @author 	Sherief Shawky
- * @email 	sherif.shawki@mubasher.info
+ * @email 	mcrakens@gmail.com
  * @date 	Sep 14, 2014
  */
 public class NoResultException extends Exception {

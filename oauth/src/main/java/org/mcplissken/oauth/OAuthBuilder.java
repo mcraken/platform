@@ -10,7 +10,7 @@ import org.mcplissken.repository.models.account.Profile;
 
 /**
  * @author 	Sherief Shawky
- * @email 	sherif.shawki@mubasher.info
+ * @email 	mcrakens@gmail.com
  * @date 	Dec 22, 2014
  */
 public interface OAuthBuilder {

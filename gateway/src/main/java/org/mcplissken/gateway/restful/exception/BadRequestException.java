@@ -5,7 +5,7 @@ package org.mcplissken.gateway.restful.exception;
 
 /**
  * @author 	Sherief Shawky
- * @email 	sherif.shawki@mubasher.info
+ * @email 	mcrakens@gmail.com
  * @date 	Aug 26, 2014
  */
 public class BadRequestException extends RESTfulException{
@@ -23,7 +23,7 @@ public class BadRequestException extends RESTfulException{
 	private static final long serialVersionUID = 1L;
 
 	/* (non-Javadoc)
-	 * @see com.mubasher.gateway.restful.exception.RESTfulException#getErrorCode()
+	 * @see org.mcplissken.gateway.restful.exception.RESTfulException#getErrorCode()
 	 */
 	@Override
 	public int getErrorCode() {

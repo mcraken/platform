@@ -5,7 +5,7 @@ package org.mcplissken.gateway.restful.exception;
 
 /**
  * @author 	Sherief Shawky
- * @email 	sherif.shawki@mubasher.info
+ * @email 	mcrakens@gmail.com
  * @date 	Jan 20, 2015
  */
 public class RedirectException extends Exception {

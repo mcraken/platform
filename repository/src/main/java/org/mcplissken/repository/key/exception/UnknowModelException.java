@@ -5,7 +5,7 @@ package org.mcplissken.repository.key.exception;
 
 /**
  * @author 	Sherief Shawky
- * @email 	sherif.shawki@mubasher.info
+ * @email 	mcrakens@gmail.com
  * @date 	Sep 7, 2014
  */
 public class UnknowModelException extends Exception {

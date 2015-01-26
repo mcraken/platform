@@ -9,7 +9,7 @@ import org.mcplissken.security.SecurityService;
 
 /**
  * @author 	Sherief Shawky
- * @email 	sherif.shawki@mubasher.info
+ * @email 	mcrakens@gmail.com
  * @date 	Nov 9, 2014
  */
 public class RESTfullSessionFilterFactory implements RESTfulFilterFactory{
@@ -24,7 +24,7 @@ public class RESTfullSessionFilterFactory implements RESTfulFilterFactory{
 	}
 	
 	/* (non-Javadoc)
-	 * @see com.mubasher.gateway.restful.filter.RESTfulFilterFactory#createFilter()
+	 * @see org.mcplissken.gateway.restful.filter.RESTfulFilterFactory#createFilter()
 	 */
 	@Override
 	public RESTfulFilter createFilter() {

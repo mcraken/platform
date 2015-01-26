@@ -30,7 +30,7 @@ import org.vertx.java.core.sockjs.SockJSServer;
 
 /**
  * @author 	Sherief Shawky
- * @email 	sherif.shawki@mubasher.info
+ * @email 	mcrakens@gmail.com
  * @date 	Aug 2, 2014
  */
 public class VertxGateway implements HttpGateway, SockJsGateway {
@@ -160,7 +160,7 @@ public class VertxGateway implements HttpGateway, SockJsGateway {
 	}
 
 	/* (non-Javadoc)
-	 * @see com.mubasher.osgi.gateway.HttpGateway#unregisterRESTfulHandler(io.netty.handler.codec.http.HttpMethod, java.lang.String)
+	 * @see org.mcplissken.osgi.gateway.HttpGateway#unregisterRESTfulHandler(io.netty.handler.codec.http.HttpMethod, java.lang.String)
 	 */
 	@Override
 	public void unregisterHttpHandler(String method, String path) {
@@ -175,7 +175,7 @@ public class VertxGateway implements HttpGateway, SockJsGateway {
 	}
 
 	/* (non-Javadoc)
-	 * @see com.mubasher.gateway.SockJsGateway#registerAgentApplication(java.lang.String, java.lang.Object)
+	 * @see org.mcplissken.gateway.SockJsGateway#registerAgentApplication(java.lang.String, java.lang.Object)
 	 */
 	@Override
 	public void registerAgentApplication(String path, String contentType, SockJsApplication app) {
@@ -191,7 +191,7 @@ public class VertxGateway implements HttpGateway, SockJsGateway {
 	}
 
 	/* (non-Javadoc)
-	 * @see com.mubasher.gateway.HttpGateway#regitserHttpHandler(java.lang.String, java.lang.String, com.mubasher.gateway.BasicHttpHandler, com.mubasher.gateway.restful.filter.RESTfullServiceFilterConfig)
+	 * @see org.mcplissken.gateway.HttpGateway#regitserHttpHandler(java.lang.String, java.lang.String, org.mcplissken.gateway.BasicHttpHandler, org.mcplissken.gateway.restful.filter.RESTfullServiceFilterConfig)
 	 */
 	@Override
 	public void registerHttpHandler(

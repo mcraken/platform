@@ -15,7 +15,7 @@ import org.mcplissken.repository.key.functions.dateback.formatter.DateBackResult
 
 /**
  * @author 	Sherief Shawky
- * @email 	sherif.shawki@mubasher.info
+ * @email 	mcrakens@gmail.com
  * @date 	Sep 9, 2014
  */
 public class DateBack extends BasicServerFunction implements ServerFunctionHandler {
@@ -40,7 +40,7 @@ public class DateBack extends BasicServerFunction implements ServerFunctionHandl
 	}
 
 	/* (non-Javadoc)
-	 * @see com.mubasher.market.repository.key.functions.ServerFunctionHandler#handle(com.mubasher.market.repository.ModelRepository, java.lang.String, java.lang.String, java.lang.String)
+	 * @see org.mcplissken.repository.key.functions.ServerFunctionHandler#handle(org.mcplissken.repository.ModelRepository, java.lang.String, java.lang.String, java.lang.String)
 	 */
 	@Override
 	protected String resolveFunction(

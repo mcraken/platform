@@ -5,7 +5,7 @@ package org.mcplissken.gateway.restful.exception;
 
 /**
  * @author 	Sherief Shawky
- * @email 	sherif.shawki@mubasher.info
+ * @email 	mcrakens@gmail.com
  * @date 	Aug 26, 2014
  */
 public abstract class RESTfulException extends Exception{

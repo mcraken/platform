@@ -31,7 +31,7 @@ import org.vertx.java.platform.PlatformManager;
 
 /**
  * @author 	Sherief Shawky
- * @email 	sherif.shawki@mubasher.info
+ * @email 	mcrakens@gmail.com
  * @date 	Aug 14, 2014
  */
 public class VertxFactory implements VertxService, VertxEventBusService, HttpWebService{
@@ -156,7 +156,7 @@ public class VertxFactory implements VertxService, VertxEventBusService, HttpWeb
 
 
 	/* (non-Javadoc)
-	 * @see com.mubasher.osgi.vertx.VertxService#vertxGateway(java.lang.String, int, java.lang.String, java.lang.String, java.lang.String, java.util.Map, java.util.Map)
+	 * @see org.mcplissken.osgi.vertx.VertxService#vertxGateway(java.lang.String, int, java.lang.String, java.lang.String, java.lang.String, java.util.Map, java.util.Map)
 	 */
 	@Override
 	public VertxGateway vertxGateway(
@@ -198,7 +198,7 @@ public class VertxFactory implements VertxService, VertxEventBusService, HttpWeb
 	}
 
 	/* (non-Javadoc)
-	 * @see com.mubasher.osgi.vertx.VertxEventBusService#subscribe(java.lang.String, com.mubasher.osgi.vertx.EventBusHandler)
+	 * @see org.mcplissken.osgi.vertx.VertxEventBusService#subscribe(java.lang.String, org.mcplissken.osgi.vertx.EventBusHandler)
 	 */
 	@Override
 	public void subscribe(String address, TextEventBusHandler handler) {
@@ -207,7 +207,7 @@ public class VertxFactory implements VertxService, VertxEventBusService, HttpWeb
 	}
 
 	/* (non-Javadoc)
-	 * @see com.mubasher.osgi.vertx.VertxEventBusService#unsubscribe(java.lang.String, com.mubasher.osgi.vertx.EventBusHandler)
+	 * @see org.mcplissken.osgi.vertx.VertxEventBusService#unsubscribe(java.lang.String, org.mcplissken.osgi.vertx.EventBusHandler)
 	 */
 	@Override
 	public void unsubscribe(String address, TextEventBusHandler handler) {
@@ -216,7 +216,7 @@ public class VertxFactory implements VertxService, VertxEventBusService, HttpWeb
 	}
 
 	/* (non-Javadoc)
-	 * @see com.mubasher.osgi.vertx.VertxService#deployModule(java.lang.String, java.util.HashMap)
+	 * @see org.mcplissken.osgi.vertx.VertxService#deployModule(java.lang.String, java.util.HashMap)
 	 */
 	@Override
 	public void deployModule(String moduleName, Map<String, Object> configMap) {
@@ -227,7 +227,7 @@ public class VertxFactory implements VertxService, VertxEventBusService, HttpWeb
 	}
 
 	/* (non-Javadoc)
-	 * @see com.mubasher.osgi.vertx.eventbus.VertxEventBusService#subscribe(java.lang.String, com.mubasher.osgi.vertx.eventbus.JsonEventbusHandler)
+	 * @see org.mcplissken.osgi.vertx.eventbus.VertxEventBusService#subscribe(java.lang.String, org.mcplissken.osgi.vertx.eventbus.JsonEventbusHandler)
 	 */
 	@Override
 	public void subscribe(String address, JsonEventbusHandler handler) {
@@ -235,7 +235,7 @@ public class VertxFactory implements VertxService, VertxEventBusService, HttpWeb
 	}
 
 	/* (non-Javadoc)
-	 * @see com.mubasher.osgi.vertx.eventbus.VertxEventBusService#unsubscribe(java.lang.String, com.mubasher.osgi.vertx.eventbus.JsonEventbusHandler)
+	 * @see org.mcplissken.osgi.vertx.eventbus.VertxEventBusService#unsubscribe(java.lang.String, org.mcplissken.osgi.vertx.eventbus.JsonEventbusHandler)
 	 */
 	@Override
 	public void unsubscribe(String address, JsonEventbusHandler handler) {
@@ -244,7 +244,7 @@ public class VertxFactory implements VertxService, VertxEventBusService, HttpWeb
 	}
 
 	/* (non-Javadoc)
-	 * @see com.mubasher.osgi.vertx.eventbus.VertxEventBusService#publish(java.lang.String, org.vertx.java.core.json.JsonObject)
+	 * @see org.mcplissken.osgi.vertx.eventbus.VertxEventBusService#publish(java.lang.String, org.vertx.java.core.json.JsonObject)
 	 */
 	@Override
 	public void publish(String address, String message) {
@@ -252,7 +252,7 @@ public class VertxFactory implements VertxService, VertxEventBusService, HttpWeb
 	}
 
 	/* (non-Javadoc)
-	 * @see com.mubasher.osgi.vertx.eventbus.VertxEventBusService#publish(java.lang.String, java.lang.Object, java.lang.String)
+	 * @see org.mcplissken.osgi.vertx.eventbus.VertxEventBusService#publish(java.lang.String, java.lang.Object, java.lang.String)
 	 */
 	@Override
 	public void publish(String address, Object message, String contentType) {
@@ -271,7 +271,7 @@ public class VertxFactory implements VertxService, VertxEventBusService, HttpWeb
 	}
 	
 	/* (non-Javadoc)
-	 * @see com.mubasher.gateway.HttpGateway#createReadingHttpClient()
+	 * @see org.mcplissken.gateway.HttpGateway#createReadingHttpClient()
 	 */
 	@Override
 	public AsynchronousReadingHttpClient createReadingHttpClient() {

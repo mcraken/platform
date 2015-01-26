@@ -11,13 +11,13 @@ import org.mcplissken.gateway.restful.filter.BasicRESTfulFilter;
 
 /**
  * @author 	Sherief Shawky
- * @email 	sherif.shawki@mubasher.info
+ * @email 	mcrakens@gmail.com
  * @date 	Nov 10, 2014
  */
 public class RESTfulPathFilter extends BasicRESTfulFilter {
 
 	/* (non-Javadoc)
-	 * @see com.mubasher.gateway.restful.filter.BasicRESTfulFilter#doFilter(com.mubasher.gateway.HttpAdapter)
+	 * @see org.mcplissken.gateway.restful.filter.BasicRESTfulFilter#doFilter(org.mcplissken.gateway.HttpAdapter)
 	 */
 	@Override
 	protected void doFilter(HttpAdapter httpAdapter)

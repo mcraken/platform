@@ -9,7 +9,7 @@ import org.vertx.java.core.json.JsonObject;
 
 /**
  * @author 	Sherief Shawky
- * @email 	sherif.shawki@mubasher.info
+ * @email 	mcrakens@gmail.com
  * @date 	Sep 22, 2014
  */
 public abstract class JsonEventbusHandler implements Handler<Message<JsonObject>>{

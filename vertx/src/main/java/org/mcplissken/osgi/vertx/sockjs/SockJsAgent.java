@@ -11,7 +11,7 @@ import org.vertx.java.core.buffer.Buffer;
 import org.vertx.java.core.sockjs.SockJSSocket;
 /**
  * @author 	Sherief Shawky
- * @email 	sherif.shawki@mubasher.info
+ * @email 	mcrakens@gmail.com
  * @date 	Aug 14, 2014
  */
 public abstract class SockJsAgent  {

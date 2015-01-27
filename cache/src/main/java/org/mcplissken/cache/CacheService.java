@@ -3,6 +3,8 @@
  */
 package org.mcplissken.cache;
 
+import java.util.List;
+
 import org.mcplissken.repository.key.RestSearchKey;
 import org.mcplissken.repository.key.exception.InvalidCriteriaException;
 import org.mcplissken.repository.key.exception.InvalidCriteriaSyntaxException;
@@ -16,6 +18,8 @@ import org.mcplissken.repository.models.RestModel;
  */
 public interface CacheService {
 
+	public <T> void regitserCache(String name, boolean eternal, List<CacheAttributeExtractor<T>> extractors);
+	
 	public Object read(String modelName, Object key);
 	
 	public Object read(RestSearchKey key) throws InvalidCriteriaSyntaxException, InvalidCriteriaException, UnknowModelException;

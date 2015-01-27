@@ -13,11 +13,14 @@ import net.sf.ehcache.Cache;
 import net.sf.ehcache.CacheManager;
 import net.sf.ehcache.Ehcache;
 import net.sf.ehcache.Element;
+import net.sf.ehcache.config.CacheConfiguration;
+import net.sf.ehcache.config.Searchable;
 import net.sf.ehcache.constructs.blocking.SelfPopulatingCache;
 import net.sf.ehcache.search.Query;
 import net.sf.ehcache.search.Result;
 import net.sf.ehcache.search.expression.Criteria;
 
+import org.mcplissken.cache.CacheAttributeExtractor;
 import org.mcplissken.cache.CacheService;
 import org.mcplissken.cache.KeySelectionAdapter;
 import org.mcplissken.cache.ValueSelectionAdapter;
@@ -118,7 +121,7 @@ public class EhcacheService implements CacheService {
 	}
 	
 	/* (non-Javadoc)
-	 * @see org.mcplissken.cache.CacheService#writeThrough(java.lang.String, java.lang.Object, java.lang.Object)
+	 * @see com.mubasher.market.cache.CacheService#writeThrough(java.lang.String, java.lang.Object, java.lang.Object)
 	 */
 	@Override
 	public void writeThrough(String cacheName, Object key, Object modelObject) {
@@ -151,7 +154,7 @@ public class EhcacheService implements CacheService {
 	}
 
 	/* (non-Javadoc)
-	 * @see org.mcplissken.cache.CacheService#createIntegerKeySelectionAdapter()
+	 * @see com.mubasher.market.cache.CacheService#createIntegerKeySelectionAdapter()
 	 */
 	@Override
 	public KeySelectionAdapter createKeySelectionAdapter(String cacheName) {
@@ -160,7 +163,7 @@ public class EhcacheService implements CacheService {
 	}
 
 	/* (non-Javadoc)
-	 * @see org.mcplissken.cache.CacheService#read(java.lang.String, java.lang.Object)
+	 * @see com.mubasher.market.cache.CacheService#read(java.lang.String, java.lang.Object)
 	 */
 	@Override
 	public Object read(String modelName, Object key) {
@@ -173,7 +176,7 @@ public class EhcacheService implements CacheService {
 	}
 
 	/* (non-Javadoc)
-	 * @see org.mcplissken.cache.CacheService#createValueSelectionAdapter(java.lang.String)
+	 * @see com.mubasher.market.cache.CacheService#createValueSelectionAdapter(java.lang.String)
 	 */
 	@Override
 	public ValueSelectionAdapter createValueSelectionAdapter(String cacheName) {
@@ -181,7 +184,7 @@ public class EhcacheService implements CacheService {
 	}
 
 	/* (non-Javadoc)
-	 * @see org.mcplissken.cache.CacheService#read(org.mcplissken.cache.key.RestSearchKey)
+	 * @see com.mubasher.market.cache.CacheService#read(com.mubasher.market.cache.key.RestSearchKey)
 	 */
 	@Override
 	public Object read(RestSearchKey key) 
@@ -262,13 +265,42 @@ public class EhcacheService implements CacheService {
 	}
 
 	/* (non-Javadoc)
-	 * @see org.mcplissken.cache.CacheService#write(java.lang.String, java.util.List)
+	 * @see com.mubasher.market.cache.CacheService#write(java.lang.String, java.util.List)
 	 */
 	@Override
 	public void write(String cacheName, RestModel[] models) {
 		
 		for(RestModel model : models)
 			write(cacheName, model.getUniqueId(), model);
+	}
+
+	/* (non-Javadoc)
+	 * @see com.mubasher.market.cache.CacheService#regitserCache(java.lang.String, boolean, java.util.List)
+	 */
+	@Override
+	public <T> void regitserCache(String name, boolean eternal,
+			List<CacheAttributeExtractor<T>> extractors) {
+		
+		CacheConfiguration cacheConfiguration = 
+				new CacheConfiguration(name, 0).eternal(eternal); 
+		
+		if(extractors != null){
+			
+			Searchable searchable = new Searchable();
+			
+			cacheConfiguration.addSearchable(searchable); 
+			
+			for(CacheAttributeExtractor<T> cacheAttributeExtractor : extractors){
+				
+				searchable.addSearchAttribute(
+						new ExtractorSupportedSearchAttribute(
+								new EhcacheAttributeExtractor<T>(cacheAttributeExtractor))
+						.name(cacheAttributeExtractor.getAttributeName()));
+			}
+			
+		}
+		
+		cacheManager.addCache(new Cache(cacheConfiguration)); 
 	}
 
 }

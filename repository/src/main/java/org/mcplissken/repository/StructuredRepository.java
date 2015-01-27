@@ -17,7 +17,7 @@ import org.mcplissken.repository.query.SimpleSelectionAdapter;
 
 /**
  * @author 	Sherief Shawky
- * @email 	sherif.shawki@mubasher.info
+ * @email 	mcrakens@gmail.com
  * @date 	Nov 20, 2014
  */
 public interface StructuredRepository {

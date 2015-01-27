@@ -9,7 +9,7 @@ import org.mcplissken.repository.models.account.Oauth;
 
 /**
  * @author 	Sherief Shawky
- * @email 	sherif.shawki@mubasher.info
+ * @email 	mcrakens@gmail.com
  * @date 	Jan 19, 2015
  */
 public class OauthRowMapper extends BasicRowMapper<Oauth> {

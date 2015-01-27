@@ -9,7 +9,7 @@ import org.mcplissken.repository.models.account.Profile;
 
 /**
  * @author 	Sherief Shawky
- * @email 	sherif.shawki@mubasher.info
+ * @email 	mcrakens@gmail.com
  * @date 	Jan 15, 2015
  */
 public class ProfileRowMapper extends BasicRowMapper<Profile> {

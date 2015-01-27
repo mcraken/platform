@@ -11,7 +11,7 @@ import com.datastax.driver.core.exceptions.DriverException;
 
 /**
  * @author 	Sherief Shawky
- * @email 	sherif.shawki@mubasher.info
+ * @email 	mcrakens@gmail.com
  * @date 	Jan 26, 2015
  */
 public class CassandraRowMapper<T> implements RowMapper<T>{

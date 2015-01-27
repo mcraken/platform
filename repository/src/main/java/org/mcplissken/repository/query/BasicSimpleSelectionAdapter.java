@@ -9,7 +9,7 @@ import java.util.List;
 
 /**
  * @author 	Sherief Shawky
- * @email 	sherif.shawki@mubasher.info
+ * @email 	mcrakens@gmail.com
  * @date 	Aug 31, 2014
  */
 public abstract class BasicSimpleSelectionAdapter<A, T, O> implements SimpleSelectionAdapter<A> {

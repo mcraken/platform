@@ -21,7 +21,7 @@ import org.mcplissken.repository.query.SimpleSelectionAdapter;
 
 /**
  * @author 	Sherief Shawky
- * @email 	sherif.shawki@mubasher.info
+ * @email 	mcrakens@gmail.com
  * @date 	Nov 9, 2014
  */
 public class RepositoryRealm extends AuthorizingRealm {

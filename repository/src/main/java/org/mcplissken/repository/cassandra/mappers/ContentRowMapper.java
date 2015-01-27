@@ -9,7 +9,7 @@ import org.mcplissken.repository.models.content.Content;
 
 /**
  * @author 	Sherief Shawky
- * @email 	sherif.shawki@mubasher.info
+ * @email 	mcrakens@gmail.com
  * @date 	Nov 30, 2014
  */
 public class ContentRowMapper extends BasicRowMapper<Content>{

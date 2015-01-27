@@ -10,7 +10,7 @@ import org.mcplissken.repository.models.account.Role;
 
 /**
  * @author 	Sherief Shawky
- * @email 	sherif.shawki@mubasher.info
+ * @email 	mcrakens@gmail.com
  * @date 	Nov 9, 2014
  */
 public class RoleRowMapper extends BasicRowMapper<Role>{

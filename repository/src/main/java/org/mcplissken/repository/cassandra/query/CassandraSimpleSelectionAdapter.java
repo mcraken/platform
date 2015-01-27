@@ -19,7 +19,7 @@ import com.datastax.driver.core.querybuilder.Select.Where;
 
 /**
  * @author 	Sherief Shawky
- * @email 	sherif.shawki@mubasher.info
+ * @email 	mcrakens@gmail.com
  * @date 	Aug 31, 2014
  */
 public class CassandraSimpleSelectionAdapter<T> extends

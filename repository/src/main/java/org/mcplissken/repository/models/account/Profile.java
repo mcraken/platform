@@ -12,7 +12,7 @@ import org.springframework.data.cassandra.mapping.Table;
 
 /**
  * @author 	Sherief Shawky
- * @email 	sherif.shawki@mubasher.info
+ * @email 	mcrakens@gmail.com
  * @date 	Jan 15, 2015
  */
 @Table("profile")

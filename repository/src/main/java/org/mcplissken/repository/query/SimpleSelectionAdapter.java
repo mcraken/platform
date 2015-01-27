@@ -9,7 +9,7 @@ import org.mcplissken.repository.exception.NoResultException;
 
 /**
  * @author 	Sherief Shawky
- * @email 	sherif.shawki@mubasher.info
+ * @email 	mcrakens@gmail.com
  * @date 	Aug 31, 2014
  */
 public interface SimpleSelectionAdapter<T> {

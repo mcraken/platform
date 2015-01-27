@@ -14,7 +14,7 @@ import com.datastax.driver.core.Row;
 
 /**
  * @author 	Sherief Shawky
- * @email 	sherif.shawki@mubasher.info
+ * @email 	mcrakens@gmail.com
  * @date 	Jan 26, 2015
  */
 public class CassandraRowAdapter implements RowAdapter {

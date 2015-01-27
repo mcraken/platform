@@ -10,7 +10,7 @@ import java.util.UUID;
 
 /**
  * @author 	Sherief Shawky
- * @email 	sherif.shawki@mubasher.info
+ * @email 	mcrakens@gmail.com
  * @date 	Jan 26, 2015
  */
 public interface RowAdapter {

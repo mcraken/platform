@@ -22,7 +22,7 @@ public interface IndexQueryAdapter<T> {
 	
 	public IndexQueryAdapter<T> gt(String value);
 	
-	public IndexQueryAdapter<T> OR();
+	public IndexQueryAdapter<T> or();
 	
 	public IndexQueryAdapter<T> and();
 	

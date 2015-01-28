@@ -19,7 +19,6 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-import org.apache.commons.beanutils.BeanUtils;
 import org.apache.solr.client.solrj.SolrQuery;
 import org.apache.solr.client.solrj.SolrQuery.ORDER;
 import org.apache.solr.client.solrj.impl.HttpSolrServer;
@@ -27,7 +26,6 @@ import org.apache.solr.client.solrj.response.QueryResponse;
 import org.apache.solr.common.SolrDocument;
 import org.apache.solr.common.SolrDocumentList;
 import org.mcplissken.repository.exception.NoResultException;
-import org.mcplissken.repository.index.IndexDocumentObjectFactory;
 import org.mcplissken.repository.index.IndexQueryAdapter;
 import org.mcplissken.repository.index.QueryException;
 
@@ -38,26 +36,25 @@ import org.mcplissken.repository.index.QueryException;
  */
 public class SolrjQueryAdapter<T> implements IndexQueryAdapter<T> {
 
-	private String[] fieldNames;
 	private HttpSolrServer server; 
 	private SolrQuery solrQuery;
 	private ArrayList<String> filterOprands;
 	private String currentFilterFiled;
-	private IndexDocumentObjectFactory<T> documentFactory;
+	private SolrjRowMapper<T> rowMapper;
 
-	public SolrjQueryAdapter(HttpSolrServer server, String[] fieldNames, IndexDocumentObjectFactory<T> documentFactory) {
+	public SolrjQueryAdapter(HttpSolrServer server, SolrjRowMapper<T> rowAdapter) {
 
-		this.fieldNames = fieldNames;
 		this.server = server;
-		this.documentFactory = documentFactory;
 
+		this.rowMapper = rowAdapter;
+		
 		solrQuery = new SolrQuery();
 
 		filterOprands = new ArrayList<>();
 	}
 
 	/* (non-Javadoc)
-	 * @see org.mcplissken.solrj.SolrjQueryAdapter#queryAll()
+	 * @see com.mubasher.market.solrj.SolrjQueryAdapter#queryAll()
 	 */
 	@Override
 	public IndexQueryAdapter<T> queryAll() {
@@ -68,7 +65,7 @@ public class SolrjQueryAdapter<T> implements IndexQueryAdapter<T> {
 	}
 
 	/* (non-Javadoc)
-	 * @see org.mcplissken.solrj.SolrjQueryAdapter#query(java.lang.String)
+	 * @see com.mubasher.market.solrj.SolrjQueryAdapter#query(java.lang.String)
 	 */
 	@Override
 	public IndexQueryAdapter<T> query(String terms) {
@@ -79,7 +76,7 @@ public class SolrjQueryAdapter<T> implements IndexQueryAdapter<T> {
 	}
 
 	/* (non-Javadoc)
-	 * @see org.mcplissken.solrj.SolrjQueryAdapter#filter(java.lang.String[])
+	 * @see com.mubasher.market.solrj.SolrjQueryAdapter#filter(java.lang.String[])
 	 */
 	@Override
 	public IndexQueryAdapter<T> filter(String filedName) {
@@ -100,7 +97,7 @@ public class SolrjQueryAdapter<T> implements IndexQueryAdapter<T> {
 	}
 
 	/* (non-Javadoc)
-	 * @see org.mcplissken.solrj.SolrjQueryAdapter#start(int)
+	 * @see com.mubasher.market.solrj.SolrjQueryAdapter#start(int)
 	 */
 	@Override
 	public IndexQueryAdapter<T> start(Integer start) {
@@ -111,7 +108,7 @@ public class SolrjQueryAdapter<T> implements IndexQueryAdapter<T> {
 	}
 
 	/* (non-Javadoc)
-	 * @see org.mcplissken.solrj.SolrjQueryAdapter#page(int)
+	 * @see com.mubasher.market.solrj.SolrjQueryAdapter#page(int)
 	 */
 	@Override
 	public IndexQueryAdapter<T> page(Integer count) {
@@ -122,7 +119,7 @@ public class SolrjQueryAdapter<T> implements IndexQueryAdapter<T> {
 	}
 
 	/* (non-Javadoc)
-	 * @see org.mcplissken.solrj.SolrjQueryAdapter#result()
+	 * @see com.mubasher.market.solrj.SolrjQueryAdapter#result()
 	 */
 	@Override
 	public List<T> result() throws QueryException{
@@ -139,22 +136,13 @@ public class SolrjQueryAdapter<T> implements IndexQueryAdapter<T> {
 
 			SolrDocument resultDoc;
 			
-			T documentObj;
-			
 			ArrayList<T> result = new ArrayList<>();
 			
 			while(documentIterator.hasNext()){
 
 				resultDoc = documentIterator.next();
 
-				documentObj = documentFactory.createDocument();
-				
-				for(String field : fieldNames){
-					
-					BeanUtils.setProperty(documentObj, field, resultDoc.getFieldValue(field));
-				}
-				
-				result.add(documentObj);
+				result.add(rowMapper.mapDocument(resultDoc));
 			}
 
 			if(result.size() == 0){
@@ -172,7 +160,7 @@ public class SolrjQueryAdapter<T> implements IndexQueryAdapter<T> {
 	}
 
 	/* (non-Javadoc)
-	 * @see org.mcplissken.solrj.SolrjQueryAdapter#sort(java.lang.String, boolean)
+	 * @see com.mubasher.market.solrj.SolrjQueryAdapter#sort(java.lang.String, boolean)
 	 */
 	@Override
 	public IndexQueryAdapter<T> sort(String fieldName, boolean asc) {
@@ -183,7 +171,7 @@ public class SolrjQueryAdapter<T> implements IndexQueryAdapter<T> {
 	}
 
 	/* (non-Javadoc)
-	 * @see org.mcplissken.solrj.SolrjQueryAdapter#eq(java.lang.String)
+	 * @see com.mubasher.market.solrj.SolrjQueryAdapter#eq(java.lang.String)
 	 */
 	@Override
 	public IndexQueryAdapter<T> eq(String value) {
@@ -194,7 +182,7 @@ public class SolrjQueryAdapter<T> implements IndexQueryAdapter<T> {
 	}
 
 	/* (non-Javadoc)
-	 * @see org.mcplissken.solrj.SolrjQueryAdapter#gt(java.lang.String)
+	 * @see com.mubasher.market.solrj.SolrjQueryAdapter#gt(java.lang.String)
 	 */
 	@Override
 	public IndexQueryAdapter<T> gt(String value) {
@@ -205,10 +193,10 @@ public class SolrjQueryAdapter<T> implements IndexQueryAdapter<T> {
 	}
 
 	/* (non-Javadoc)
-	 * @see org.mcplissken.solrj.SolrjQueryAdapter#OR()
+	 * @see com.mubasher.market.solrj.SolrjQueryAdapter#OR()
 	 */
 	@Override
-	public IndexQueryAdapter<T> OR() {
+	public IndexQueryAdapter<T> or() {
 
 		String filter = applyFilter("OR");
 
@@ -240,7 +228,7 @@ public class SolrjQueryAdapter<T> implements IndexQueryAdapter<T> {
 	}
 
 	/* (non-Javadoc)
-	 * @see org.mcplissken.solrj.SolrjQueryAdapter#AND()
+	 * @see com.mubasher.market.solrj.SolrjQueryAdapter#AND()
 	 */
 	@Override
 	public IndexQueryAdapter<T> and() {

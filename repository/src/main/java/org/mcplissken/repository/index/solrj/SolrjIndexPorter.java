@@ -4,45 +4,49 @@
 package org.mcplissken.repository.index.solrj;
 
 
-import org.apache.commons.beanutils.BeanUtils;
+import java.lang.reflect.Field;
+
 import org.apache.solr.client.solrj.impl.HttpSolrServer;
 import org.apache.solr.common.SolrInputDocument;
+import org.mcplissken.repository.index.Index;
 import org.mcplissken.repository.index.IndexException;
 import org.mcplissken.repository.index.IndexPorter;
+import org.mcplissken.repository.index.TargetHasNoIndexableFileds;
 
 /**
  * @author 	Sherief Shawky
  * @email 	mcrakens@gmail.com
  * @date 	Nov 19, 2014
  */
-public class SolrjIndexPorter implements IndexPorter {
+public class SolrjIndexPorter<T> implements IndexPorter<T> {
 
-	private String[] fieldNames;
 	private HttpSolrServer server;
 
-	public SolrjIndexPorter(HttpSolrServer server, String[] fieldNames) {
-
-		this.fieldNames = fieldNames;
-
-		this.server = server; 
-
+	public SolrjIndexPorter(HttpSolrServer server) {
+		this.server = server;
 	}
 
 	/* (non-Javadoc)
-	 * @see org.mcplissken.solrj.IndexPorter#port(java.lang.Object, java.lang.String[])
+	 * @see com.mubasher.solrj.IndexPorter#port(java.lang.Object, java.lang.String[])
 	 */
 	public void port(Object target) throws IndexException {
 
 		try {
-
+			
 			SolrInputDocument doc = new SolrInputDocument();
-
-			for(String fieldName : fieldNames){
-
-				doc.addField(fieldName, BeanUtils.getProperty(target, fieldName));
+			
+			Class<?> targetClass = target.getClass();
+			
+			indexFields(target, doc, targetClass);
+			
+			if(!doc.isEmpty()){
+				
+				server.add(doc);
+				
+			} else {
+				
+				throw new TargetHasNoIndexableFileds();
 			}
-
-			server.add(doc);
 
 		} catch (Exception e) {
 
@@ -51,8 +55,23 @@ public class SolrjIndexPorter implements IndexPorter {
 
 	}
 
+	private void indexFields(Object target, SolrInputDocument doc,
+			Class<?> targetClass) throws IllegalAccessException {
+		
+		Field[] fields = targetClass.getDeclaredFields();
+		
+		for(Field field : fields){
+			
+			if(field.isAnnotationPresent(Index.class)){
+				
+				doc.addField(field.getName(), field.get(target));
+			}
+			
+		}
+	}
+
 	/* (non-Javadoc)
-	 * @see org.mcplissken.solrj.IndexPorter#commit()
+	 * @see com.mubasher.solrj.IndexPorter#commit()
 	 */
 	public void commit() throws IndexException {
 		
@@ -67,7 +86,7 @@ public class SolrjIndexPorter implements IndexPorter {
 	}
 
 	/* (non-Javadoc)
-	 * @see org.mcplissken.solrj.IndexPorter#shutdown()
+	 * @see com.mubasher.solrj.IndexPorter#shutdown()
 	 */
 	public void shutdown() {
 		
@@ -85,8 +104,6 @@ public class SolrjIndexPorter implements IndexPorter {
 			
 			throw new IndexException(e);
 		}
-		
-		
 
 	}
 

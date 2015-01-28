@@ -101,7 +101,7 @@ public class CassandraStructuredRepository implements StructuredRepository {
 	}
 
 	@Override
-	public <T> void registerMapper(String modelName, BasicRowMapper<T> mapper){
+	public <T> void registerStructuredMapper(String modelName, BasicRowMapper<T> mapper){
 		
 		rowMappers.put(modelName, new CassandraRowMapper<T>(mapper));
 		
@@ -109,17 +109,17 @@ public class CassandraStructuredRepository implements StructuredRepository {
 	
 	private void registerDefaultRowMappers() {
 		
-		registerMapper("account", new AccountRowMapper());
+		registerStructuredMapper("account", new AccountRowMapper());
 		
-		registerMapper("role", new RoleRowMapper());
+		registerStructuredMapper("role", new RoleRowMapper());
 		
-		registerMapper("content", new ContentRowMapper());
+		registerStructuredMapper("content", new ContentRowMapper());
 		
-		registerMapper("trackinglog", new TrackingLogRowMapper());
+		registerStructuredMapper("trackinglog", new TrackingLogRowMapper());
 
-		registerMapper("profile", new ProfileRowMapper());
+		registerStructuredMapper("profile", new ProfileRowMapper());
 		
-		registerMapper("oauth", new OauthRowMapper());
+		registerStructuredMapper("oauth", new OauthRowMapper());
 		
 	}
 

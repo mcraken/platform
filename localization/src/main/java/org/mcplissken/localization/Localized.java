@@ -15,18 +15,31 @@
  */
 package org.mcplissken.localization;
 
+import org.mcplissken.repository.index.Core;
+import org.mcplissken.repository.index.Index;
+
 /**
  * @author 	Sherief Shawky
  * @email 	mcrakens@gmail.com
  * @date 	Jan 21, 2015
  */
+@Core("localized")
 public class Localized {
 	
+	@Index
 	private String id;
 	
+	@Index
 	private String language;
 	
+	@Index
 	private String desc;
+
+	public Localized(String id, String language, String desc) {
+		this.id = id;
+		this.language = language;
+		this.desc = desc;
+	}
 
 	public String getId() {
 		return id;
@@ -61,3 +74,4 @@ public class Localized {
 		this.desc = desc;
 	}
 }
+

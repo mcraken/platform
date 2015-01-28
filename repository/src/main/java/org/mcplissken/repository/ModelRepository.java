@@ -31,4 +31,6 @@ public interface ModelRepository  extends StructuredRepository, IndexRepository{
 	
 	public Content createContent(String id, String name, String type, File contentFile) throws ContentException;
 	
+	public <T> void registerMapper(String target, String modelName, BasicRowMapper<T> mapper) throws UnknowRepositoryTargetException;
+	
 }

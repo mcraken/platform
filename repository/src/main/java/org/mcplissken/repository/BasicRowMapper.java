@@ -15,6 +15,7 @@
  */
 package org.mcplissken.repository;
 
+
 /**
  * @author 	Sherief Shawky
  * @email 	mcrakens@gmail.com
@@ -24,6 +25,14 @@ public abstract class BasicRowMapper<T> {
 	
 	private ModelRepository repository;
 	private String modelName;
+	private String target;
+	
+	/**
+	 * @param target the target to set
+	 */
+	public void setTarget(String target) {
+		this.target = target;
+	}
 	
 	public void setRepository(ModelRepository repository) {
 		this.repository = repository;
@@ -33,9 +42,9 @@ public abstract class BasicRowMapper<T> {
 		this.modelName = modelName;
 	}
 
-	public void init(){
+	public void init() throws UnknowRepositoryTargetException{
 		
-		repository.registerMapper(modelName, this);
+		repository.registerMapper(target, modelName, this);
 	}
 	
 	public abstract T map(RowAdapter row);

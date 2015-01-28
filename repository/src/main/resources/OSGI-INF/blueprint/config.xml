@@ -1,7 +1,6 @@
 <blueprint xmlns="http://www.osgi.org/xmlns/blueprint/v1.0.0">
 
-	<bean id="cassandraContext"
-		class="org.mcplissken.repository.cassandra.CassandraContext"
+	<bean id="cassandraContext" class="org.mcplissken.repository.cassandra.CassandraContext"
 		init-method="init" destroy-method="destroy">
 		<property name="reportingService" ref="systemReporting" />
 	</bean>
@@ -29,8 +28,7 @@
 		<property name="serverFunctionHandlers">
 			<map key-type="java.lang.String">
 				<entry key="dateBack">
-					<bean
-						class="org.mcplissken.repository.key.functions.dateback.DateBack">
+					<bean class="org.mcplissken.repository.key.functions.dateback.DateBack">
 						<property name="resultFormatters">
 							<map
 								value-type="org.mcplissken.repository.key.functions.dateback.formatter.DateBackResultFormatter">
@@ -76,12 +74,9 @@
 	</bean>
 
 	<bean id="solrjIndexRepository"
-		class="org.mcplissken.repository.index.solrj.SolrjIndexRepository" init-method="init">
+		class="org.mcplissken.repository.index.solrj.SolrjIndexRepository"
+		init-method="init">
 		<property name="solrUrl" value="http://localhost:8983/solr/" />
-		<property name="cores">
-			<map>
-			</map>
-		</property>
 	</bean>
 
 	<bean id="modelRepository" class="org.mcplissken.repository.ModelRepositoryProxy">

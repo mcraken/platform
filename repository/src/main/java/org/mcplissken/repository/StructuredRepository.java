@@ -46,7 +46,7 @@ public interface StructuredRepository {
 
 	public <T> SimpleSelectionAdapter<T> createSimpleSelectionAdapter(String modelName);
 	
-	public <T> void registerMapper(String modelName, BasicRowMapper<T> mapper);
+	public <T> void registerStructuredMapper(String modelName, BasicRowMapper<T> mapper);
 
 }
 

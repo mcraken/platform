@@ -20,7 +20,7 @@ import net.sf.ehcache.search.attribute.AttributeExtractor;
 
 /**
  * @author 	Sherief Shawky
- * @email 	sherif.shawki@mubasher.info
+ * @email 	mcrakens@gmail.com
  * @date 	Jan 27, 2015
  */
 public class ExtractorSupportedSearchAttribute extends SearchAttribute {

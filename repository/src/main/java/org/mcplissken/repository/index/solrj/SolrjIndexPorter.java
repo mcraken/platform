@@ -6,7 +6,9 @@ package org.mcplissken.repository.index.solrj;
 
 import java.io.IOException;
 import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
 
+import org.apache.commons.beanutils.BeanUtils;
 import org.apache.solr.client.solrj.SolrServerException;
 import org.apache.solr.client.solrj.impl.HttpSolrServer;
 import org.apache.solr.common.SolrInputDocument;
@@ -59,15 +61,19 @@ public class SolrjIndexPorter<T> implements IndexPorter<T> {
 	}
 
 	private void indexFields(Object target, SolrInputDocument doc,
-			Class<?> targetClass) throws IllegalAccessException {
+			Class<?> targetClass) throws IllegalAccessException, InvocationTargetException, NoSuchMethodException {
 
 		Field[] fields = targetClass.getDeclaredFields();
 
+		String fieldName = null; 
+		
 		for(Field field : fields){
 
 			if(field.isAnnotationPresent(Index.class)){
-
-				doc.addField(field.getName(), field.get(target));
+				
+				fieldName = field.getName();
+				
+				doc.addField(fieldName, BeanUtils.getProperty(target, fieldName));
 			}
 
 		}
@@ -107,18 +113,18 @@ public class SolrjIndexPorter<T> implements IndexPorter<T> {
 			Class<?> targetClass = model.getClass();
 
 			Field[] fields = targetClass.getDeclaredFields();
-
+			
 			for(Field field : fields){
 
 				if(field.isAnnotationPresent(IndexId.class)){
 					
-					server.deleteById((String)field.get(model));
+					server.deleteById((String) BeanUtils.getProperty(model, field.getName()));
 				}
 
 			}
 			
 		} catch (IllegalArgumentException | IllegalAccessException
-				| SolrServerException | IOException e) {
+				| SolrServerException | IOException | InvocationTargetException | NoSuchMethodException e) {
 			
 			throw new IndexException(e);
 		}

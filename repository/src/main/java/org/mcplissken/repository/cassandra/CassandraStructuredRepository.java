@@ -36,7 +36,6 @@ import org.mcplissken.repository.key.exception.CriteriaNotFoundException;
 import org.mcplissken.repository.key.exception.InvalidCriteriaException;
 import org.mcplissken.repository.key.exception.ServerFunctionException;
 import org.mcplissken.repository.key.functions.ServerFunctionHandler;
-import org.mcplissken.repository.models.RestModel;
 import org.mcplissken.repository.query.SimpleSelectionAdapter;
 import org.springframework.cassandra.core.RowMapper;
 import org.springframework.cassandra.core.WriteOptions;
@@ -127,41 +126,41 @@ public class CassandraStructuredRepository implements StructuredRepository {
 	 * (non-Javadoc)
 	 * 
 	 * @see
-	 * org.mcplissken.repository.ModelRepository#write(java.lang.Object)
+	 * com.mubasher.market.repository.ModelRepository#write(java.lang.Object)
 	 */
 	@Override
-	public void write(RestModel model) {
+	public <T> void write(T model) {
 		
 		cassandraTemplate.insert(model, writeOptions);
 	}
 
 	
 	@Override
-	public void write(List<RestModel> models) {
+	public <T> void write(List<T> models) {
 		
 		cassandraTemplate.insertAsynchronously(models, writeOptions);
 	}
 	
 	/* (non-Javadoc)
-	 * @see org.mcplissken.repository.StructuredRepository#update(org.mcplissken.repository.models.RestModel)
+	 * @see com.mubasher.market.repository.StructuredRepository#update(com.mubasher.market.repository.models.RestModel)
 	 */
 	@Override
-	public void update(RestModel model) {
+	public <T> void update(T model) {
 		
 		cassandraTemplate.update(model, writeOptions);
 	}
 
 	/* (non-Javadoc)
-	 * @see org.mcplissken.repository.StructuredRepository#delete(org.mcplissken.repository.models.RestModel)
+	 * @see com.mubasher.market.repository.StructuredRepository#delete(com.mubasher.market.repository.models.RestModel)
 	 */
 	@Override
-	public void delete(RestModel model) {
+	public <T> void delete(T model) {
 		
 		cassandraTemplate.delete(model);
 	}
 	
 	/* (non-Javadoc)
-	 * @see org.mcplissken.repository.ModelRepository#createSimpleSelectionAdapter(java.lang.String)
+	 * @see com.mubasher.market.repository.ModelRepository#createSimpleSelectionAdapter(java.lang.String)
 	 */
 	@SuppressWarnings("unchecked")
 	@Override
@@ -175,7 +174,7 @@ public class CassandraStructuredRepository implements StructuredRepository {
 	}
 
 	/* (non-Javadoc)
-	 * @see org.mcplissken.repository.ModelRepository#read(org.mcplissken.repository.key.RestSearchKey)
+	 * @see com.mubasher.market.repository.ModelRepository#read(com.mubasher.market.repository.key.RestSearchKey)
 	 */
 	@SuppressWarnings("unchecked")
 	@Override

@@ -20,11 +20,11 @@ import java.util.List;
 
 import org.mcplissken.repository.exception.ContentException;
 import org.mcplissken.repository.index.CoreAnnotationIsNotPresent;
+import org.mcplissken.repository.index.IndexException;
 import org.mcplissken.repository.index.IndexPorter;
 import org.mcplissken.repository.index.IndexQueryAdapter;
 import org.mcplissken.repository.key.RestSearchKey;
 import org.mcplissken.repository.key.exception.InvalidCriteriaException;
-import org.mcplissken.repository.models.RestModel;
 import org.mcplissken.repository.models.content.Content;
 import org.mcplissken.repository.query.SimpleSelectionAdapter;
 
@@ -69,7 +69,7 @@ public class ModelRepositoryProxy implements ModelRepository{
 	 * @see com.mubasher.market.repository.StructuredRepository#write(com.mubasher.market.repository.models.RestModel)
 	 */
 	@Override
-	public void write(RestModel model) {
+	public <T> void write(T model) {
 
 		structuredRepository.write(model);
 	}
@@ -87,7 +87,7 @@ public class ModelRepositoryProxy implements ModelRepository{
 	 * @see com.mubasher.market.repository.StructuredRepository#write(java.util.List)
 	 */
 	@Override
-	public void write(List<RestModel> entities) {
+	public <T> void write(List<T> entities) {
 
 		structuredRepository.write(entities);
 	}
@@ -113,7 +113,7 @@ public class ModelRepositoryProxy implements ModelRepository{
 	 * @see com.mubasher.market.repository.StructuredRepository#update(com.mubasher.market.repository.models.RestModel)
 	 */
 	@Override
-	public void update(RestModel model) {
+	public <T> void update(T model) {
 
 		structuredRepository.update(model);
 	}
@@ -122,7 +122,7 @@ public class ModelRepositoryProxy implements ModelRepository{
 	 * @see com.mubasher.market.repository.StructuredRepository#delete(com.mubasher.market.repository.models.RestModel)
 	 */
 	@Override
-	public void delete(RestModel model) {
+	public <T> void delete(T model) {
 
 		structuredRepository.delete(model);
 	}
@@ -194,6 +194,51 @@ public class ModelRepositoryProxy implements ModelRepository{
 	public <T> IndexQueryAdapter<T> queryAdapter(String coreName) {
 
 		return indexRepository.queryAdapter(coreName);
+	}
+
+	/* (non-Javadoc)
+	 * @see com.mubasher.market.repository.IndexRepository#delete(java.util.List)
+	 */
+	@Override
+	public <T> void deleteIndex(List<T> models) throws IndexException {
+		
+		indexRepository.deleteIndex(models);
+	}
+
+	/* (non-Javadoc)
+	 * @see com.mubasher.market.repository.IndexRepository#readIndex(com.mubasher.market.repository.key.RestSearchKey)
+	 */
+	@Override
+	public <T> List<T> readIndex(RestSearchKey key) throws IndexException {
+		
+		return indexRepository.readIndex(key);
+	}
+
+	/* (non-Javadoc)
+	 * @see com.mubasher.market.repository.IndexRepository#writeIndex(java.lang.Object)
+	 */
+	@Override
+	public <T> void writeIndex(T model) throws IndexException {
+		
+		indexRepository.writeIndex(model);
+	}
+
+	/* (non-Javadoc)
+	 * @see com.mubasher.market.repository.IndexRepository#writeIndex(java.util.List)
+	 */
+	@Override
+	public <T> void writeIndex(List<T> models) throws IndexException {
+		
+		indexRepository.writeIndex(models);
+	}
+
+	/* (non-Javadoc)
+	 * @see com.mubasher.market.repository.IndexRepository#deleteIndex(java.lang.Object)
+	 */
+	@Override
+	public <T> void deleteIndex(T model) throws IndexException {
+		
+		indexRepository.deleteIndex(model);
 	}
 
 }

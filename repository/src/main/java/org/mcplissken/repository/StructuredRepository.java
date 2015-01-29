@@ -19,7 +19,6 @@ import java.util.List;
 
 import org.mcplissken.repository.key.RestSearchKey;
 import org.mcplissken.repository.key.exception.InvalidCriteriaException;
-import org.mcplissken.repository.models.RestModel;
 import org.mcplissken.repository.query.SimpleSelectionAdapter;
 /**
  * @author 	Sherief Shawky
@@ -36,13 +35,13 @@ public interface StructuredRepository {
 	
 	public <T> List<T> read(RestSearchKey key) throws InvalidCriteriaException;
 
-	public void write(RestModel model);
+	public <T> void write(T model);
 	
-	public void write(List<RestModel> entities);
+	public <T> void write(List<T> entities);
 	
-	public void update(RestModel model);
+	public <T> void update(T model);
 	
-	public void delete(RestModel model);
+	public <T> void delete(T model);
 
 	public <T> SimpleSelectionAdapter<T> createSimpleSelectionAdapter(String modelName);
 	

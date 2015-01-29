@@ -10,9 +10,9 @@ import java.lang.reflect.Field;
 import org.apache.solr.client.solrj.SolrServerException;
 import org.apache.solr.client.solrj.impl.HttpSolrServer;
 import org.apache.solr.common.SolrInputDocument;
-import org.mcplissken.repository.IndexId;
 import org.mcplissken.repository.index.Index;
 import org.mcplissken.repository.index.IndexException;
+import org.mcplissken.repository.index.IndexId;
 import org.mcplissken.repository.index.IndexPorter;
 import org.mcplissken.repository.index.TargetHasNoIndexableFileds;
 

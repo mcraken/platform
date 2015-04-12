@@ -32,7 +32,7 @@ The model repository interface supports two types of APIs which are the structur
 
 ![alt tag](https://cloud.githubusercontent.com/assets/6278849/7104885/3bc1fa92-e0fe-11e4-832c-cae741e1ae81.png)
 
-The structured repository interface is a generic model for a DAO which support create, update and delete operations. The structured repository interface provides special type of reading capability based on RESTful search keys. Search key is a class that reprsents a verbose reading operation. A typical search key is targeted for a certain model and supported by multiple search criteria and paging configurations. Below is an examplary search key in JSON format:
+The structured repository interface is a generic model for a DAO which supports create, update and delete operations. The structured repository interface provides special type of reading capability based on RESTful search keys. Search key is a class that reprsents a verbose reading operation. A typical search key is targeted for a certain model and supported by multiple search criteria and paging configurations. Below is an examplary search key in JSON format:
 ```json
 {
    "resourceName": "news",
@@ -55,7 +55,7 @@ The structured repository interface is a generic model for a DAO which support c
    ],
 }
 ```
-As you would have deducted already, the demonstrated search operation is targeted for a model annotated with "news". The key has a projection on news title and body only.The dataset starts at entry 5 and extends up to 10 models length. The criteria section of this search key consists of 3 parts where one of them is logical in nature. The search key retrieves all the news marked with an arabic language after the first of May, 2004. Each search criterion consists of a property name and a target value. The structure of the property name is criterionNumber_operationName(field). The search key also demonstrates a logical operation in the thrid criterion, the format of a logical criterion is as follows criterionNumber_lg(criterion1, criterion2 ... criterionN).
+As you might have deducted already, the demonstrated search operation is targeted for a model annotated with "news". The key has a projection on news title and body only.The dataset starts at entry 5 and extends up to 10 models length. The criteria section of this search key consists of 3 parts where one of them is logical in nature. The search key retrieves all the news marked with an arabic language after the first of May, 2004. Each search criterion consists of a property name and a target value. The structure of the property name is criterionNumber_operationName(field). The search key also demonstrates a logical operation in the thrid criterion, the format of a logical criterion is as follows criterionNumber_lg(criterion1, criterion2 ... criterionN). The value filed of the logical criterion hold the required logical operation.
 
 Now lets take a look at a search operation in action starting with the model repository
 

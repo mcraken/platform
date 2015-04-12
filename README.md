@@ -1,7 +1,9 @@
 # Cradle Framework
 ![alt tag](https://cloud.githubusercontent.com/assets/6278849/5888307/b6428b08-a402-11e4-8305-f4c2fdecaeed.jpg)
 
-You can use cradle to create scaleable and containerless applications. One of the objectives of the platform is to provide out of the box capabilities which are essential for building scaleable and clustered applications. Osgifing vertx made it possible to provide some sort of integration between vertx modules and OSGi bundles through the event bus. The ployglot nature of Vertx made it possible to work with different languages other than java.
+You can use cradle to create scaleable and containerless applications. One of the objectives of the platform is to provide out of the box capabilities which are essential for building scaleable and clustered applications. Osgifing vertx made it possible to provide some sort of integration between vertx modules and OSGi bundles through the event bus. The ployglot nature of Vertx made it possible to work with different languages other than java. 
+
+Now, we will tap briefly on each bundle of the cradle framework.
 
 ## Gateway
 Starting with the gateway bundle, which is an abstraction of a http gateway. The gateway bundle asbtracts three types of handlers:
@@ -97,9 +99,17 @@ The index repository also introduces the concept of index porters. An index port
 
 ![alt tag](https://cloud.githubusercontent.com/assets/6278849/7105215/8471a7a0-e10e-11e4-86ec-b1fa05d5f614.png)
 
-Apache shiro is used as a mean of session clustering and user based security. Having shiro makes it possible to provide seamless user management between identical nodes.
+Finally, that concludes our brief introduction to the repository bundle. 
+
+## Schedule
 
 The schedule bundle is an abstraction of time based services. The schedule bundle is built on top of quartz. It models sessions and tracks scheduling. A session is an operation that is only operable within a pre-defined time period. A track is an ever repeating task that works within hour, day, week or year time periods.
+
+
+
+Apache shiro is used as a mean of session clustering and user based security. Having shiro makes it possible to provide seamless user management between identical nodes.
+
+
 
 The oauth bundle provides an abstraction for any services accessible using the oauth protocol. Built on top of scribe, the oauth bundle should provide support for multiple social networks. The bundle models oauth services as authorizers and invokers. Authorizers are used to execute the 3-way handshake and obtain a valid oauth access tokens. Oauth invokers use access tokens, previously obtained by authorizers, to access resources protected by oauth providers.
 

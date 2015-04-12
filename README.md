@@ -103,7 +103,25 @@ Finally, that concludes our brief introduction to the repository bundle.
 
 ## Schedule
 
-The schedule bundle is an abstraction of time based services. The schedule bundle is built on top of quartz. It models sessions and tracks scheduling. A session is an operation that is only operable within a pre-defined time period. A track is an ever repeating task that works within hour, day, week or year time periods.
+The schedule bundle is an abstraction of time based services. The schedule bundle is built on top of quartz. You can use the services provided by the schedule bundle when you need timed operations that works seamlessly within your system without resorting to DB intergration and / or messaging systems. At the heart of the schedule bundle is the ScheduleService. The schedule service exposes two types of operations buildJob and removeJob. The job building call can be configured by a replacement flag which determines whether the job should replace a current job with the same name and the same parent schedule.
+
+```java
+JobBuildResult result = scheduleService.buildJob(jobName, jobSchedule, jobModel, true);
+if(!result.scheduled){
+
+	JobBuilder jobBuilder = result.builder;
+	jobBuilder
+		.daily(hour, minute)
+		.scheulde(calendarName);
+}
+```
+The boolean variable at the end of the buildJob function call serves as the replacement flag. The jobSchedule is the parent schedule of a collection of jobs. JobBuildResult is a simple DTO which holds the scheduling state. In case of the replacement flag set to true, a new job will be created and the JobBuilder instance inside the JobBuildResult will be set to null. Otherwise, JobBuildResult.scheduled will be set to false and JobBuilder instance will be included inside the JobBuildResult. 
+
+JobBuilder calls are chainable. In the example above, a daily task is scheduled to run in a certain hour and minute of the day modified by a custom calendar. Take a look at the [JobBuilder](schedule/src/main/java/org/cradle/schedule/JobBuilder.java) interface for more information.
+
+The good thing about the schedule bundle that it provides number of classes that model different scheduling techniques out of the box. A track is an ever repeating task that works within hour, day, week or year time periods. 
+
+A session is an operation that is only operable within a pre-defined time period.
 
 
 

@@ -32,7 +32,7 @@ The model repository interface supports two types of APIs which are the structur
 
 ![alt tag](https://cloud.githubusercontent.com/assets/6278849/7104885/3bc1fa92-e0fe-11e4-832c-cae741e1ae81.png)
 
-The structured repository interface is a generic model for a DAO which supports create, update and delete operations. The structured repository interface provides special type of reading capability based on RESTful search keys. Search key is a class that reprsents a verbose reading operation. A typical search key is targeted for a certain model and supported by multiple search criteria and paging configurations. Below is an examplary search key in JSON format:
+The structured repository interface is a generic model for a DAO which supports create, update and delete operations. The structured repository interface provides special type of reading capability based on search keys. Search key is a class that reprsents a verbose reading operation. A typical search key is targeted for a certain model and supported by multiple search criteria and paging configurations. Below is an examplary search key in JSON format:
 ```json
 {
    "resourceName": "news",
@@ -76,8 +76,26 @@ SimpleSelectionAdapter<Story> selectionAdapter = repository.createSimpleSelectio
 The simple selection adapter evaluates calls on a postfix basis. In the example above, the language and the category calls are evaluated into an AND criterion when and() is introduced to the chanined calls in the fourth line. Query configuration calls like paging and sorting should be introduced at the end of the chain, otherwise invalid query exception might be thrown but it depends on the actual implementation of the query adapter. Now, lets take a look at the sequence diagram
 
 ![alt tag](https://cloud.githubusercontent.com/assets/6278849/7105012/f44da322-e103-11e4-8cdf-1a51e07ca9a2.png)
+Each method starts with doXXX is a template method. Do template method are implemented by children of BasicSimpleSelection adapter. The children should provide database specific implementations of the template methods in the parent class. 
 
-each method starts with doXXX is a template method. Do template method are implemented by children of BasicSimpleSelection adapter. The children should provide database specific implementations of the template methods in the parent class. 
+The index repository is similar to the structured repository in concept but deals with a totally different monster. It is an abstraction for index type databases like SOLR and ElasticSearch servers.  It provides create, update, delete and DSL adapter queries. 
+
+```java
+IndexQueryAdapter<Story> queryAdapter = repository.queryAdapter("news_en");
+
+	List<Story> result = queryAdapter
+				.queryAll()
+				.filter("date")
+				.gt(window)
+				.sort("date", false)
+				.result();
+```
+
+The above code sample creates query adapter for index core named "news_en". A date filter greater than a certain window is applied to a query-all operation. Similar to structured query adapter, the index query DSL is based on postfix format. A sort call based on the date is introduced at the end of the call chain. 
+
+The index repository also introduces the concept of index porters. An index porter is an abstraction for an atomic index transaction executed on a single index core (type). There are three types of operations supported by the index porter whch are port, commit and shutdown. The port operation executed on an index core could be rolledback as long as commit not called. Now, let us look at the sequence diagram
+
+![alt tag](https://cloud.githubusercontent.com/assets/6278849/7105204/0d55325e-e10e-11e4-8d74-9acf0d81c906.png)
 
 Apache shiro is used as a mean of session clustering and user based security. Having shiro makes it possible to provide seamless user management between identical nodes.
 

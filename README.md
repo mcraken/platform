@@ -30,7 +30,7 @@ The repository bundle is implemented as a variation of the repository architectu
 
 The model repository interface supports two types of APIs which are the structured repository APIs and the index repository APIs. 
 
-![alt tag](https://cloud.githubusercontent.com/assets/6278849/7104794/96280554-e0f8-11e4-845d-c0c954e6898f.jpg)
+![alt tag](https://cloud.githubusercontent.com/assets/6278849/7104885/3bc1fa92-e0fe-11e4-832c-cae741e1ae81.png)
 
 The structured repository interface is a generic model for a DAO which support create, update and delete operations. The structured repository interface provides special type of reading capability based on RESTful search keys. Search key is a class that reprsents a verbose reading operation. A typical search key is targeted for a certain model and supported by multiple search criteria and paging configurations. Below is an examplary search key in JSON format:
 {

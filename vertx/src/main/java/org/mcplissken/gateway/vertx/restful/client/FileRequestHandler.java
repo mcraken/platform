@@ -89,8 +89,17 @@ public class FileRequestHandler implements Handler<HttpClientResponse> {
 					@Override
 					public void handle(Void event) {
 						
+						fileResult.flush(new Handler<AsyncResult<Void>>() {
+
+							@Override
+							public void handle(AsyncResult<Void> event) {
+								
+								fileResponseCallback.response(new File(fullPath));
+							}
+						});
+						
 						fileResult.close();
-						fileResponseCallback.response(new File(fullPath));
+						
 					}
 				});
 				

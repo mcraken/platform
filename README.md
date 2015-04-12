@@ -3,6 +3,7 @@
 
 You can use cradle to create scaleable and containerless applications. One of the objectives of the platform is to provide out of the box capabilities which are essential for building scaleable and clustered applications. Osgifing vertx made it possible to provide some sort of integration between vertx modules and OSGi bundles through the event bus. The ployglot nature of Vertx made it possible to work with different languages other than java.
 
+# Gateway
 Starting with the gateway bundle, which is an abstraction of a http gateway. The gateway bundle asbtracts three types of handlers:
 - Output only http handlers which are suitable for non-body requests like GET or DELETE.
 - Input/Output http handlers which are suitable for requests with body like POST or PUT.

@@ -1,8 +1,8 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>org.mcplissken</groupId>
-	<artifactId>mcplissken-schedule</artifactId>
+	<groupId>org.cradle</groupId>
+	<artifactId>cradle-schedule</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>bundle</packaging>
 
@@ -43,14 +43,14 @@
 		</dependency>
 
 		<dependency>
-			<groupId>org.mcplissken</groupId>
-			<artifactId>mcplissken-datetime</artifactId>
+			<groupId>org.cradle</groupId>
+			<artifactId>cradle-datetime</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
 
 		<dependency>
-			<groupId>org.mcplissken</groupId>
-			<artifactId>mcplissken-reporting</artifactId>
+			<groupId>org.cradle</groupId>
+			<artifactId>cradle-reporting</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
 
@@ -73,10 +73,10 @@
 							*;resolution:=optional
 						</Import-Package>
 						<Export-Package>
-							org.mcplissken.schedule,
-							org.mcplissken.schedule.tracks,
-							org.mcplissken.schedule.session,
-							org.mcplissken.schedule.exception
+							org.cradle.schedule,
+							org.cradle.schedule.tracks,
+							org.cradle.schedule.session,
+							org.cradle.schedule.exception
 						</Export-Package>
 						<Embed-Dependency>
 							org.jbundle.util.osgi.wrapped.c3p0,

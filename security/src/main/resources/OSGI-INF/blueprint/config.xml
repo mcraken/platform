@@ -3,25 +3,25 @@
 
 <blueprint xmlns="http://www.osgi.org/xmlns/blueprint/v1.0.0">
 
-	<bean id="repoRealm" class="org.mcplissken.security.shiro.RepositoryRealm"
+	<bean id="repoRealm" class="org.cradle.security.shiro.RepositoryRealm"
 		init-method="start">
 		<property name="modelRepository" ref="modelRepository" />
 		<property name="reportingService" ref="systemReporting" />
 	</bean>
 
-	<bean id="securityService" class="org.mcplissken.security.shiro.ShiroSecurityService"
+	<bean id="securityService" class="org.cradle.security.shiro.ShiroSecurityService"
 		init-method="init">
 		<property name="config" value="security/shiro.ini" />
 		<property name="defaultRole" value="free_user" />
 		<property name="repositoryRealm" ref="repoRealm" />
 	</bean>
 
-	<service ref="securityService" interface="org.mcplissken.security.SecurityService" />
+	<service ref="securityService" interface="org.cradle.security.SecurityService" />
 
 	<reference id="modelRepository"
-		interface="org.mcplissken.repository.ModelRepository" />
+		interface="org.cradle.repository.ModelRepository" />
 
 	<reference id="systemReporting"
-		interface="org.mcplissken.reporting.SystemReportingService" />
+		interface="org.cradle.reporting.SystemReportingService" />
 
 </blueprint>

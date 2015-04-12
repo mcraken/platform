@@ -3,11 +3,11 @@
 
 <blueprint xmlns="http://www.osgi.org/xmlns/blueprint/v1.0.0" >
 
-	<bean id="oauthProvider" class="org.mcplissken.oauth.impl.OAuthProviderImpl">
+	<bean id="oauthProvider" class="org.cradle.oauth.impl.OAuthProviderImpl">
 		<property name="oauthBuilders">
-			<map value-type="org.mcplissken.oauth.OAuthBuilder">
+			<map value-type="org.cradle.oauth.OAuthBuilder">
 				<entry key="google">
-					<bean class="org.mcplissken.oauth.google.GoogleOAuthBuilder">
+					<bean class="org.cradle.oauth.google.GoogleOAuthBuilder">
 						<property name="apiKey" value="" />
 						<property name="apiSecret" value="" />
 						<property name="scope" value="https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/userinfo.email" />
@@ -24,12 +24,12 @@
 		</property>
 	</bean>
 
-	<service ref="oauthProvider" interface="org.mcplissken.oauth.OAuthProvider" />
+	<service ref="oauthProvider" interface="org.cradle.oauth.OAuthProvider" />
 
 	<reference id="modelRepository"
-		interface="org.mcplissken.repository.ModelRepository" />
+		interface="org.cradle.repository.ModelRepository" />
 
 	<reference id="systemReporting"
-		interface="org.mcplissken.reporting.SystemReportingService" />
+		interface="org.cradle.reporting.SystemReportingService" />
 
 </blueprint>

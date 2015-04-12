@@ -1,68 +1,68 @@
 <blueprint xmlns="http://www.osgi.org/xmlns/blueprint/v1.0.0">
 
-	<bean id="cassandraContext" class="org.mcplissken.repository.cassandra.CassandraContext"
+	<bean id="cassandraContext" class="org.cradle.repository.cassandra.CassandraContext"
 		init-method="init" destroy-method="destroy">
 		<property name="reportingService" ref="systemReporting" />
 	</bean>
 
 	<bean id="cassandraStructuredRepository"
-		class="org.mcplissken.repository.cassandra.CassandraStructuredRepository"
+		class="org.cradle.repository.cassandra.CassandraStructuredRepository"
 		init-method="init">
 		<property name="cassandraContext" ref="cassandraContext" />
 		<property name="criteriaHandlers">
 			<map key-type="java.lang.String">
 				<entry key="eq">
 					<bean
-						class="org.mcplissken.repository.cassandra.criteriahandlers.EqualCriteria" />
+						class="org.cradle.repository.cassandra.criteriahandlers.EqualCriteria" />
 				</entry>
 				<entry key="in">
 					<bean
-						class="org.mcplissken.repository.cassandra.criteriahandlers.InCriteria" />
+						class="org.cradle.repository.cassandra.criteriahandlers.InCriteria" />
 				</entry>
 				<entry key="le">
 					<bean
-						class="org.mcplissken.repository.cassandra.criteriahandlers.LeCriteria" />
+						class="org.cradle.repository.cassandra.criteriahandlers.LeCriteria" />
 				</entry>
 			</map>
 		</property>
 		<property name="serverFunctionHandlers">
 			<map key-type="java.lang.String">
 				<entry key="dateBack">
-					<bean class="org.mcplissken.repository.key.functions.dateback.DateBack">
+					<bean class="org.cradle.repository.key.functions.dateback.DateBack">
 						<property name="resultFormatters">
 							<map
-								value-type="org.mcplissken.repository.key.functions.dateback.formatter.DateBackResultFormatter">
+								value-type="org.cradle.repository.key.functions.dateback.formatter.DateBackResultFormatter">
 								<entry key="list">
 									<bean
-										class="org.mcplissken.repository.key.functions.dateback.formatter.ListDateBackResultFormatter" />
+										class="org.cradle.repository.key.functions.dateback.formatter.ListDateBackResultFormatter" />
 								</entry>
 								<entry key="item">
 									<bean
-										class="org.mcplissken.repository.key.functions.dateback.formatter.OneItemDateBackResultFormatter" />
+										class="org.cradle.repository.key.functions.dateback.formatter.OneItemDateBackResultFormatter" />
 								</entry>
 							</map>
 						</property>
 						<property name="dateStrategies">
 							<map key-type="java.lang.String">
 								<entry key="halfHourWindow">
-									<bean class="org.mcplissken.datetime.dateback.WindowDateBackStrategy">
+									<bean class="org.cradle.datetime.dateback.WindowDateBackStrategy">
 										<property name="minutes" value="30" />
 									</bean>
 								</entry>
 								<entry key="hours">
-									<bean class="org.mcplissken.datetime.dateback.HoursDateBackStrategy" />
+									<bean class="org.cradle.datetime.dateback.HoursDateBackStrategy" />
 								</entry>
 								<entry key="days">
-									<bean class="org.mcplissken.datetime.dateback.DaysDateBackStrategy" />
+									<bean class="org.cradle.datetime.dateback.DaysDateBackStrategy" />
 								</entry>
 								<entry key="weeks">
-									<bean class="org.mcplissken.datetime.dateback.WeeksDateBackStrategy" />
+									<bean class="org.cradle.datetime.dateback.WeeksDateBackStrategy" />
 								</entry>
 								<entry key="month">
-									<bean class="org.mcplissken.datetime.dateback.MonthsDateBackStrategy" />
+									<bean class="org.cradle.datetime.dateback.MonthsDateBackStrategy" />
 								</entry>
 								<entry key="years">
-									<bean class="org.mcplissken.datetime.dateback.YearsDateBackStrategy" />
+									<bean class="org.cradle.datetime.dateback.YearsDateBackStrategy" />
 								</entry>
 							</map>
 						</property>
@@ -74,19 +74,19 @@
 	</bean>
 
 	<bean id="solrjIndexRepository"
-		class="org.mcplissken.repository.index.solrj.SolrjIndexRepository"
+		class="org.cradle.repository.index.solrj.SolrjIndexRepository"
 		init-method="init">
 		<property name="solrUrl" value="http://localhost:8983/solr/" />
 	</bean>
 
-	<bean id="modelRepository" class="org.mcplissken.repository.ModelRepositoryProxy">
+	<bean id="modelRepository" class="org.cradle.repository.ModelRepositoryProxy">
 		<property name="structuredRepository" ref="cassandraStructuredRepository" />
 		<property name="indexRepository" ref="solrjIndexRepository" />
 	</bean>
 
-	<service ref="modelRepository" interface="org.mcplissken.repository.ModelRepository" />
+	<service ref="modelRepository" interface="org.cradle.repository.ModelRepository" />
 
 	<reference id="systemReporting"
-		interface="org.mcplissken.reporting.SystemReportingService" />
+		interface="org.cradle.reporting.SystemReportingService" />
 
 </blueprint>

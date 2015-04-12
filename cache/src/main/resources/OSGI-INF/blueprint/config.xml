@@ -12,7 +12,7 @@
 	http://www.osgi.org/xmlns/blueprint/v1.0.0/blueprint.xsd" -->
 <blueprint xmlns="http://www.osgi.org/xmlns/blueprint/v1.0.0">
 
-	<bean id="ehcacheService" class="org.mcplissken.cache.ehcache.EhcacheService"
+	<bean id="ehcacheService" class="org.cradle.cache.ehcache.EhcacheService"
 		init-method="init">
 		<property name="config" value="ehcache/config/ehcache.xml" />
 		<property name="modelRepository" ref="modelRepository" />
@@ -20,15 +20,15 @@
 			<map key-type="java.lang.String">
 				<entry key="eq">
 					<bean
-						class="org.mcplissken.cache.ehcache.criteriahandlers.EqualCriteria" />
+						class="org.cradle.cache.ehcache.criteriahandlers.EqualCriteria" />
 				</entry>
 				<entry key="in">
 					<bean
-						class="org.mcplissken.cache.ehcache.criteriahandlers.InCriteria" />
+						class="org.cradle.cache.ehcache.criteriahandlers.InCriteria" />
 				</entry>
 				<entry key="lg">
 					<bean
-						class="org.mcplissken.cache.ehcache.criteriahandlers.LogicalCriteria" />
+						class="org.cradle.cache.ehcache.criteriahandlers.LogicalCriteria" />
 				</entry>
 			</map>
 		</property>
@@ -39,9 +39,9 @@
 		</property>
 	</bean>
 
-	<service ref="ehcacheService" interface="org.mcplissken.cache.CacheService" />
+	<service ref="ehcacheService" interface="org.cradle.cache.CacheService" />
 
 	<reference id="modelRepository"
-		interface="org.mcplissken.repository.ModelRepository" />
+		interface="org.cradle.repository.ModelRepository" />
 
 </blueprint>

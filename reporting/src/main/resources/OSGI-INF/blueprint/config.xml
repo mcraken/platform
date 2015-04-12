@@ -14,18 +14,18 @@
 <blueprint xmlns="http://www.osgi.org/xmlns/blueprint/v1.0.0" >
 
 	<bean id="mailSystemReporting"
-		class="org.mcplissken.reporting.mail.TLSMailSystemReportingService">
+		class="org.cradle.reporting.mail.TLSMailSystemReportingService">
 		<property name="to" value="" />
 		<property name="mailService" ref="mailService" />
 	</bean>
 
 	<bean id="log4jSystemReporting"
-		class="org.mcplissken.reporting.log4j.Log4JSystemReportingService" init-method="init">
+		class="org.cradle.reporting.log4j.Log4JSystemReportingService" init-method="init">
 		<property name="path" value="log4j/log4j.properties" />
 	</bean>
 
 	<bean id="systemReporting"
-		class="org.mcplissken.reporting.SystemReportingServiceProxy"
+		class="org.cradle.reporting.SystemReportingServiceProxy"
 		init-method="init" destroy-method="destroy">
 		<property name="concurrency" value="4" />
 		<property name="reportingServices">
@@ -37,9 +37,9 @@
 		</property>
 	</bean>
 	
-	<reference id="mailService" interface="org.mcplissken.mail.MailService" />
+	<reference id="mailService" interface="org.cradle.mail.MailService" />
 	
 	<service ref="systemReporting"
-		interface="org.mcplissken.reporting.SystemReportingService" />
+		interface="org.cradle.reporting.SystemReportingService" />
 
 </blueprint>

@@ -13,7 +13,7 @@
 <blueprint xmlns="http://www.osgi.org/xmlns/blueprint/v1.0.0">
 
 	<bean id="enLocalizedIndexRowMapper"
-		class="org.mcplissken.localization.impl.LocalizedIndexRowMapper"
+		class="org.cradle.localization.impl.LocalizedIndexRowMapper"
 		init-method="init">
 		<property name="repository" ref="modelRepository" />
 		<property name="modelName" value="localized_en" />
@@ -21,7 +21,7 @@
 	</bean>
 
 	<bean id="arLocalizedIndexRowMapper"
-		class="org.mcplissken.localization.impl.LocalizedIndexRowMapper"
+		class="org.cradle.localization.impl.LocalizedIndexRowMapper"
 		init-method="init">
 		<property name="repository" ref="modelRepository" />
 		<property name="modelName" value="localized_ar" />
@@ -30,15 +30,15 @@
 
 
 	<bean id="localizationService"
-		class="org.mcplissken.localization.impl.LocalizationServiceImpl">
+		class="org.cradle.localization.impl.LocalizationServiceImpl">
 		<property name="cacheService" ref="cacheService" />
 		<property name="repository" ref="modelRepository" />
 	</bean>
 
-	<service ref="localizationService" interface="org.mcplissken.localization.LocalizationService" />
+	<service ref="localizationService" interface="org.cradle.localization.LocalizationService" />
 
-	<reference id="cacheService" interface="org.mcplissken.cache.CacheService" />
+	<reference id="cacheService" interface="org.cradle.cache.CacheService" />
 
-	<reference id="modelRepository" interface="org.mcplissken.repository.ModelRepository" />
+	<reference id="modelRepository" interface="org.cradle.repository.ModelRepository" />
 
 </blueprint>

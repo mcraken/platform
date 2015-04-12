@@ -1,8 +1,8 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>org.mcplissken</groupId>
-	<artifactId>mcplissken-gateway</artifactId>
+	<groupId>org.cradle</groupId>
+	<artifactId>cradle-gateway</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>bundle</packaging>
 
@@ -14,26 +14,26 @@
 	<dependencies>
 
 		<dependency>
-			<groupId>org.mcplissken</groupId>
-			<artifactId>mcplissken-localization</artifactId>
+			<groupId>org.cradle</groupId>
+			<artifactId>cradle-localization</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
 
 		<dependency>
-			<groupId>org.mcplissken</groupId>
-			<artifactId>mcplissken-security</artifactId>
+			<groupId>org.cradle</groupId>
+			<artifactId>cradle-security</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
 
 		<dependency>
-			<groupId>org.mcplissken</groupId>
-			<artifactId>mcplissken-disruptor</artifactId>
+			<groupId>org.cradle</groupId>
+			<artifactId>cradle-disruptor</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
 
 		<dependency>
-			<groupId>org.mcplissken</groupId>
-			<artifactId>mcplissken-repository</artifactId>
+			<groupId>org.cradle</groupId>
+			<artifactId>cradle-repository</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
 
@@ -64,26 +64,26 @@
 						<Bundle-Name>${project.name}</Bundle-Name>
 						<Bundle-SymbolicName>${project.artifactId}</Bundle-SymbolicName>
 						<Export-Package>
-							org.mcplissken.gateway,
-							org.mcplissken.gateway.restful,
-							org.mcplissken.gateway.restful.method,
-							org.mcplissken.gateway.restful.client,
-							org.mcplissken.gateway.restful.document,
-							org.mcplissken.gateway.restful.exception,
-							org.mcplissken.gateway.restful.filter,
-							org.mcplissken.gateway.restful.filter.path,
-							org.mcplissken.gateway.restful.filter.session,
-							org.mcplissken.gateway.restful.filter.tracking
+							org.cradle.gateway,
+							org.cradle.gateway.restful,
+							org.cradle.gateway.restful.method,
+							org.cradle.gateway.restful.client,
+							org.cradle.gateway.restful.document,
+							org.cradle.gateway.restful.exception,
+							org.cradle.gateway.restful.filter,
+							org.cradle.gateway.restful.filter.path,
+							org.cradle.gateway.restful.filter.session,
+							org.cradle.gateway.restful.filter.tracking
 						</Export-Package>
 						<Import-Package>
-							org.mcplissken.repository,
-							org.mcplissken.repository.key,
-							org.mcplissken.repository.key.exception,
-							org.mcplissken.repository.key.parsers,
-							org.mcplissken.repository.models.tracking,
-							org.mcplissken.disruptor.workerpool,
-							org.mcplissken.security,
-							org.mcplissken.localization,
+							org.cradle.repository,
+							org.cradle.repository.key,
+							org.cradle.repository.key.exception,
+							org.cradle.repository.key.parsers,
+							org.cradle.repository.models.tracking,
+							org.cradle.disruptor.workerpool,
+							org.cradle.security,
+							org.cradle.localization,
 							com.google.gson,
 							org.apache.commons.beanutils,
 							!*

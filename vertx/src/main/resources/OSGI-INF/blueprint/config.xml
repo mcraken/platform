@@ -3,7 +3,7 @@
 
 <blueprint xmlns="http://www.osgi.org/xmlns/blueprint/v1.0.0">
 
-	<bean id="vertx" class="org.mcplissken.osgi.vertx.VertxFactory" init-method="init" destroy-method="destroy">
+	<bean id="vertx" class="org.cradle.osgi.vertx.VertxFactory" init-method="init" destroy-method="destroy">
 		<property name="homePath" value="vertx/home" />
 		<property name="modsPath" value="vertx/mods" />
 		<property name="clusterManagerFactory" value="org.vertx.java.spi.cluster.impl.hazelcast.HazelcastClusterManagerFactory" />
@@ -25,18 +25,18 @@
 	</bean>
 
 	<bean id="jsonDocumentReaderWriter"
-		class="org.mcplissken.gateway.restful.document.JsonDocumentReaderWriter"
+		class="org.cradle.gateway.restful.document.JsonDocumentReaderWriter"
 		init-method="init">
 	</bean>
 	
-	<service ref="vertx" interface="org.mcplissken.osgi.vertx.VertxService" />
+	<service ref="vertx" interface="org.cradle.osgi.vertx.VertxService" />
 
-	<service ref="vertx" interface="org.mcplissken.osgi.vertx.eventbus.VertxEventBusService" />
+	<service ref="vertx" interface="org.cradle.osgi.vertx.eventbus.VertxEventBusService" />
 	
-	<service ref="vertx" interface="org.mcplissken.gateway.HttpWebService" />
+	<service ref="vertx" interface="org.cradle.gateway.HttpWebService" />
 	
-	<reference id="localizationService" interface="org.mcplissken.localization.LocalizationService" />
+	<reference id="localizationService" interface="org.cradle.localization.LocalizationService" />
 	
-	<reference id="systemReporting" interface="org.mcplissken.reporting.SystemReportingService" />
+	<reference id="systemReporting" interface="org.cradle.reporting.SystemReportingService" />
 	
 </blueprint>

@@ -1,8 +1,8 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>org.mcplissken</groupId>
-	<artifactId>mcplissken-reporting</artifactId>
+	<groupId>org.cradle</groupId>
+	<artifactId>cradle-reporting</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>bundle</packaging>
 
@@ -14,8 +14,8 @@
 	<dependencies>
 
 		<dependency>
-			<groupId>org.mcplissken</groupId>
-			<artifactId>mcplissken-mail</artifactId>
+			<groupId>org.cradle</groupId>
+			<artifactId>cradle-mail</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
 
@@ -26,8 +26,8 @@
 		</dependency>
 
 		<dependency>
-			<groupId>org.mcplissken</groupId>
-			<artifactId>mcplissken-disruptor</artifactId>
+			<groupId>org.cradle</groupId>
+			<artifactId>cradle-disruptor</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
 
@@ -46,7 +46,7 @@
 						<Bundle-Name>${project.name}</Bundle-Name>
 						<Bundle-SymbolicName>${project.artifactId}</Bundle-SymbolicName>
 						<Import-Package>
-							org.mcplissken.workerpool,
+							org.cradle.workerpool,
 							*;resolution:=optional
 						</Import-Package>
 						<Embed-Dependency>

@@ -1,8 +1,8 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>org.mcplissken</groupId>
-	<artifactId>mcplissken-repository</artifactId>
+	<groupId>org.cradle</groupId>
+	<artifactId>cradle-repository</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>bundle</packaging>
 
@@ -80,15 +80,15 @@
 		</dependency>
 
 		<dependency>
-			<groupId>org.mcplissken</groupId>
-			<artifactId>mcplissken-datetime</artifactId>
+			<groupId>org.cradle</groupId>
+			<artifactId>cradle-datetime</artifactId>
 			<scope>provided</scope>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
 
 		<dependency>
-			<groupId>org.mcplissken</groupId>
-			<artifactId>mcplissken-reporting</artifactId>
+			<groupId>org.cradle</groupId>
+			<artifactId>cradle-reporting</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 			<scope>provided</scope>
 		</dependency>
@@ -134,9 +134,9 @@
 						<Bundle-Name>${project.name}</Bundle-Name>
 						<Bundle-SymbolicName>${project.artifactId}</Bundle-SymbolicName>
 						<Import-Package>
-							org.mcplissken.datetime,
-							org.mcplissken.datetime.dateback,
-							org.mcplissken.reporting,
+							org.cradle.datetime,
+							org.cradle.datetime.dateback,
+							org.cradle.reporting,
 							org.apache.commons.collections,
 							org.apache.commons.collections.bidimap,
 							org.apache.commons.collections.buffer,
@@ -167,19 +167,19 @@
 						</Embed-Dependency>
 						<Embed-Transitive>true</Embed-Transitive>
 						<Export-Package>
-							org.mcplissken.repository,
-							org.mcplissken.repository.exception,
-							org.mcplissken.repository.index,
-							org.mcplissken.repository.models,
-							org.mcplissken.repository.models.account,
-							org.mcplissken.repository.models.content,
-							org.mcplissken.repository.models.tracking,
-							org.mcplissken.repository.query,
-							org.mcplissken.repository.query.formatter,
-							org.mcplissken.repository.key,
-							org.mcplissken.repository.key.exception,
-							org.mcplissken.repository.key.parsers,
-							org.mcplissken.repository.key.generator,
+							org.cradle.repository,
+							org.cradle.repository.exception,
+							org.cradle.repository.index,
+							org.cradle.repository.models,
+							org.cradle.repository.models.account,
+							org.cradle.repository.models.content,
+							org.cradle.repository.models.tracking,
+							org.cradle.repository.query,
+							org.cradle.repository.query.formatter,
+							org.cradle.repository.key,
+							org.cradle.repository.key.exception,
+							org.cradle.repository.key.parsers,
+							org.cradle.repository.key.generator,
 							org.springframework.data.annotation,
 							org.springframework.data.cassandra.mapping,
 							org.springframework.cassandra.core

@@ -1,8 +1,8 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>org.mcplissken</groupId>
-	<artifactId>mcplissken-vertx</artifactId>
+	<groupId>org.cradle</groupId>
+	<artifactId>cradle-vertx</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>bundle</packaging>
 
@@ -14,20 +14,20 @@
 	<dependencies>
 
 		<dependency>
-			<groupId>org.mcplissken</groupId>
-			<artifactId>mcplissken-localization</artifactId>
+			<groupId>org.cradle</groupId>
+			<artifactId>cradle-localization</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
+ 
+		<dependency>
+			<groupId>org.cradle</groupId>
+			<artifactId>cradle-gateway</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
 
 		<dependency>
-			<groupId>org.mcplissken</groupId>
-			<artifactId>mcplissken-gateway</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
-		</dependency>
-
-		<dependency>
-			<groupId>org.mcplissken</groupId>
-			<artifactId>mcplissken-repository</artifactId>
+			<groupId>org.cradle</groupId>
+			<artifactId>cradle-repository</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
 
@@ -62,8 +62,8 @@
 		</dependency>
 
 		<dependency>
-			<groupId>org.mcplissken</groupId>
-			<artifactId>mcplissken-reporting</artifactId>
+			<groupId>org.cradle</groupId>
+			<artifactId>cradle-reporting</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
 

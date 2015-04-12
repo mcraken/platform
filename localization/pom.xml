@@ -1,8 +1,8 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>org.mcplissken</groupId>
-	<artifactId>mcplissken-localization</artifactId>
+	<groupId>org.cradle</groupId>
+	<artifactId>cradle-localization</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>bundle</packaging>
 
@@ -13,8 +13,8 @@
 
 	<dependencies>
 		<dependency>
-			<groupId>org.mcplissken</groupId>
-			<artifactId>mcplissken-cache</artifactId>
+			<groupId>org.cradle</groupId>
+			<artifactId>cradle-cache</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
 	</dependencies>
@@ -32,7 +32,7 @@
 						<Bundle-Name>${project.name}</Bundle-Name>
 						<Bundle-SymbolicName>${project.artifactId}</Bundle-SymbolicName>
 						<Export-Package>
-							org.mcplissken.localization
+							org.cradle.localization
 						</Export-Package>
 					</instructions>
 				</configuration>

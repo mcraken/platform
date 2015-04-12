@@ -1,8 +1,8 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>org.mcplissken</groupId>
-	<artifactId>mcplissken-security</artifactId>
+	<groupId>org.cradle</groupId>
+	<artifactId>cradle-security</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>bundle</packaging>
 
@@ -21,13 +21,13 @@
 		</dependency>
 
 		<dependency>
-			<groupId>org.mcplissken</groupId>
-			<artifactId>mcplissken-repository</artifactId>
+			<groupId>org.cradle</groupId>
+			<artifactId>cradle-repository</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
 		<dependency>
-			<groupId>org.mcplissken</groupId>
-			<artifactId>mcplissken-reporting</artifactId>
+			<groupId>org.cradle</groupId>
+			<artifactId>cradle-reporting</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 			<scope>provided</scope>
 		</dependency>
@@ -67,11 +67,11 @@
 						<Bundle-Name>${project.name}</Bundle-Name>
 						<Bundle-SymbolicName>${project.artifactId}</Bundle-SymbolicName>
 						<Import-Package>
-							org.mcplissken.reporting,
-							org.mcplissken.repository,
-							org.mcplissken.repository.query,
-							org.mcplissken.repository.models.account,
-							org.mcplissken.repository.exception,
+							org.cradle.reporting,
+							org.cradle.repository,
+							org.cradle.repository.query,
+							org.cradle.repository.models.account,
+							org.cradle.repository.exception,
 							org.apache.commons.dbcp,
 							org.apache.commons.beanutils,
 							org.slf4j,
@@ -85,7 +85,7 @@
 							*;resolution:=optional
 						</Import-Package>
 						<Export-Package>
-							org.mcplissken.security
+							org.cradle.security
 						</Export-Package>
 						<Embed-Dependency>
 							ehcache,

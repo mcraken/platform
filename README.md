@@ -95,7 +95,7 @@ The above code sample creates query adapter for index core named "news_en". A da
 
 The index repository also introduces the concept of index porters. An index porter is an abstraction for an atomic index transaction executed on a single index core (type). There are three types of operations supported by the index porter whch are port, commit and shutdown. The port operation executed on an index core could be rolledback as long as commit not called. Now, let us look at the sequence diagram
 
-![alt tag](https://cloud.githubusercontent.com/assets/6278849/7105204/0d55325e-e10e-11e4-8d74-9acf0d81c906.png)
+![alt tag](https://cloud.githubusercontent.com/assets/6278849/7105215/8471a7a0-e10e-11e4-86ec-b1fa05d5f614.png)
 
 Apache shiro is used as a mean of session clustering and user based security. Having shiro makes it possible to provide seamless user management between identical nodes.
 

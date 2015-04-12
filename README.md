@@ -24,7 +24,7 @@ As it was mentioned before, the http gateway is an abstraction. The vertx bundle
 
 Finally, The gateway bundle exposes its services through the gateway interface which gives the capability for clients to register handlers and filters.
 
-## Repositry
+## Reposiotry
 
 The repository bundle is implemented as a variation of the repository architectural pattern. The repository abstraction provides single interface for searching and modifying databases and searchable index implementations. Currently, the only implementations provided are for cassandra and Solrj.
 
@@ -70,9 +70,15 @@ SimpleSelectionAdapter<Story> selectionAdapter = repository.createSimpleSelectio
 				.eq("language", "AR")
 				.eq("category", 3)
 				.and()
-				.page(maxSize)
+				.orderBy(false, "date")
 				.result();
 ```
+The simple selection adapter evaluates calls on a postfix basis. In the example above, the language and the category calls are evaluated into an AND criterion when and() is introduced to the chanined calls in the fourth line. Query configuration calls like paging and sorting should be introduced at the end of the chain, otherwise invalid query exception might be thrown but it depends on the actual implementation of the query adapter. Now, lets take a look at the sequence diagram
+
+![alt tag](https://cloud.githubusercontent.com/assets/6278849/7105012/f44da322-e103-11e4-8cdf-1a51e07ca9a2.png)
+
+each method starts with doXXX is a template method. Do template method are implemented by children of BasicSimpleSelection adapter. The children should provide database specific implementations of the template methods in the parent class. 
+
 Apache shiro is used as a mean of session clustering and user based security. Having shiro makes it possible to provide seamless user management between identical nodes.
 
 The schedule bundle is an abstraction of time based services. The schedule bundle is built on top of quartz. It models sessions and tracks scheduling. A session is an operation that is only operable within a pre-defined time period. A track is an ever repeating task that works within hour, day, week or year time periods.

@@ -119,7 +119,9 @@ The boolean variable at the end of the buildJob function call serves as the repl
 
 JobBuilder calls are chainable. In the example above, a daily task is scheduled to run in a certain hour and minute of the day modified by a custom calendar. Take a look at the [JobBuilder](schedule/src/main/java/org/cradle/schedule/JobBuilder.java) interface for more information.
 
-The good thing about the schedule bundle that it provides number of classes that model different scheduling techniques out of the box. A track is an ever repeating task that works within hour, day, week or year time periods. 
+The good thing about the schedule bundle that it provides number of classes that model different scheduling techniques out of the box. A track is an ever repeating task that works within hour, day, week or year time periods. Track is a abstract class that provides three template methods init, schedule and execute. A WeeklyTrack is an abstract class that extends Track and provides an implementation for the schedule function. 
+
+![alt tag](https://cloud.githubusercontent.com/assets/6278849/7105494/6078d558-e11d-11e4-9855-b5b3114c3b03.png)
 
 A session is an operation that is only operable within a pre-defined time period.
 

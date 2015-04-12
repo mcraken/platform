@@ -28,6 +28,38 @@ Finally, The gateway bundle exposes its services through the gateway interface w
 
 The repository bundle is implemented as a variation of the repository architectural pattern. The repository abstraction provides single interface for searching and modifying databases and searchable index implementations. Currently, the only implementations provided are for cassandra and Solrj.
 
+The model repository interface supports two types of APIs which are the structured repository APIs and the index repository APIs. 
+
+![alt tag](https://cloud.githubusercontent.com/assets/6278849/7104794/96280554-e0f8-11e4-845d-c0c954e6898f.jpg)
+
+The structured repository interface is a generic model for a DAO which support create, update and delete operations. The structured repository interface provides special type of reading capability based on RESTful search keys. Search key is a class that reprsents a verbose reading operation. A typical search key is targeted for a certain model and supported by multiple search criteria and paging configurations. Below is an examplary search key in JSON format:
+{
+   "resourceName": "news",
+   "select": "title,body"
+   "start": 5,
+   "count": 10,
+   "criterias": [
+      {
+         "propertyName": "1_eq(language)",
+         "value": "AR"
+      },
+      {
+         "propertyName": "2_gt(date)",
+         "value": "20040501"
+      },
+      {
+         "propertyName": "3_lg(1,2)",
+         "value": "and"
+      }
+   ],
+}
+
+As you would have deducted already, the demonstrated search operation is targeted for a model annotated with "news". The key has a projection on news title and body only.The dataset starts at entry 5 and extends up to 10 models length. The criteria section of this search key consists of 3 parts where one of them is logical in nature. The search key retrieves all the news marked with an arabic language after the first of May, 2004. Each search criterion consists of a property name and a target value. The structure of the property name is criterionNumber_operationName(field). The search key also demonstrates a logical operation in the thrid criterion, the format of a logical criterion is as follows criterionNumber_lg(criterion1, criterion2 ... criterionN).
+
+Now lets take a look at a search operation in action starting with the model repository
+
+![alt tag](https://cloud.githubusercontent.com/assets/6278849/7104882/d9a88fc4-e0fd-11e4-84d2-cc4281d4e273.jpg)
+
 Apache shiro is used as a mean of session clustering and user based security. Having shiro makes it possible to provide seamless user management between identical nodes.
 
 The schedule bundle is an abstraction of time based services. The schedule bundle is built on top of quartz. It models sessions and tracks scheduling. A session is an operation that is only operable within a pre-defined time period. A track is an ever repeating task that works within hour, day, week or year time periods.

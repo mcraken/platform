@@ -61,6 +61,18 @@ Now lets take a look at a search operation in action starting with the model rep
 
 ![alt tag](https://cloud.githubusercontent.com/assets/6278849/7104882/d9a88fc4-e0fd-11e4-84d2-cc4281d4e273.jpg)
 
+The structured repository supports simple DSL querying format as well. The SimpleSelectionAdapter interface is used to provide chain type calls to build a simple query. 
+
+```java
+SimpleSelectionAdapter<Story> selectionAdapter = repository.createSimpleSelectionAdapter("news");
+
+		List<Story> result = selectionAdapter
+				.eq("language", "AR")
+				.eq("category", 3)
+				.and()
+				.page(maxSize)
+				.result();
+```
 Apache shiro is used as a mean of session clustering and user based security. Having shiro makes it possible to provide seamless user management between identical nodes.
 
 The schedule bundle is an abstraction of time based services. The schedule bundle is built on top of quartz. It models sessions and tracks scheduling. A session is an operation that is only operable within a pre-defined time period. A track is an ever repeating task that works within hour, day, week or year time periods.

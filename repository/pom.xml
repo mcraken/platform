@@ -185,9 +185,6 @@
 							org.springframework.cassandra.core
 						</Export-Package>
 					</instructions>
-					<excludes>
-						<exclude>./mubasher-datetime-0.0.1-SNAPSHOT.jar</exclude>
-					</excludes>
 				</configuration>
 			</plugin>
 

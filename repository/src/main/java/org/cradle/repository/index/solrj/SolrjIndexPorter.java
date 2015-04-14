@@ -31,9 +31,6 @@ public class SolrjIndexPorter<T> implements IndexPorter<T> {
 		this.server = server;
 	}
 
-	/* (non-Javadoc)
-	 * @see com.mubasher.solrj.IndexPorter#port(java.lang.Object, java.lang.String[])
-	 */
 	public void port(Object target) throws IndexException {
 
 		try {
@@ -79,9 +76,6 @@ public class SolrjIndexPorter<T> implements IndexPorter<T> {
 		}
 	}
 
-	/* (non-Javadoc)
-	 * @see com.mubasher.solrj.IndexPorter#commit()
-	 */
 	public void commit() throws IndexException {
 
 		try {
@@ -94,17 +88,11 @@ public class SolrjIndexPorter<T> implements IndexPorter<T> {
 		}
 	}
 
-	/* (non-Javadoc)
-	 * @see com.mubasher.solrj.IndexPorter#shutdown()
-	 */
 	public void shutdown() {
 
 		server.shutdown();
 	}
 
-	/* (non-Javadoc)
-	 * @see com.mubasher.market.repository.index.IndexPorter#delete(java.lang.Object)
-	 */
 	@Override
 	public void delete(T model) throws IndexException {
 		
@@ -130,9 +118,6 @@ public class SolrjIndexPorter<T> implements IndexPorter<T> {
 		}
 	}
 
-	/* (non-Javadoc)
-	 * @see com.mubasher.market.repository.index.IndexPorter#deleteById(java.lang.String)
-	 */
 	@Override
 	public void deleteById(String id) throws IndexException {
 		

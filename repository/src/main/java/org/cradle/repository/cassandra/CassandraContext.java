@@ -28,8 +28,6 @@ import com.datastax.driver.core.Session;
 
 /**
  * @author 	Sherief Shawky
- * @email 	sh
- * erif.shawki@mubasher.info
  * @date 	Aug 12, 2014
  */
 public class CassandraContext {

@@ -122,12 +122,6 @@ public class CassandraStructuredRepository implements StructuredRepository {
 		
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * com.mubasher.market.repository.ModelRepository#write(java.lang.Object)
-	 */
 	@Override
 	public <T> void write(T model) {
 		
@@ -140,28 +134,19 @@ public class CassandraStructuredRepository implements StructuredRepository {
 		
 		cassandraTemplate.insertAsynchronously(models, writeOptions);
 	}
-	
-	/* (non-Javadoc)
-	 * @see com.mubasher.market.repository.StructuredRepository#update(com.mubasher.market.repository.models.RestModel)
-	 */
+
 	@Override
 	public <T> void update(T model) {
 		
 		cassandraTemplate.update(model, writeOptions);
 	}
 
-	/* (non-Javadoc)
-	 * @see com.mubasher.market.repository.StructuredRepository#delete(com.mubasher.market.repository.models.RestModel)
-	 */
 	@Override
 	public <T> void delete(T model) {
 		
 		cassandraTemplate.delete(model);
 	}
 	
-	/* (non-Javadoc)
-	 * @see com.mubasher.market.repository.ModelRepository#createSimpleSelectionAdapter(java.lang.String)
-	 */
 	@SuppressWarnings("unchecked")
 	@Override
 	public <T> SimpleSelectionAdapter<T> createSimpleSelectionAdapter(String modelName) {
@@ -173,9 +158,6 @@ public class CassandraStructuredRepository implements StructuredRepository {
 				);
 	}
 
-	/* (non-Javadoc)
-	 * @see com.mubasher.market.repository.ModelRepository#read(com.mubasher.market.repository.key.RestSearchKey)
-	 */
 	@SuppressWarnings("unchecked")
 	@Override
 	public <T> List<T> read(RestSearchKey key) throws InvalidCriteriaException {

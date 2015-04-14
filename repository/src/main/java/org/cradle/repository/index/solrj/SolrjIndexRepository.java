@@ -47,9 +47,6 @@ public class SolrjIndexRepository implements IndexRepository{
 
 	}
 
-	/* (non-Javadoc)
-	 * @see com.mubasher.solrj.SolrjService#indexPorter()
-	 */
 	public <T> IndexPorter<T> indexPorter(Class<T> type) throws CoreAnnotationIsNotPresent {
 
 		String coreName = getTargetCore(type);
@@ -57,9 +54,6 @@ public class SolrjIndexRepository implements IndexRepository{
 		return new SolrjIndexPorter<T>(createServer(coreName));
 	}
 
-	/* (non-Javadoc)
-	 * @see com.mubasher.market.repository.IndexRepository#indexPorter(java.lang.Class, com.mubasher.market.repository.IndexRepository.CoreLanguage)
-	 */
 	@Override
 	public <T> IndexPorter<T> indexPorter(Class<T> type, CoreLanguage language)
 			throws CoreAnnotationIsNotPresent {
@@ -69,9 +63,6 @@ public class SolrjIndexRepository implements IndexRepository{
 		return new SolrjIndexPorter<T>(createServer(coreName));
 	}
 
-	/* (non-Javadoc)
-	 * @see com.mubasher.market.repository.IndexRepository#registerIndexMapper(java.lang.String, com.mubasher.market.repository.BasicRowMapper)
-	 */
 	@Override
 	public <T> void registerIndexMapper(String modelName,
 			BasicRowMapper<T> mapper) {
@@ -79,9 +70,6 @@ public class SolrjIndexRepository implements IndexRepository{
 		rowMappers.put(modelName, new SolrjRowMapper<>(mapper));
 	}
 
-	/* (non-Javadoc)
-	 * @see com.mubasher.market.repository.IndexRepository#queryAdapter(java.lang.String)
-	 */
 	@SuppressWarnings("unchecked")
 	@Override
 	public <T> IndexQueryAdapter<T> queryAdapter(String coreName) {
@@ -132,17 +120,11 @@ public class SolrjIndexRepository implements IndexRepository{
 
 	}
 
-	/* (non-Javadoc)
-	 * @see com.mubasher.market.repository.IndexRepository#readIndex(com.mubasher.market.repository.key.RestSearchKey)
-	 */
 	@Override
 	public <T> List<T> readIndex(RestSearchKey key) throws IndexException {
 		return null;
 	}
 	
-	/* (non-Javadoc)
-	 * @see com.mubasher.market.repository.IndexRepository#write(java.lang.Object)
-	 */
 	@Override
 	public <T> void writeIndex(final T model) throws IndexException {
 		
@@ -156,9 +138,6 @@ public class SolrjIndexRepository implements IndexRepository{
 		});
 	}
 	
-	/* (non-Javadoc)
-	 * @see com.mubasher.market.repository.IndexRepository#write(java.util.List)
-	 */
 	@Override
 	public <T> void writeIndex(List<T> models) throws IndexException {
 		
@@ -173,9 +152,6 @@ public class SolrjIndexRepository implements IndexRepository{
 		});
 	}
 	
-	/* (non-Javadoc)
-	 * @see com.mubasher.market.repository.IndexRepository#delete(java.lang.Object)
-	 */
 	@Override
 	public <T> void deleteIndex(T model) throws IndexException {
 		
@@ -193,9 +169,6 @@ public class SolrjIndexRepository implements IndexRepository{
 	}
 	
 
-	/* (non-Javadoc)
-	 * @see com.mubasher.market.repository.IndexRepository#delete(java.util.List)
-	 */
 	@Override
 	public <T> void deleteIndex(List<T> models) throws IndexException {
 		

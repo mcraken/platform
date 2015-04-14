@@ -132,9 +132,6 @@ public class EhcacheService implements CacheService {
 		return cache.remove(key);
 	}
 	
-	/* (non-Javadoc)
-	 * @see com.mubasher.market.cache.CacheService#writeThrough(java.lang.String, java.lang.Object, java.lang.Object)
-	 */
 	@Override
 	public void writeThrough(String cacheName, Object key, Object modelObject) {
 		
@@ -165,18 +162,12 @@ public class EhcacheService implements CacheService {
 		return all;
 	}
 
-	/* (non-Javadoc)
-	 * @see com.mubasher.market.cache.CacheService#createIntegerKeySelectionAdapter()
-	 */
 	@Override
 	public KeySelectionAdapter createKeySelectionAdapter(String cacheName) {
 		
 		return new EhcacheKeySelectionAdapter(cacheManager.getCache(cacheName));
 	}
 
-	/* (non-Javadoc)
-	 * @see com.mubasher.market.cache.CacheService#read(java.lang.String, java.lang.Object)
-	 */
 	@Override
 	public Object read(String modelName, Object key) {
 		
@@ -186,18 +177,12 @@ public class EhcacheService implements CacheService {
 		
 		return value;
 	}
-
-	/* (non-Javadoc)
-	 * @see com.mubasher.market.cache.CacheService#createValueSelectionAdapter(java.lang.String)
-	 */
+	
 	@Override
 	public ValueSelectionAdapter createValueSelectionAdapter(String cacheName) {
 		return new EhcacheValueSelectionAdapter(cacheManager.getCache(cacheName));
 	}
 
-	/* (non-Javadoc)
-	 * @see com.mubasher.market.cache.CacheService#read(com.mubasher.market.cache.key.RestSearchKey)
-	 */
 	@Override
 	public Object read(RestSearchKey key) 
 			throws InvalidCriteriaSyntaxException, InvalidCriteriaException, UnknowModelException 
@@ -276,9 +261,6 @@ public class EhcacheService implements CacheService {
 		return crtsMap;
 	}
 
-	/* (non-Javadoc)
-	 * @see com.mubasher.market.cache.CacheService#write(java.lang.String, java.util.List)
-	 */
 	@Override
 	public void write(String cacheName, RestModel[] models) {
 		
@@ -286,9 +268,6 @@ public class EhcacheService implements CacheService {
 			write(cacheName, model.getUniqueId(), model);
 	}
 
-	/* (non-Javadoc)
-	 * @see com.mubasher.market.cache.CacheService#regitserCache(java.lang.String, boolean, java.util.List)
-	 */
 	@Override
 	public <T> void regitserCache(String name, boolean eternal,
 			List<CacheAttributeExtractor<T>> extractors) {

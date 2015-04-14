@@ -53,9 +53,6 @@ public class SolrjQueryAdapter<T> implements IndexQueryAdapter<T> {
 		filterOprands = new ArrayList<>();
 	}
 
-	/* (non-Javadoc)
-	 * @see com.mubasher.market.solrj.SolrjQueryAdapter#queryAll()
-	 */
 	@Override
 	public IndexQueryAdapter<T> queryAll() {
 
@@ -64,9 +61,6 @@ public class SolrjQueryAdapter<T> implements IndexQueryAdapter<T> {
 		return this;
 	}
 
-	/* (non-Javadoc)
-	 * @see com.mubasher.market.solrj.SolrjQueryAdapter#query(java.lang.String)
-	 */
 	@Override
 	public IndexQueryAdapter<T> query(String terms) {
 
@@ -75,9 +69,6 @@ public class SolrjQueryAdapter<T> implements IndexQueryAdapter<T> {
 		return this;
 	}
 
-	/* (non-Javadoc)
-	 * @see com.mubasher.market.solrj.SolrjQueryAdapter#filter(java.lang.String[])
-	 */
 	@Override
 	public IndexQueryAdapter<T> filter(String filedName) {
 
@@ -96,9 +87,6 @@ public class SolrjQueryAdapter<T> implements IndexQueryAdapter<T> {
 		}
 	}
 
-	/* (non-Javadoc)
-	 * @see com.mubasher.market.solrj.SolrjQueryAdapter#start(int)
-	 */
 	@Override
 	public IndexQueryAdapter<T> start(Integer start) {
 
@@ -107,9 +95,6 @@ public class SolrjQueryAdapter<T> implements IndexQueryAdapter<T> {
 		return this;
 	}
 
-	/* (non-Javadoc)
-	 * @see com.mubasher.market.solrj.SolrjQueryAdapter#page(int)
-	 */
 	@Override
 	public IndexQueryAdapter<T> page(Integer count) {
 
@@ -118,9 +103,6 @@ public class SolrjQueryAdapter<T> implements IndexQueryAdapter<T> {
 		return this;
 	}
 
-	/* (non-Javadoc)
-	 * @see com.mubasher.market.solrj.SolrjQueryAdapter#result()
-	 */
 	@Override
 	public List<T> result() throws QueryException{
 
@@ -159,9 +141,6 @@ public class SolrjQueryAdapter<T> implements IndexQueryAdapter<T> {
 
 	}
 
-	/* (non-Javadoc)
-	 * @see com.mubasher.market.solrj.SolrjQueryAdapter#sort(java.lang.String, boolean)
-	 */
 	@Override
 	public IndexQueryAdapter<T> sort(String fieldName, boolean asc) {
 
@@ -170,9 +149,6 @@ public class SolrjQueryAdapter<T> implements IndexQueryAdapter<T> {
 		return this;
 	}
 
-	/* (non-Javadoc)
-	 * @see com.mubasher.market.solrj.SolrjQueryAdapter#eq(java.lang.String)
-	 */
 	@Override
 	public IndexQueryAdapter<T> eq(String value) {
 
@@ -181,9 +157,6 @@ public class SolrjQueryAdapter<T> implements IndexQueryAdapter<T> {
 		return this;
 	}
 
-	/* (non-Javadoc)
-	 * @see com.mubasher.market.solrj.SolrjQueryAdapter#gt(java.lang.String)
-	 */
 	@Override
 	public IndexQueryAdapter<T> gt(String value) {
 
@@ -192,9 +165,6 @@ public class SolrjQueryAdapter<T> implements IndexQueryAdapter<T> {
 		return this;
 	}
 
-	/* (non-Javadoc)
-	 * @see com.mubasher.market.solrj.SolrjQueryAdapter#OR()
-	 */
 	@Override
 	public IndexQueryAdapter<T> or() {
 
@@ -227,9 +197,6 @@ public class SolrjQueryAdapter<T> implements IndexQueryAdapter<T> {
 		return filter;
 	}
 
-	/* (non-Javadoc)
-	 * @see com.mubasher.market.solrj.SolrjQueryAdapter#AND()
-	 */
 	@Override
 	public IndexQueryAdapter<T> and() {
 

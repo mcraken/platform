@@ -51,9 +51,6 @@ public class LocalizationServiceImpl implements LocalizationService {
 		this.cacheService = cacheService;
 	}
 
-	/* (non-Javadoc)
-	 * @see com.mubasher.market.localization.LocalizationService#localize(java.lang.String, java.util.List)
-	 */
 	@Override
 	public List<Localized> localize(String language, List<String> ids) throws LocalizationException{
 

@@ -22,6 +22,7 @@ import org.springframework.data.cassandra.core.CassandraTemplate;
 
 import com.datastax.driver.core.Cluster;
 import com.datastax.driver.core.Host;
+import com.datastax.driver.core.HostDistance;
 import com.datastax.driver.core.Metadata;
 import com.datastax.driver.core.Session;
 
@@ -62,6 +63,27 @@ public class CassandraContext {
 			reportingService.info(this.getClass().getSimpleName(), SystemReportingService.CONSOLE, "Datacenter: " + host.getDatacenter() + "; Host: " + host.getAddress() + "; Rack: "
 					+ host.getRack());
 		}
+		
+		reportingService.info(
+				this.getClass().getSimpleName(), SystemReportingService.CONSOLE, 
+				"Core Connections Per Host: " + cluster.getConfiguration().getPoolingOptions().getCoreConnectionsPerHost(HostDistance.LOCAL)
+				);
+		
+		reportingService.info(
+				this.getClass().getSimpleName(), SystemReportingService.CONSOLE, 
+				"Max Connections Per Host: " + cluster.getConfiguration().getPoolingOptions().getMaxConnectionsPerHost(HostDistance.LOCAL)
+				);
+		
+		reportingService.info(
+				this.getClass().getSimpleName(), SystemReportingService.CONSOLE, 
+				"Min Simultaneous Connections Per Host: " + cluster.getConfiguration().getPoolingOptions().getMinSimultaneousRequestsPerConnectionThreshold(HostDistance.LOCAL)
+				);
+		
+		reportingService.info(
+				this.getClass().getSimpleName(), SystemReportingService.CONSOLE, 
+				"Max Simultaneous Connections Per Host: " + cluster.getConfiguration().getPoolingOptions().getMaxSimultaneousRequestsPerConnectionThreshold(HostDistance.LOCAL)
+				);
+
 	}
 
 	public void destroy(){

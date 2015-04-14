@@ -31,6 +31,7 @@ import org.springframework.data.cassandra.config.java.AbstractCassandraConfigura
 import org.springframework.data.cassandra.core.CassandraTemplate;
 import org.springframework.data.cassandra.repository.config.EnableCassandraRepositories;
 
+import com.datastax.driver.core.HostDistance;
 import com.datastax.driver.core.KeyspaceMetadata;
 import com.datastax.driver.core.Session;
 import com.datastax.driver.core.TableMetadata;
@@ -49,6 +50,10 @@ public class CassandraConfig extends AbstractCassandraConfiguration {
 	private static final String KEYSPACE_PROPERTY_KEY = "keyspace";
 	private static final String KEYSPACE_NAME_PROPERTY_KEY = "keyspace_name";
 	private static final String HOSTS_PROPERTY_KEY = "hosts";
+	private static final String CORE_HOST_CONNECTIONS_KEY = "core_host_connections";
+	private static final String MAX_HOST_CONNECTIONS_KEY = "max_host_connections";
+	private static final String CORE_HOST_SIMULTANEOUS_CONNECTIONS_KEY = "core_host_simultaneous_connections";
+	private static final String MAX_HOST_SIMULTANEOUS_CONNECTIONS_KEY = "max_host_simultaneous_connections";
 	
 	private String keySpaceName;
 	private String hosts;
@@ -85,12 +90,27 @@ public class CassandraConfig extends AbstractCassandraConfiguration {
 		loadSchemaProperties();
 		
 		Session system = cluster().getObject().connect();
-
+		
+		configureDriver(system);
+		
 		validateKeyspace(system);
 
 		return super.session();
 	}
 
+	private void configureDriver(Session system) {
+		
+		com.datastax.driver.core.Configuration  conf = system.getCluster().getConfiguration();
+		
+		conf.getPoolingOptions().setMaxConnectionsPerHost(HostDistance.LOCAL, Integer.parseInt(prop.getProperty(MAX_HOST_CONNECTIONS_KEY)));
+		
+		conf.getPoolingOptions().setCoreConnectionsPerHost(HostDistance.LOCAL, Integer.parseInt(prop.getProperty(CORE_HOST_CONNECTIONS_KEY)));
+		
+		conf.getPoolingOptions().setMaxSimultaneousRequestsPerConnectionThreshold(HostDistance.LOCAL, Integer.parseInt(prop.getProperty(MAX_HOST_SIMULTANEOUS_CONNECTIONS_KEY)));
+		
+		conf.getPoolingOptions().setMinSimultaneousRequestsPerConnectionThreshold(HostDistance.LOCAL, Integer.parseInt(prop.getProperty(CORE_HOST_SIMULTANEOUS_CONNECTIONS_KEY)));
+	}
+	
 	private void loadSchemaProperties() {
 		
 		try {

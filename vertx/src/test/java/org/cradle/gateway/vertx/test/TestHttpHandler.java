@@ -13,15 +13,25 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package org.cradle.gateway;
+package org.cradle.gateway.vertx.test;
 
+import org.cradle.gateway.HttpAdapter;
+import org.cradle.gateway.method.GET;
 
 /**
- * @author 	Sherief Shawky
+ * @author	Sherief Shawky
  * @email 	mcrakens@gmail.com
- * @date 	Aug 5, 2014
+ * @date 	Apr 15, 2015
  */
-public interface HttpGateway {
-
-	public void registerHandler(Object handler);
+public class TestHttpHandler {
+	
+	@GET(path="/hello")
+	public String sayHello(HttpAdapter adapter){
+		return "Hello, World!";
+	}
+	
+	@GET(path="/goodbye")
+	public String sayGoodbye(HttpAdapter adapter){
+		return "Bye, World!";
+	}
 }

@@ -18,12 +18,12 @@ package org.cradle.gateway.vertx;
 import java.util.Map;
 
 import org.cradle.gateway.BasicHttpHandler;
-import org.cradle.gateway.HttpGateway;
 import org.cradle.gateway.restful.document.DocumentReader;
 import org.cradle.gateway.restful.document.DocumentWriter;
 import org.cradle.gateway.restful.filter.RESTfulFilter;
 import org.cradle.gateway.restful.filter.RESTfulFilterFactory;
 import org.cradle.gateway.restful.filter.RESTfullServiceFilterConfig;
+import org.cradle.gateway.spi.BasicHttpGateway;
 import org.cradle.gateway.vertx.restful.VertxRESTfulFilter;
 import org.cradle.localization.LocalizationService;
 import org.cradle.osgi.vertx.handlers.ContentRequestHandler;
@@ -45,7 +45,7 @@ import org.vertx.java.core.sockjs.SockJSServer;
  * @email 	mcrakens@gmail.com
  * @date 	Aug 2, 2014
  */
-public class VertxGateway implements HttpGateway, SockJsGateway {
+public class VertxGateway extends BasicHttpGateway implements  SockJsGateway {
 
 	private HttpServer httpServer;
 	private SockJSServer sockJSServer;
@@ -175,7 +175,7 @@ public class VertxGateway implements HttpGateway, SockJsGateway {
 	 * @see org.cradle.osgi.gateway.HttpGateway#unregisterRESTfulHandler(io.netty.handler.codec.http.HttpMethod, java.lang.String)
 	 */
 	@Override
-	public void unregisterHttpHandler(String method, String path) {
+	protected void unregisterHttpHandler(String method, String path) {
 
 		routeMatcher.removeHandler(method, path);
 
@@ -206,7 +206,7 @@ public class VertxGateway implements HttpGateway, SockJsGateway {
 	 * @see org.cradle.gateway.HttpGateway#regitserHttpHandler(java.lang.String, java.lang.String, org.cradle.gateway.BasicHttpHandler, org.cradle.gateway.restful.filter.RESTfullServiceFilterConfig)
 	 */
 	@Override
-	public void registerHttpHandler(
+	protected void registerHttpHandler(
 			String method, 
 			String path,
 			BasicHttpHandler httpHandler,

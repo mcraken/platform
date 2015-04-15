@@ -32,8 +32,6 @@ public abstract class ScheduledSession {
 
 	public static final String SESSION_SCHEDULE = "sessions";
 
-	public static final String TRACKS_PREFIX = "/broadcast/sessions/";
-
 	private String sessionName;
 
 	private int startHour;

@@ -13,15 +13,16 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package org.cradle.gateway;
+package org.cradle.gateway.spi;
 
+import org.cradle.gateway.BasicHttpHandler;
 
 /**
- * @author 	Sherief Shawky
+ * @author	Sherief Shawky
  * @email 	mcrakens@gmail.com
- * @date 	Aug 5, 2014
+ * @date 	Apr 15, 2015
  */
-public interface HttpGateway {
-
-	public void registerHandler(Object handler);
+public interface RegistrationAgent {
+	
+	public void register(String method, String path, BasicHttpHandler httpHandler);
 }

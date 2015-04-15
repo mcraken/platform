@@ -13,15 +13,35 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package org.cradle.gateway;
+package org.cradle.gateway.spi;
 
+import java.lang.reflect.Method;
 
 /**
- * @author 	Sherief Shawky
+ * @author	Sherief Shawky
  * @email 	mcrakens@gmail.com
- * @date 	Aug 5, 2014
+ * @date 	Apr 15, 2015
  */
-public interface HttpGateway {
+public abstract class RegistrationPrincipal {
+	
+	private RegistrationPrincipal next;
 
-	public void registerHandler(Object handler);
+	/**
+	 * @param next
+	 */
+	public RegistrationPrincipal(RegistrationPrincipal next) {
+		this.next = next;
+	}
+	
+	public void execute(RegistrationAgent agent, Object handler, Method target){
+		executePrincipal(agent, handler, target);
+		
+		if(next != null)
+			next.execute(agent, handler, target);
+	}
+
+	/**
+	 * 
+	 */
+	protected abstract void executePrincipal(RegistrationAgent agent, Object handler, Method target);
 }

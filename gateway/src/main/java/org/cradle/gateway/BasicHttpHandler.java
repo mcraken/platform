@@ -22,7 +22,6 @@ import org.cradle.gateway.restful.ServiceResponse;
 import org.cradle.gateway.restful.exception.BadContentType;
 import org.cradle.gateway.restful.exception.BadRequestException;
 import org.cradle.gateway.restful.exception.UnauthorizedException;
-import org.cradle.gateway.restful.filter.RESTfullServiceFilterConfig;
 import org.cradle.localization.LocalizationException;
 import org.cradle.localization.LocalizationService;
 
@@ -35,8 +34,8 @@ public abstract class BasicHttpHandler {
 
 	protected String method;
 	protected String path;
-	protected HttpGateway gateway;
-	protected RESTfullServiceFilterConfig filterConfig;
+//	protected HttpGateway gateway;
+//	protected RESTfullServiceFilterConfig filterConfig;
 	protected LocalizationService localizationService;
 
 	/**
@@ -46,19 +45,19 @@ public abstract class BasicHttpHandler {
 		this.method = method;
 	}
 
-	/**
-	 * @param gateway the gateway to set
-	 */
-	public void setGateway(HttpGateway gateway) {
-		this.gateway = gateway;
-	}
+//	/**
+//	 * @param gateway the gateway to set
+//	 */
+//	public void setGateway(HttpGateway gateway) {
+//		this.gateway = gateway;
+//	}
 
-	/**
-	 * @param filterConfig the filterConfig to set
-	 */
-	public void setFilterConfig(RESTfullServiceFilterConfig filterConfig) {
-		this.filterConfig = filterConfig;
-	}
+//	/**
+//	 * @param filterConfig the filterConfig to set
+//	 */
+//	public void setFilterConfig(RESTfullServiceFilterConfig filterConfig) {
+//		this.filterConfig = filterConfig;
+//	}
 
 	/**
 	 * @param path the path to set
@@ -80,17 +79,17 @@ public abstract class BasicHttpHandler {
 
 	}
 
-	protected RESTfullServiceFilterConfig getServiceConfig(){
-
-		if(filterConfig == null)
-			return new RESTfullServiceFilterConfig();
-
-		return filterConfig;
-	}
+//	protected RESTfullServiceFilterConfig getServiceConfig(){
+//
+//		if(filterConfig == null)
+//			return new RESTfullServiceFilterConfig();
+//
+//		return filterConfig;
+//	}
 
 	public void unbindGateway(HttpGateway gateway){
 
-		gateway.unregisterHttpHandler(method, path);
+//		gateway.unregisterHttpHandler(method, path);
 	}
 
 	protected void writeServiceResponse(HttpAdapter httpAdapter,
@@ -101,7 +100,10 @@ public abstract class BasicHttpHandler {
 			String contentType = determineContentType(httpAdapter,
 					responseObject);
 
-			String contentLanguage = checkHeader(httpAdapter.getContentLangauge());
+			String contentLanguage = httpAdapter.getContentLangauge();
+			
+			if(contentLanguage == null || contentLanguage.equals(""))
+				contentLanguage = "en";
 
 			ServiceResponse serviceResponse = new ServiceResponse(contentLanguage, localizationService);
 
@@ -121,12 +123,14 @@ public abstract class BasicHttpHandler {
 
 	private String determineContentType(HttpAdapter httpAdapter,
 			ResponseObject responseObject) throws BadRequestException {
+		
 		String contentType = responseObject.getContentType();
 
 		if(contentType == null){
 
 			contentType = checkHeader(httpAdapter.getContentType());
 		}
+		
 		return contentType;
 	}
 
@@ -140,10 +144,9 @@ public abstract class BasicHttpHandler {
 		return value;
 	}
 
-	public  void init(){
-
-		gateway.registerHttpHandler(method, path, this, getServiceConfig());
-	}
+//	public  void init(){
+//		gateway.registerHttpHandler(method, path, this, getServiceConfig());
+//	}
 
 	public abstract void service(HttpAdapter httpAdapter, RESTfulRequest request, RESTfulResponse response)
 			throws BadRequestException, UnauthorizedException;

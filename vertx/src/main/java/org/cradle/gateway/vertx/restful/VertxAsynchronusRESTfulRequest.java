@@ -27,6 +27,7 @@ import org.cradle.gateway.restful.RESTfulRequest;
 import org.cradle.gateway.restful.RESTfulResponse;
 import org.cradle.gateway.restful.document.DocumentReader;
 import org.cradle.gateway.restful.document.DocumentReadingExcetion;
+import org.cradle.gateway.restful.exception.BadRequestException;
 import org.cradle.gateway.vertx.VertxHttpAdapter;
 import org.vertx.java.core.Handler;
 import org.vertx.java.core.MultiMap;
@@ -92,7 +93,7 @@ public class VertxAsynchronusRESTfulRequest extends RESTfulRequest implements Ha
 					
 				} catch (DocumentReadingExcetion e) {
 					
-					e.printStackTrace();
+					vertxHttpAdapter.exception(new BadRequestException(e));
 				}
 			}
 		});

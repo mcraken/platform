@@ -9,7 +9,24 @@ package org.cradle.gateway.restful.document;
  * @date 	Nov 6, 2014
  */
 public class DocumentReadingExcetion extends Exception {
-
+	
+	private String contentType;
+	
+	
+	/**
+	 * @param contentType
+	 */
+	public DocumentReadingExcetion(String contentType) {
+		this.contentType = contentType;
+	}
+	
+	/**
+	 * @return the contentType
+	 */
+	public String getContentType() {
+		return contentType;
+	}
+	
 	/**
 	 * 
 	 */

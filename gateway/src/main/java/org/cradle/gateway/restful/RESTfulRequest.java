@@ -61,7 +61,10 @@ public abstract class RESTfulRequest {
 		String contentType = httpAdapter.getContentType();
 
 		DocumentReader documentReader = documentReaders.get(contentType);
-
+		
+		if(documentReader == null)
+			throw new DocumentReadingExcetion(contentType);
+		
 		return documentReader.read(documentType, buffer);
 
 	}

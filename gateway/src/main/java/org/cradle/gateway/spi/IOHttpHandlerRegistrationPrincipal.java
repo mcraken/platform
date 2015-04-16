@@ -54,7 +54,7 @@ public class IOHttpHandlerRegistrationPrincipal  extends HttpHandlerResgisterati
 	protected BasicHttpHandler createHttpHandler(final Object handler,
 			final java.lang.reflect.Method target, final HttpMethod annotation) {
 		
-		final Class<?> documentType = target.getParameters()[1].getType();
+		final Class<?> documentType = target.getParameterTypes()[1];
 		
 		return new AsyncIOtHttpHandler() {
 
@@ -95,7 +95,7 @@ public class IOHttpHandlerRegistrationPrincipal  extends HttpHandlerResgisterati
 	protected void isAnnotationValid(java.lang.reflect.Method target,
 			HttpMethod annotation) {
 
-		if(target.getParameterCount() != 2){
+		if(target.getParameterTypes().length != 2){
 			throw new RuntimeException("Exactly two parameter are required for POST & PUT methods");
 		}
 

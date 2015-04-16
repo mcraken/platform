@@ -16,7 +16,6 @@
 package org.cradle.gateway.spi;
 
 import java.lang.reflect.Method;
-import java.lang.reflect.Parameter;
 
 import org.cradle.gateway.BasicHttpHandler;
 import org.cradle.gateway.HttpAdapter;
@@ -66,9 +65,7 @@ public abstract class HttpHandlerResgisterationPrinicipal extends
 	 */
 	protected void checkHttpAdapterParam(Method target) {
 	
-		Parameter httpAdapterParam = target.getParameters()[0];
-	
-		Class<?> paramType = httpAdapterParam.getType();
+		Class<?> paramType = target.getParameterTypes()[0];
 	
 		if(paramType != HttpAdapter.class){
 			throw new RuntimeException("HttpAdapter or one of its subclasses is required as the first parameter");

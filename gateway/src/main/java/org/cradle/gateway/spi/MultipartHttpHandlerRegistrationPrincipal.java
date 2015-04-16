@@ -56,18 +56,18 @@ public class MultipartHttpHandlerRegistrationPrincipal extends HttpHandlerResgis
 	protected void isAnnotationValid(java.lang.reflect.Method target,
 			HttpMethod annotation) {
 
-		if(target.getParameterCount() != 3){
+		if(target.getParameterTypes().length != 3){
 
 			throw new RuntimeException("Exactly 3 parameters are required for multipart POST methods");
 		}
 
 		checkHttpAdapterParam(target);
 
-		ParameterizedType thirdParam = (ParameterizedType) target.getParameters()[2].getParameterizedType();
+		ParameterizedType thirdParam = (ParameterizedType) target.getGenericParameterTypes()[2];
 
-		String actualThirdParamType = thirdParam.getActualTypeArguments()[0].getTypeName();
+		String actualThirdParamType = thirdParam.getActualTypeArguments()[0].toString();
 
-		if(!actualThirdParamType.equalsIgnoreCase("java.io.File")){
+		if(!actualThirdParamType.equalsIgnoreCase("class java.io.File")){
 			throw new RuntimeException("Third Parameter of multipart POST methods should be List of files");
 		}
 
@@ -80,7 +80,7 @@ public class MultipartHttpHandlerRegistrationPrincipal extends HttpHandlerResgis
 	protected BasicHttpHandler createHttpHandler(final Object handler,
 			final java.lang.reflect.Method target, final HttpMethod annotation) {
 
-		final Class<?> formType = target.getParameters()[1].getType();
+		final Class<?> formType = target.getParameterTypes()[1];
 
 		return new MultipartIOHttpHandler() {
 

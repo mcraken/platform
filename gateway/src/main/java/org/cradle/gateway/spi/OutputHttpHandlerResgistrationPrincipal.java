@@ -95,7 +95,7 @@ public class OutputHttpHandlerResgistrationPrincipal extends HttpHandlerResgiste
 	@Override
 	protected void isAnnotationValid(Method target, HttpMethod annotation) {
 		
-		if(target.getParameterCount() != 1){
+		if(target.getParameterTypes().length != 1){
 
 			throw new RuntimeException("One parameter is allowed for GET & DELETE methods");
 		}

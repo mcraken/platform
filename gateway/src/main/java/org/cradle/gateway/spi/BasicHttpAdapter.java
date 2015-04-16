@@ -13,8 +13,9 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package org.cradle.gateway;
+package org.cradle.gateway.spi;
 
+import org.cradle.gateway.HttpAdapter;
 import org.cradle.gateway.restful.exception.PathNotAccessibleException;
 import org.cradle.gateway.restful.exception.RESTfulException;
 import org.cradle.security.AuthenticationFailureException;

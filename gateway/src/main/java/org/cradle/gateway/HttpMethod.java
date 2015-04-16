@@ -13,7 +13,7 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package org.cradle.gateway.method;
+package org.cradle.gateway;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -23,11 +23,31 @@ import java.lang.annotation.Target;
 /**
  * @author	Sherief Shawky
  * @email 	mcrakens@gmail.com
- * @date 	Apr 15, 2015
+ * @date 	Apr 16, 2015
  */
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.METHOD)
-public @interface GET {
-	String path() default "/";
+public @interface HttpMethod {
+	
+	enum Method{
+
+		GET("GET"), POST("POST"), MULTIPART_POST("POST"), PUT("PUT"), DELETE("DELETE");
+		
+		private String value;
+		
+		private Method(String value){
+			this.value = value;
+		}
+		
+		/**
+		 * @return the value
+		 */
+		public String getValue() {
+			return value;
+		}
+	};
+	
+	Method method();
+	String path();
 	String contentType() default "application/json";
 }

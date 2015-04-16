@@ -17,11 +17,10 @@ package org.cradle.gateway.spi;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.lang.reflect.Parameter;
 
+import org.cradle.gateway.BasicHttpHandler;
 import org.cradle.gateway.HttpAdapter;
-import org.cradle.gateway.OutputHttpHandler;
-import org.cradle.gateway.method.GET;
+import org.cradle.gateway.HttpMethod;
 import org.cradle.gateway.restful.ResponseObject;
 import org.cradle.gateway.restful.exception.RESTfulException;
 import org.cradle.gateway.restful.exception.RedirectException;
@@ -31,56 +30,34 @@ import org.cradle.gateway.restful.exception.RedirectException;
  * @email 	mcrakens@gmail.com
  * @date 	Apr 15, 2015
  */
-public class OutputResgistrationPrincipal extends RegistrationPrincipal {
+public class OutputHttpHandlerResgistrationPrincipal extends HttpHandlerResgisterationPrinicipal {
 
 	/**
 	 * @param next
 	 */
-	public OutputResgistrationPrincipal(RegistrationPrincipal next) {
+	public OutputHttpHandlerResgistrationPrincipal(RegistrationPrincipal next) {
 		super(next);
 	}
 
-
-	/* (non-Javadoc)
-	 * @see org.cradle.gateway.spi.ResgistrationPrincipal#executePrincipal(org.cradle.gateway.spi.RegistrationAgent, java.lang.Object, java.lang.reflect.Method)
+	/**
+	 * @param method
+	 * @return
 	 */
-	@Override
-	protected void executePrincipal(RegistrationAgent agent, final Object handler,
-			final Method target) {
+	protected boolean isMethodSupported(HttpMethod.Method method) {
 
-		final GET getAnnotation = target.getAnnotation(GET.class);
-
-		if(getAnnotation != null){
-			
-			if(target.getParameterCount() != 1){
-				throw new RuntimeException("One parameter is allowed for GET & DELETE methods");
-			}
-
-			Parameter httpAdapterParam = target.getParameters()[0];
-
-			Class<?> paramType = httpAdapterParam.getType();
-
-			if(paramType != HttpAdapter.class){
-				throw new RuntimeException("HttpAdapter or one of its subclasses is allowed as a parameter");
-			}
-
-			registerHandler(agent, handler, target, getAnnotation);
-
-		}
-
+		return method.equals(HttpMethod.Method.GET) || method.equals(HttpMethod.Method.DELETE);
 	}
 
-
 	/**
-	 * @param agent
 	 * @param handler
 	 * @param target
-	 * @param getAnnotation
+	 * @param annotation
+	 * @return
 	 */
-	private void registerHandler(RegistrationAgent agent, final Object handler,
-			final Method target, final GET getAnnotation) {
+	protected BasicHttpHandler createHttpHandler(final Object handler,
+			final Method target, final HttpMethod annotation) {
 
-		agent.register("GET", getAnnotation.path(), new OutputHttpHandler() {
+		return new OutputHttpHandler() {
 
 			@Override
 			protected ResponseObject execute(HttpAdapter httpAdapter)
@@ -88,7 +65,7 @@ public class OutputResgistrationPrincipal extends RegistrationPrincipal {
 
 				try {
 
-					return new ResponseObject(target.invoke(handler, httpAdapter), getAnnotation.contentType());
+					return new ResponseObject(target.invoke(handler, httpAdapter), annotation.contentType());
 
 				} catch (IllegalAccessException | IllegalArgumentException e) {
 
@@ -97,10 +74,10 @@ public class OutputResgistrationPrincipal extends RegistrationPrincipal {
 				} catch (InvocationTargetException e) {
 
 					Throwable targetException  = e.getTargetException();
-
+					
 					if(targetException instanceof RedirectException)
 						throw (RedirectException) targetException;
-
+				
 					if(targetException instanceof RESTfulException)
 						throw (RESTfulException) targetException;
 
@@ -108,7 +85,22 @@ public class OutputResgistrationPrincipal extends RegistrationPrincipal {
 				}
 
 			}
-		});
+
+		};
 	}
 
+	/* (non-Javadoc)
+	 * @see org.cradle.gateway.spi.HttpHandlerResgisterationPrinicipal#isAnnotationValid(java.lang.reflect.Method, org.cradle.gateway.HttpMethod)
+	 */
+	@Override
+	protected void isAnnotationValid(Method target, HttpMethod annotation) {
+		
+		if(target.getParameterCount() != 1){
+
+			throw new RuntimeException("One parameter is allowed for GET & DELETE methods");
+		}
+
+		checkHttpAdapterParam(target);
+		
+	}
 }

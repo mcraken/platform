@@ -17,7 +17,7 @@ package org.cradle.gateway.vertx;
 
 import java.nio.ByteBuffer;
 
-import org.cradle.gateway.BasicHttpAdapter;
+import org.cradle.gateway.spi.BasicHttpAdapter;
 import org.vertx.java.core.buffer.Buffer;
 import org.vertx.java.core.http.HttpServerRequest;
 import org.vertx.java.core.http.HttpServerResponse;

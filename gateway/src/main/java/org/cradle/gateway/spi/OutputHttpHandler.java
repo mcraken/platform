@@ -13,51 +13,43 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package org.cradle.gateway;
+package org.cradle.gateway.spi;
 
-import java.io.File;
-import java.util.List;
-
-import org.cradle.gateway.restful.MultipartRequestHandler;
+import org.cradle.gateway.BasicHttpHandler;
+import org.cradle.gateway.HttpAdapter;
 import org.cradle.gateway.restful.RESTfulRequest;
 import org.cradle.gateway.restful.RESTfulResponse;
 import org.cradle.gateway.restful.ResponseObject;
 import org.cradle.gateway.restful.exception.BadRequestException;
 import org.cradle.gateway.restful.exception.RESTfulException;
+import org.cradle.gateway.restful.exception.RedirectException;
 import org.cradle.gateway.restful.exception.UnauthorizedException;
+
 
 /**
  * @author 	Sherief Shawky
  * @email 	mcrakens@gmail.com
- * @date 	Jan 20, 2015
+ * @date 	Aug 10, 2014
  */
-public abstract  class MultipartIOHttpHandler extends BasicHttpHandler implements MultipartRequestHandler{
+public abstract class OutputHttpHandler extends BasicHttpHandler {
 
 	/* (non-Javadoc)
 	 * @see org.cradle.gateway.BasicHttpHandler#service(org.cradle.gateway.HttpAdapter, org.cradle.gateway.restful.RESTfulRequest, org.cradle.gateway.restful.RESTfulResponse)
 	 */
 	@Override
-	public void service(
-			final HttpAdapter httpAdapter, 
-			final RESTfulRequest request,
-			final RESTfulResponse response) throws BadRequestException,
+	public void service(HttpAdapter httpAdapter, RESTfulRequest request,
+			RESTfulResponse response) throws BadRequestException,
 			UnauthorizedException {
-
-		request.readMultipartRequest(this, response);
-
-	}
-
-	/* (non-Javadoc)
-	 * @see org.cradle.gateway.restful.MultipartRequestHandler#handle(org.cradle.gateway.HttpAdapter, java.lang.Object, java.util.List)
-	 */
-	@Override
-	public void handle(HttpAdapter httpAdapter, RESTfulRequest request, RESTfulResponse response,  Object form, List<File> uploads) {
 		
 		try {
 			
-			ResponseObject responseObject = execute(httpAdapter, form, uploads);
+			ResponseObject responseObject = execute(httpAdapter);
 			
-			writeServiceResponse(httpAdapter, response, responseObject, true);
+			writeServiceResponse(httpAdapter, response, responseObject, false);
+			
+		} catch (RedirectException e) {
+			
+			httpAdapter.sendRedirect(e.getUrl());
 			
 		} catch (RESTfulException e) {
 			
@@ -66,6 +58,5 @@ public abstract  class MultipartIOHttpHandler extends BasicHttpHandler implement
 		
 	}
 
-	protected abstract ResponseObject execute(HttpAdapter httpAdapter, Object form, List<File> uploads) throws RESTfulException;
-	
+	protected abstract ResponseObject execute(HttpAdapter httpAdapter) throws RedirectException, RESTfulException;
 }

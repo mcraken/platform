@@ -34,7 +34,11 @@ public abstract class BasicHttpGateway implements HttpGateway {
 	
 	public BasicHttpGateway() {
 		
-		principalChain = new OutputResgistrationPrincipal(null);
+		principalChain = new OutputHttpHandlerResgistrationPrincipal(
+				new IOHttpHandlerRegistrationPrincipal(
+						new MultipartHttpHandlerRegistrationPrincipal(null)
+						)
+				);
 		
 		registrationAgent = new RegistrationAgent() {
 			

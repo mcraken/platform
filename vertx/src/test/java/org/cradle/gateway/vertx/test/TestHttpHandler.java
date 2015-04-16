@@ -15,8 +15,12 @@
  */
 package org.cradle.gateway.vertx.test;
 
+import java.io.File;
+import java.util.List;
+
 import org.cradle.gateway.HttpAdapter;
-import org.cradle.gateway.method.GET;
+import org.cradle.gateway.HttpMethod;
+import org.cradle.gateway.HttpMethod.Method;
 
 /**
  * @author	Sherief Shawky
@@ -25,13 +29,27 @@ import org.cradle.gateway.method.GET;
  */
 public class TestHttpHandler {
 	
-	@GET(path="/hello")
+	@HttpMethod(method = Method.GET, path="/hello")
 	public String sayHello(HttpAdapter adapter){
 		return "Hello, World!";
 	}
 	
-	@GET(path="/goodbye")
-	public String sayGoodbye(HttpAdapter adapter){
-		return "Bye, World!";
+	@HttpMethod(method = Method.PUT, path="/save")
+	public TestDocument update(HttpAdapter adapter, TestDocument document){
+		document.setId(15);
+		return document;
+	}
+	
+	@HttpMethod(method = Method.POST, path="/calc")
+	public TestDocument multiply(HttpAdapter adapter, TestDocument document){
+		
+		document.calcResult();
+		
+		return document;
+	}
+	
+	@HttpMethod(method = Method.MULTIPART_POST, path="/form")
+	public TestDocument submitForm(HttpAdapter adapter, TestDocument form, List<File> files){
+		return multiply(adapter, form);
 	}
 }

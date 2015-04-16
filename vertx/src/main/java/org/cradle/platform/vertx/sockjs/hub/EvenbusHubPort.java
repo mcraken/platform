@@ -18,8 +18,8 @@ package org.cradle.platform.vertx.sockjs.hub;
 import java.util.HashSet;
 import java.util.Set;
 
-import org.cradle.platform.vertx.eventbus.TextEventBusHandler;
-import org.cradle.platform.vertx.eventbus.VertxEventBusService;
+import org.cradle.platform.eventbus.EventBusService;
+import org.cradle.platform.eventbus.spi.TextEventbusHandler;
 import org.vertx.java.core.json.JsonArray;
 import org.vertx.java.core.json.JsonObject;
 
@@ -28,25 +28,25 @@ import org.vertx.java.core.json.JsonObject;
  * @email 	mcrakens@gmail.com
  * @date 	Sep 22, 2014
  */
-public class EvenbusHubPort extends BasicHubPort implements HubPort {
+public class EvenbusHubPort extends BasicHubPort {
 	
 	private Set<String> subscriptions;
-	private TextEventBusHandler eventBusHandler;
+	private TextEventbusHandler eventBusHandler;
 	
 	public EvenbusHubPort(HubSockJsAgent agent, String portName,
-			VertxEventBusService eventBusService) {
+			EventBusService eventBusService) {
 		
 		super(agent, portName);
 		
 		subscriptions = new HashSet<String>();
 		
-		eventBusHandler = new TextEventBusHandler() {
+		eventBusHandler = new TextEventbusHandler() {
 			
 			@Override
 			public void recieve(String message) {
 				portResponse(message.getBytes());
 			}
-		};
+		}; 
 		
 		eventBusHandler.setEventBusService(eventBusService);
 	}

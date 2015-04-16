@@ -23,5 +23,5 @@ package org.cradle.platform.vertx.sockjs;
  */
 public interface SockJsGateway {
 	
-	public void registerAgentApplication(String path, String contentType,SockJsApplication app);
+	public void registerAgentApplication(String path, String contentType, SockJsApplication app);
 }	

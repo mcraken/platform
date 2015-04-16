@@ -21,7 +21,7 @@ package org.cradle.platform.vertx.sockjs.hub;
  * @email 	mcrakens@gmail.com
  * @date 	Sep 23, 2014
  */
-public abstract class BasicHubPort  {
+public abstract class BasicHubPort implements HubPort{
 
 	protected HubSockJsAgent agent;
 	

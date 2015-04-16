@@ -21,6 +21,9 @@ import java.util.Map;
 
 import org.cradle.localization.LocalizationService;
 import org.cradle.platform.CradlePlatform;
+import org.cradle.platform.eventbus.EventBusService;
+import org.cradle.platform.eventbus.spi.JsonEventbusHandler;
+import org.cradle.platform.eventbus.spi.TextEventbusHandler;
 import org.cradle.platform.gateway.HttpGateway;
 import org.cradle.platform.gateway.HttpWebService;
 import org.cradle.platform.gateway.restful.client.AsynchronousReadingHttpClient;
@@ -30,9 +33,8 @@ import org.cradle.platform.gateway.restful.document.JsonDocumentReaderWriter;
 import org.cradle.platform.gateway.restful.filter.RESTfulFilterFactory;
 import org.cradle.platform.gateway.vertx.VertxHttpGateway;
 import org.cradle.platform.gateway.vertx.restful.client.VertxReadingHttpClient;
-import org.cradle.platform.vertx.eventbus.JsonEventbusHandler;
-import org.cradle.platform.vertx.eventbus.TextEventBusHandler;
-import org.cradle.platform.vertx.eventbus.VertxEventBusService;
+import org.cradle.platform.vertx.eventbus.VertxJsonEventbusHandler;
+import org.cradle.platform.vertx.eventbus.VertxTextEventbusHandler;
 import org.cradle.reporting.SystemReportingService;
 import org.vertx.java.core.AsyncResult;
 import org.vertx.java.core.Handler;
@@ -49,7 +51,7 @@ import org.vertx.java.platform.PlatformManager;
  * @email 	mcrakens@gmail.com
  * @date 	Aug 14, 2014
  */
-public class VertxCradlePlatform implements CradlePlatform, VertxEventBusService, HttpWebService{
+public class VertxCradlePlatform implements CradlePlatform, EventBusService, HttpWebService{
 
 	private static final String VERTX_HOME = "vertx.home";
 	private static final String VERTX_MODS = "vertx.mods";
@@ -305,18 +307,18 @@ public class VertxCradlePlatform implements CradlePlatform, VertxEventBusService
 	 * @see org.cradle.osgi.vertx.VertxEventBusService#subscribe(java.lang.String, org.cradle.osgi.vertx.EventBusHandler)
 	 */
 	@Override
-	public void subscribe(String address, TextEventBusHandler handler) {
+	public void subscribe(String address, TextEventbusHandler handler) {
 
-		eventBus.registerHandler(address, handler);
+		eventBus.registerHandler(address, new VertxTextEventbusHandler(handler));
 	}
 
 	/* (non-Javadoc)
 	 * @see org.cradle.osgi.vertx.VertxEventBusService#unsubscribe(java.lang.String, org.cradle.osgi.vertx.EventBusHandler)
 	 */
 	@Override
-	public void unsubscribe(String address, TextEventBusHandler handler) {
+	public void unsubscribe(String address, TextEventbusHandler handler) {
 
-		eventBus.unregisterHandler(address, handler);
+		eventBus.unregisterHandler(address, new VertxTextEventbusHandler(handler));
 	}
 
 	/* (non-Javadoc)
@@ -333,16 +335,18 @@ public class VertxCradlePlatform implements CradlePlatform, VertxEventBusService
 	 * @see org.cradle.osgi.vertx.eventbus.VertxEventBusService#subscribe(java.lang.String, org.cradle.osgi.vertx.eventbus.JsonEventbusHandler)
 	 */
 	@Override
-	public void subscribe(String address, JsonEventbusHandler handler) {
-		eventBus.registerHandler(address, handler);
+	public <T>void subscribe(String address, JsonEventbusHandler<T> handler) {
+		
+		eventBus.registerHandler(address, new VertxJsonEventbusHandler<T>(handler));
 	}
 
 	/* (non-Javadoc)
 	 * @see org.cradle.osgi.vertx.eventbus.VertxEventBusService#unsubscribe(java.lang.String, org.cradle.osgi.vertx.eventbus.JsonEventbusHandler)
 	 */
 	@Override
-	public void unsubscribe(String address, JsonEventbusHandler handler) {
-		eventBus.unregisterHandler(address, handler);
+	public <T>void unsubscribe(String address, JsonEventbusHandler<T> handler) {
+		
+		eventBus.unregisterHandler(address, new VertxJsonEventbusHandler<T>(handler));
 
 	}
 

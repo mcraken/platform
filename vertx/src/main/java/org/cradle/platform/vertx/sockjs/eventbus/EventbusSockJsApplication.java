@@ -15,8 +15,8 @@
  */
 package org.cradle.platform.vertx.sockjs.eventbus;
 
-import org.cradle.platform.vertx.eventbus.TextEventBusHandler;
-import org.cradle.platform.vertx.eventbus.VertxEventBusService;
+import org.cradle.platform.eventbus.EventBusService;
+import org.cradle.platform.eventbus.spi.TextEventbusHandler;
 import org.cradle.platform.vertx.sockjs.SockJsAgent;
 import org.cradle.platform.vertx.sockjs.SockJsApplication;
 
@@ -27,11 +27,11 @@ import org.cradle.platform.vertx.sockjs.SockJsApplication;
  */
 public abstract class EventbusSockJsApplication extends SockJsApplication{
 
-	private VertxEventBusService eventBusService;
+	private EventBusService eventBusService;
 	private String address;
 
 	
-	public void setEventBusService(VertxEventBusService eventBusService) {
+	public void setEventBusService(EventBusService eventBusService) {
 		this.eventBusService = eventBusService;
 	}
 	/**
@@ -49,7 +49,7 @@ public abstract class EventbusSockJsApplication extends SockJsApplication{
 
 		final EventbusSockJsAgent agent = createEventbusAgent();
 
-		eventBusService.subscribe(address, new TextEventBusHandler() {
+		eventBusService.subscribe(address, new TextEventbusHandler() {
 			
 			@Override
 			public void recieve(String message) {

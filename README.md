@@ -6,6 +6,24 @@ You can use cradle to create scaleable and containerless applications. One of th
 Now, we will tap briefly on each bundle of the cradle framework.
 
 ## Gateway
+
+The gateway bundle exposes its services through the gateway interface which gives the capability for clients to register handlers and filters. Here is some code, here is a sample of how to run a standalone platform out of an OSGi container. 
+```java
+class HelloWorldController{
+	@HttpMethod(method = Method.GET, path="/hello")
+	public String sayHello(HttpAdapter adapter){
+		return "Hello, World!";
+	}
+}
+
+CradlePlatform platform = VertxCradlePlatform.createDefaultInstance();
+HttpGateway gateway = platform.gateway();
+gateway.registerHandler(new HelloWorldController());
+Thread.sleep(2 * 60 * 1000);
+platform.shutdown();
+```
+The above code creates and registers a controller class which exposes one method that accepts GET requests. The path on which the service is accessible is /hello. In just easy 3 line we have a fully operational webservice endpoint running on the highly performant Vertx platform. The default vertx implementation of the cradle platform listenes to port 8080 on localhost. The operational URL of the above example is http://localhost:8080/hello. Try it for yourself.
+
 Starting with the gateway bundle, which is an abstraction of a http gateway. The gateway bundle asbtracts three types of handlers:
 - Output only http handlers which are suitable for non-body requests like GET or DELETE.
 - Input/Output http handlers which are suitable for requests with body like POST or PUT.
@@ -23,8 +41,6 @@ The gateway bundle adds the concept of filters to RESTful services. When you wor
 ![alt tag](https://cloud.githubusercontent.com/assets/6278849/5907360/1ae4489e-a5a7-11e4-9a0f-9b9a750de378.jpg)
 
 As it was mentioned before, the http gateway is an abstraction. The vertx bundle is the only bundle that implements the http gatway. HttpAdapter is an example of the classes that hide the details of the http context and leaves it to the implementer to determine how is it going to be implemented. For example, the httpadapter provides APIs to access http headers, parameters, cookies and user objects.  
-
-Finally, The gateway bundle exposes its services through the gateway interface which gives the capability for clients to register handlers and filters.
 
 ## Reposiotry
 

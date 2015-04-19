@@ -17,13 +17,9 @@ package org.cradle.platform.httpgateway.spi;
 
 import org.cradle.platform.httpgateway.BasicHttpHandler;
 import org.cradle.platform.httpgateway.HttpAdapter;
-import org.cradle.platform.httpgateway.restful.AsynchronusRESTfulRequestHandler;
-import org.cradle.platform.httpgateway.restful.RESTfulRequest;
-import org.cradle.platform.httpgateway.restful.RESTfulResponse;
-import org.cradle.platform.httpgateway.restful.ResponseObject;
-import org.cradle.platform.httpgateway.restful.exception.BadRequestException;
-import org.cradle.platform.httpgateway.restful.exception.RESTfulException;
-import org.cradle.platform.httpgateway.restful.exception.UnauthorizedException;
+import org.cradle.platform.httpgateway.exception.BadRequestException;
+import org.cradle.platform.httpgateway.exception.HttpException;
+import org.cradle.platform.httpgateway.exception.UnauthorizedException;
 
 
 /**
@@ -40,11 +36,11 @@ public abstract  class AsyncIOtHttpHandler extends BasicHttpHandler{
 	@Override
 	public void service(
 			final HttpAdapter httpAdapter, 
-			final RESTfulRequest request,
-			final RESTfulResponse response) throws BadRequestException,
+			final GatewayRequest request,
+			final GatewayResponse response) throws BadRequestException,
 			UnauthorizedException {
 
-		request.readDocumentObjectAsynchronously(new AsynchronusRESTfulRequestHandler() {
+		request.readDocumentObjectAsynchronously(new AsynchronusRequestHandler() {
 
 			@Override
 			public void handleDocument(Object document) {
@@ -55,7 +51,7 @@ public abstract  class AsyncIOtHttpHandler extends BasicHttpHandler{
 					
 					writeServiceResponse(httpAdapter, response, responseObject, false);
 					
-				} catch (RESTfulException e) {
+				} catch (HttpException e) {
 					
 					httpAdapter.exception(e);
 				}
@@ -66,7 +62,7 @@ public abstract  class AsyncIOtHttpHandler extends BasicHttpHandler{
 
 	}
 
-	protected abstract ResponseObject execute(HttpAdapter adapter, Object document) throws RESTfulException;
+	protected abstract ResponseObject execute(HttpAdapter adapter, Object document) throws HttpException;
 
 	protected abstract Class<?> getDocumentType();
 

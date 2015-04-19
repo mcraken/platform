@@ -15,7 +15,7 @@
  */
 package org.cradle.gateway.vertx.test;
 
-import org.cradle.platform.httpgateway.HttpGateway;
+import org.cradle.platform.httpgateway.CradleGateway;
 import org.cradle.platform.vertx.VertxCradlePlatform;
 import org.junit.After;
 import org.junit.Before;
@@ -31,7 +31,8 @@ import org.mockito.runners.MockitoJUnitRunner;
 @RunWith(MockitoJUnitRunner.class)
 public class StandaloneGatewayTest {
 
-	private HttpGateway gateway;
+	private CradleGateway httpGateway;
+	private CradleGateway websocketGateway;
 	private VertxCradlePlatform platform;
 
 	@Before
@@ -39,15 +40,21 @@ public class StandaloneGatewayTest {
 
 		platform = VertxCradlePlatform.createDefaultInstance();
 
-		gateway = platform.httpGateway();
+		httpGateway = platform.httpGateway();
+		
+		websocketGateway = platform.sockJsGateway();
 
 	}
 
 	@Test
 	public void testHandlerResgistration() throws InterruptedException{
 
-		gateway.registerHandler(new TestHttpHandler());
-
+		TestHttpHandler testHttpHandler = new TestHttpHandler();
+		
+		httpGateway.registerHandler(testHttpHandler);
+		
+		websocketGateway.registerHandler(testHttpHandler);
+		
 		Thread.sleep(2 * 60 * 1000);
 	}
 

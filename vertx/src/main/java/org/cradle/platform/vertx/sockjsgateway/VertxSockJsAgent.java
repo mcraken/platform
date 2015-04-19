@@ -15,8 +15,8 @@
  */
 package org.cradle.platform.vertx.sockjsgateway;
 
-import org.cradle.platform.sockjsgateway.SockJsAgent;
-import org.cradle.platform.sockjsgateway.SockJsMessageWriter;
+import org.cradle.platform.sockjsgateway.spi.SockJsAgent;
+import org.cradle.platform.sockjsgateway.spi.SockJsMessageWriter;
 import org.vertx.java.core.Handler;
 import org.vertx.java.core.buffer.Buffer;
 import org.vertx.java.core.sockjs.SockJSSocket;

@@ -24,8 +24,8 @@ import org.cradle.platform.httpgateway.BasicHttpHandler;
 import org.cradle.platform.httpgateway.HttpAdapter;
 import org.cradle.platform.httpgateway.HttpMethod;
 import org.cradle.platform.httpgateway.HttpMethod.Method;
-import org.cradle.platform.httpgateway.restful.ResponseObject;
-import org.cradle.platform.httpgateway.restful.exception.RESTfulException;
+import org.cradle.platform.httpgateway.exception.HttpException;
+import org.cradle.platform.spi.RegistrationPrincipal;
 
 /**
  * @author	Sherief Shawky
@@ -55,13 +55,10 @@ public class MultipartHttpHandlerRegistrationPrincipal extends HttpHandlerResgis
 	@Override
 	protected void isAnnotationValid(java.lang.reflect.Method target,
 			HttpMethod annotation) {
-
-		if(target.getParameterTypes().length != 3){
-
-			throw new RuntimeException("Exactly 3 parameters are required for multipart POST methods");
-		}
-
-		checkHttpAdapterParam(target);
+		
+		checkMethodParamLength(target, 3, "Exactly 3 parameters are required for multipart POST methods");
+		
+		checkMethodParam(target, 1, HttpAdapter.class, "HttpAdapter or one of its subclasses is required as the first parameter");
 
 		ParameterizedType thirdParam = (ParameterizedType) target.getGenericParameterTypes()[2];
 
@@ -95,7 +92,7 @@ public class MultipartHttpHandlerRegistrationPrincipal extends HttpHandlerResgis
 
 			@Override
 			protected ResponseObject execute(HttpAdapter httpAdapter, Object form,
-					List<File> uploads) throws RESTfulException {
+					List<File> uploads) throws HttpException {
 				try{
 					
 					return new ResponseObject(target.invoke(handler, httpAdapter, form, uploads), annotation.contentType());
@@ -108,8 +105,8 @@ public class MultipartHttpHandlerRegistrationPrincipal extends HttpHandlerResgis
 
 					Throwable targetException  = e.getTargetException();
 
-					if(targetException instanceof RESTfulException)
-						throw (RESTfulException) targetException;
+					if(targetException instanceof HttpException)
+						throw (HttpException) targetException;
 
 					throw new RuntimeException(e);
 				}

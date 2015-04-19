@@ -17,13 +17,10 @@ package org.cradle.platform.httpgateway.spi;
 
 import org.cradle.platform.httpgateway.BasicHttpHandler;
 import org.cradle.platform.httpgateway.HttpAdapter;
-import org.cradle.platform.httpgateway.restful.RESTfulRequest;
-import org.cradle.platform.httpgateway.restful.RESTfulResponse;
-import org.cradle.platform.httpgateway.restful.ResponseObject;
-import org.cradle.platform.httpgateway.restful.exception.BadRequestException;
-import org.cradle.platform.httpgateway.restful.exception.RESTfulException;
-import org.cradle.platform.httpgateway.restful.exception.RedirectException;
-import org.cradle.platform.httpgateway.restful.exception.UnauthorizedException;
+import org.cradle.platform.httpgateway.exception.BadRequestException;
+import org.cradle.platform.httpgateway.exception.HttpException;
+import org.cradle.platform.httpgateway.exception.RedirectException;
+import org.cradle.platform.httpgateway.exception.UnauthorizedException;
 
 
 /**
@@ -37,8 +34,8 @@ public abstract class OutputHttpHandler extends BasicHttpHandler {
 	 * @see org.cradle.gateway.BasicHttpHandler#service(org.cradle.gateway.HttpAdapter, org.cradle.gateway.restful.RESTfulRequest, org.cradle.gateway.restful.RESTfulResponse)
 	 */
 	@Override
-	public void service(HttpAdapter httpAdapter, RESTfulRequest request,
-			RESTfulResponse response) throws BadRequestException,
+	public void service(HttpAdapter httpAdapter, GatewayRequest request,
+			GatewayResponse response) throws BadRequestException,
 			UnauthorizedException {
 		
 		try {
@@ -51,12 +48,12 @@ public abstract class OutputHttpHandler extends BasicHttpHandler {
 			
 			httpAdapter.sendRedirect(e.getUrl());
 			
-		} catch (RESTfulException e) {
+		} catch (HttpException e) {
 			
 			httpAdapter.exception(e);
 		}
 		
 	}
 
-	protected abstract ResponseObject execute(HttpAdapter httpAdapter) throws RedirectException, RESTfulException;
+	protected abstract ResponseObject execute(HttpAdapter httpAdapter) throws RedirectException, HttpException;
 }

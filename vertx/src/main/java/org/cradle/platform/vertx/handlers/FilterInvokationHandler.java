@@ -16,8 +16,8 @@
 package org.cradle.platform.vertx.handlers;
 
 import org.cradle.platform.httpgateway.HttpAdapter;
-import org.cradle.platform.httpgateway.restful.exception.RESTfulException;
-import org.cradle.platform.httpgateway.restful.filter.RESTfulFilter;
+import org.cradle.platform.httpgateway.exception.HttpException;
+import org.cradle.platform.httpgateway.filter.Filter;
 import org.cradle.platform.vertx.httpgateway.VertxHttpAdapter;
 import org.cradle.reporting.SystemReportingService;
 import org.vertx.java.core.Handler;
@@ -30,11 +30,11 @@ import org.vertx.java.core.http.HttpServerRequest;
  */
 public class FilterInvokationHandler implements Handler<HttpServerRequest> {
 
-	private RESTfulFilter filter;
+	private Filter filter;
 
 	private SystemReportingService reportingService;
 
-	public FilterInvokationHandler(RESTfulFilter startFilter, SystemReportingService reportingService) {
+	public FilterInvokationHandler(Filter startFilter, SystemReportingService reportingService) {
 
 		filter = startFilter;
 
@@ -56,7 +56,7 @@ public class FilterInvokationHandler implements Handler<HttpServerRequest> {
 
 			filter.filter(httpAdapter);
 
-		} catch (RESTfulException e) {
+		} catch (HttpException e) {
 
 			if(reportingService != null){
 				reportingService.exception(this.getClass().getSimpleName(), SystemReportingService.FILE, e);

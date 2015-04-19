@@ -21,9 +21,9 @@ import java.lang.reflect.Method;
 import org.cradle.platform.httpgateway.BasicHttpHandler;
 import org.cradle.platform.httpgateway.HttpAdapter;
 import org.cradle.platform.httpgateway.HttpMethod;
-import org.cradle.platform.httpgateway.restful.ResponseObject;
-import org.cradle.platform.httpgateway.restful.exception.RESTfulException;
-import org.cradle.platform.httpgateway.restful.exception.RedirectException;
+import org.cradle.platform.httpgateway.exception.HttpException;
+import org.cradle.platform.httpgateway.exception.RedirectException;
+import org.cradle.platform.spi.RegistrationPrincipal;
 
 /**
  * @author	Sherief Shawky
@@ -61,7 +61,7 @@ public class OutputHttpHandlerResgistrationPrincipal extends HttpHandlerResgiste
 
 			@Override
 			protected ResponseObject execute(HttpAdapter httpAdapter)
-					throws RedirectException, RESTfulException {
+					throws RedirectException, HttpException {
 
 				try {
 
@@ -78,8 +78,8 @@ public class OutputHttpHandlerResgistrationPrincipal extends HttpHandlerResgiste
 					if(targetException instanceof RedirectException)
 						throw (RedirectException) targetException;
 				
-					if(targetException instanceof RESTfulException)
-						throw (RESTfulException) targetException;
+					if(targetException instanceof HttpException)
+						throw (HttpException) targetException;
 
 					throw new RuntimeException(e);
 				}
@@ -95,12 +95,9 @@ public class OutputHttpHandlerResgistrationPrincipal extends HttpHandlerResgiste
 	@Override
 	protected void isAnnotationValid(Method target, HttpMethod annotation) {
 		
-		if(target.getParameterTypes().length != 1){
-
-			throw new RuntimeException("One parameter is allowed for GET & DELETE methods");
-		}
-
-		checkHttpAdapterParam(target);
+		checkMethodParamLength(target, 1, "One parameter is allowed for GET & DELETE methods");
+		
+		checkMethodParam(target, 1, HttpAdapter.class, "HttpAdapter or one of its subclasses is required as the first parameter");
 		
 	}
 }

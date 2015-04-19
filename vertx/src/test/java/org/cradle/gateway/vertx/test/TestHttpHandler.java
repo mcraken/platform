@@ -21,6 +21,7 @@ import java.util.List;
 import org.cradle.platform.httpgateway.HttpAdapter;
 import org.cradle.platform.httpgateway.HttpMethod;
 import org.cradle.platform.httpgateway.HttpMethod.Method;
+import org.cradle.platform.sockjsgateway.WebSocket;
 
 /**
  * @author	Sherief Shawky
@@ -52,4 +53,12 @@ public class TestHttpHandler {
 	public TestDocument submitForm(HttpAdapter adapter, TestDocument form, List<File> files){
 		return multiply(adapter, form);
 	}
+	
+	@WebSocket(path="/socketcalc")
+	public TestDocument multiplySocket(HttpAdapter adapter, TestDocument document){
+		
+		document.calcResult();
+		
+		return document;
+	} 
 }

@@ -20,6 +20,8 @@ import java.lang.reflect.Method;
 import org.cradle.platform.httpgateway.BasicHttpHandler;
 import org.cradle.platform.httpgateway.HttpAdapter;
 import org.cradle.platform.httpgateway.HttpMethod;
+import org.cradle.platform.spi.RegistrationAgent;
+import org.cradle.platform.spi.RegistrationPrincipal;
 
 /**
  * @author	Sherief Shawky

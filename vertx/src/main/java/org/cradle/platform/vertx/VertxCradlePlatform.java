@@ -24,15 +24,14 @@ import org.cradle.platform.document.DocumentReader;
 import org.cradle.platform.document.DocumentWriter;
 import org.cradle.platform.document.JsonDocumentReaderWriter;
 import org.cradle.platform.eventbus.EventbusService;
-import org.cradle.platform.httpgateway.HttpGateway;
+import org.cradle.platform.httpgateway.CradleGateway;
 import org.cradle.platform.httpgateway.HttpWebService;
-import org.cradle.platform.httpgateway.restful.client.AsynchronousReadingHttpClient;
-import org.cradle.platform.httpgateway.restful.filter.RESTfulFilterFactory;
-import org.cradle.platform.sockjsgateway.SockJsGateway;
+import org.cradle.platform.httpgateway.client.AsynchronousReadingHttpClient;
+import org.cradle.platform.httpgateway.filter.FilterFactory;
 import org.cradle.platform.vertx.eventbus.VertxEventbusService;
 import org.cradle.platform.vertx.httpgateway.RemovableRouteMatcher;
 import org.cradle.platform.vertx.httpgateway.VertxHttpGateway;
-import org.cradle.platform.vertx.httpgateway.restful.client.VertxReadingHttpClient;
+import org.cradle.platform.vertx.httpgateway.client.VertxReadingHttpClient;
 import org.cradle.platform.vertx.sockjsgateway.VertxSockJsGateway;
 import org.cradle.reporting.SystemReportingService;
 import org.vertx.java.core.Vertx;
@@ -61,7 +60,7 @@ public class VertxCradlePlatform implements CradlePlatform, HttpWebService{
 	private PlatformManager platform;
 	private Vertx vertx;
 	private EventBus eventBus;
-	private VertxHttpGateway vertxGateway;
+	private VertxHttpGateway vertxHttpGateway;
 	private VertxSockJsGateway sockJsGateway;
 	private String homePath;
 	private String modsPath;
@@ -69,13 +68,13 @@ public class VertxCradlePlatform implements CradlePlatform, HttpWebService{
 	private String clusterManagerFactory;
 	private String host;
 	private int port;
-	
+
 	private LocalizationService localizationService;
 	private SystemReportingService reportingService;
 	private Map<String, DocumentReader> documentReaders;
 	private Map<String, DocumentWriter> documentWriters;
 	private VertxEventbusService eventbusSevice;
-	
+
 	private HttpServer httpServer;
 	private SockJSServer sockJSServer;
 	private RemovableRouteMatcher routeMatcher;
@@ -85,7 +84,7 @@ public class VertxCradlePlatform implements CradlePlatform, HttpWebService{
 
 		if(cradlePlatform != null){
 
-			cradlePlatform.destroy();
+			cradlePlatform.shutdown();
 
 			cradlePlatform = null;
 		}
@@ -225,21 +224,15 @@ public class VertxCradlePlatform implements CradlePlatform, HttpWebService{
 		vertx = platform.vertx();
 
 		eventBus = vertx.eventBus();
-		
+
 		routeMatcher = new RemovableRouteMatcher();
-		
+
 		httpServer = vertx.createHttpServer();
-		
+
 		httpServer.requestHandler(routeMatcher);
-		
+
 		sockJSServer = vertx.createSockJSServer(httpServer);
 
-	}
-
-
-	private void destroy(){
-
-	
 	}
 
 	private void createVertxEnviornmentVariables() {
@@ -255,38 +248,38 @@ public class VertxCradlePlatform implements CradlePlatform, HttpWebService{
 	 * @see org.cradle.platform.CradlePlatform#gateway()
 	 */
 	@Override
-	public HttpGateway httpGateway() {
+	public CradleGateway httpGateway() {
 
-		if(vertxGateway == null){
+		if(vertxHttpGateway == null){
 
-			vertxGateway = new VertxHttpGateway(
+			vertxHttpGateway = new VertxHttpGateway(
 					httpServer,
 					routeMatcher,
 					documentReaders, 
 					documentWriters
 					);
-			
-			vertxGateway.start();
+
+			vertxHttpGateway.start();
 		}
 
-		return vertxGateway;
+		return vertxHttpGateway;
 	}
 
 	/* (non-Javadoc)
 	 * @see org.cradle.osgi.vertx.VertxService#vertxGateway(java.lang.String, int, java.lang.String, java.lang.String, java.lang.String, java.util.Map, java.util.Map)
 	 */
 	@Override
-	public HttpGateway httpGateway(
+	public CradleGateway httpGateway(
 			String host, 
 			int port, 
 			String fileRoot,
 			String webRoot, 
-			Map<String, RESTfulFilterFactory> filtersFactoryMap
+			Map<String, FilterFactory> filtersFactoryMap
 			) {
 
-		if(vertxGateway == null){
+		if(vertxHttpGateway == null){
 
-			vertxGateway = new VertxHttpGateway(
+			vertxHttpGateway = new VertxHttpGateway(
 					httpServer,
 					routeMatcher,
 					documentReaders, 
@@ -300,22 +293,22 @@ public class VertxCradlePlatform implements CradlePlatform, HttpWebService{
 					localizationService,
 					reportingService);
 
-			vertxGateway.start();
+			vertxHttpGateway.start();
 		}
 
-		return vertxGateway;
+		return vertxHttpGateway;
 	}
-	
+
 	/* (non-Javadoc)
 	 * @see org.cradle.platform.CradlePlatform#eventbus()
 	 */
 	@Override
 	public EventbusService eventbus() {
-		
+
 		if(eventbusSevice == null){
 			eventbusSevice = new VertxEventbusService(eventBus, documentWriters, reportingService);
 		}
-		
+
 		return eventbusSevice;
 	}
 
@@ -323,16 +316,16 @@ public class VertxCradlePlatform implements CradlePlatform, HttpWebService{
 	 * @see org.cradle.platform.CradlePlatform#sockJsGateway()
 	 */
 	@Override
-	public SockJsGateway sockJsGateway() {
-		
+	public CradleGateway sockJsGateway() {
+
 		if(sockJsGateway == null){
-			
-			sockJsGateway = new VertxSockJsGateway(sockJSServer, documentWriters);
+
+			sockJsGateway = new VertxSockJsGateway(documentReaders, documentWriters, localizationService, "", sockJSServer);
 		}
-		
+
 		return sockJsGateway;
 	}
-	
+
 	/* (non-Javadoc)
 	 * @see org.cradle.osgi.vertx.VertxService#deployModule(java.lang.String, java.util.HashMap)
 	 */
@@ -342,7 +335,7 @@ public class VertxCradlePlatform implements CradlePlatform, HttpWebService{
 
 		platform.deployModule(moduleName, config, 1, new DeploymentReporter(moduleName, reportingService));
 	}
-	
+
 	/* (non-Javadoc)
 	 * @see org.cradle.gateway.HttpGateway#createReadingHttpClient()
 	 */
@@ -364,12 +357,18 @@ public class VertxCradlePlatform implements CradlePlatform, HttpWebService{
 	 */
 	@Override
 	public void shutdown() {
-		
-		eventbusSevice.shutdown();
-		
-		sockJsGateway.stop();
-		
-		vertxGateway.stop();
+
+		if(eventbusSevice != null){
+			eventbusSevice.shutdown();
+		}
+
+		if(sockJsGateway != null){
+			sockJsGateway.stop();
+		}
+
+		if(vertxHttpGateway != null){
+			vertxHttpGateway.stop();
+		}
 
 		platform.stop();
 	}

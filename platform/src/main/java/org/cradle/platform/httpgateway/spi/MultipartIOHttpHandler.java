@@ -20,13 +20,9 @@ import java.util.List;
 
 import org.cradle.platform.httpgateway.BasicHttpHandler;
 import org.cradle.platform.httpgateway.HttpAdapter;
-import org.cradle.platform.httpgateway.restful.MultipartRequestHandler;
-import org.cradle.platform.httpgateway.restful.RESTfulRequest;
-import org.cradle.platform.httpgateway.restful.RESTfulResponse;
-import org.cradle.platform.httpgateway.restful.ResponseObject;
-import org.cradle.platform.httpgateway.restful.exception.BadRequestException;
-import org.cradle.platform.httpgateway.restful.exception.RESTfulException;
-import org.cradle.platform.httpgateway.restful.exception.UnauthorizedException;
+import org.cradle.platform.httpgateway.exception.BadRequestException;
+import org.cradle.platform.httpgateway.exception.HttpException;
+import org.cradle.platform.httpgateway.exception.UnauthorizedException;
 
 /**
  * @author 	Sherief Shawky
@@ -41,8 +37,8 @@ public abstract  class MultipartIOHttpHandler extends BasicHttpHandler implement
 	@Override
 	public void service(
 			final HttpAdapter httpAdapter, 
-			final RESTfulRequest request,
-			final RESTfulResponse response) throws BadRequestException,
+			final GatewayRequest request,
+			final GatewayResponse response) throws BadRequestException,
 			UnauthorizedException {
 
 		request.readMultipartRequest(this, response);
@@ -53,7 +49,7 @@ public abstract  class MultipartIOHttpHandler extends BasicHttpHandler implement
 	 * @see org.cradle.gateway.restful.MultipartRequestHandler#handle(org.cradle.gateway.HttpAdapter, java.lang.Object, java.util.List)
 	 */
 	@Override
-	public void handle(HttpAdapter httpAdapter, RESTfulRequest request, RESTfulResponse response,  Object form, List<File> uploads) {
+	public void handle(HttpAdapter httpAdapter, GatewayRequest request, GatewayResponse response,  Object form, List<File> uploads) {
 		
 		try {
 			
@@ -61,13 +57,13 @@ public abstract  class MultipartIOHttpHandler extends BasicHttpHandler implement
 			
 			writeServiceResponse(httpAdapter, response, responseObject, true);
 			
-		} catch (RESTfulException e) {
+		} catch (HttpException e) {
 			
 			httpAdapter.exception(e);
 		}
 		
 	}
 
-	protected abstract ResponseObject execute(HttpAdapter httpAdapter, Object form, List<File> uploads) throws RESTfulException;
+	protected abstract ResponseObject execute(HttpAdapter httpAdapter, Object form, List<File> uploads) throws HttpException;
 	
 }

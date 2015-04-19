@@ -16,8 +16,8 @@
 package org.cradle.platform.httpgateway.spi;
 
 import org.cradle.platform.httpgateway.HttpAdapter;
-import org.cradle.platform.httpgateway.restful.exception.PathNotAccessibleException;
-import org.cradle.platform.httpgateway.restful.exception.RESTfulException;
+import org.cradle.platform.httpgateway.exception.PathNotAccessibleException;
+import org.cradle.platform.httpgateway.exception.HttpException;
 import org.cradle.security.AuthenticationFailureException;
 import org.cradle.security.User;
 
@@ -74,7 +74,7 @@ public abstract class BasicHttpAdapter implements HttpAdapter{
 	 * @see org.cradle.gateway.HttpAdapter#exception(org.cradle.gateway.restful.exception.RESTfulException)
 	 */
 	@Override
-	public void exception(RESTfulException exception) {
+	public void exception(HttpException exception) {
 
 		handleErrorResponse(exception.getErrorCode(), exception.getMessage());
 	}

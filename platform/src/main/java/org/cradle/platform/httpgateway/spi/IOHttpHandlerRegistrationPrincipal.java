@@ -21,8 +21,8 @@ import org.cradle.platform.httpgateway.BasicHttpHandler;
 import org.cradle.platform.httpgateway.HttpAdapter;
 import org.cradle.platform.httpgateway.HttpMethod;
 import org.cradle.platform.httpgateway.HttpMethod.Method;
-import org.cradle.platform.httpgateway.restful.ResponseObject;
-import org.cradle.platform.httpgateway.restful.exception.RESTfulException;
+import org.cradle.platform.httpgateway.exception.HttpException;
+import org.cradle.platform.spi.RegistrationPrincipal;
 
 /**
  * @author	Sherief Shawky
@@ -65,7 +65,7 @@ public class IOHttpHandlerRegistrationPrincipal  extends HttpHandlerResgisterati
 
 			@Override
 			protected ResponseObject execute(HttpAdapter adapter, Object document)
-					throws RESTfulException {
+					throws HttpException {
 				
 				try{
 					
@@ -79,8 +79,8 @@ public class IOHttpHandlerRegistrationPrincipal  extends HttpHandlerResgisterati
 
 					Throwable targetException  = e.getTargetException();
 				
-					if(targetException instanceof RESTfulException)
-						throw (RESTfulException) targetException;
+					if(targetException instanceof HttpException)
+						throw (HttpException) targetException;
 
 					throw new RuntimeException(e);
 				}
@@ -94,12 +94,10 @@ public class IOHttpHandlerRegistrationPrincipal  extends HttpHandlerResgisterati
 	@Override
 	protected void isAnnotationValid(java.lang.reflect.Method target,
 			HttpMethod annotation) {
+		
+		checkMethodParamLength(target, 2, "Exactly two parameter are required for POST & PUT methods");
 
-		if(target.getParameterTypes().length != 2){
-			throw new RuntimeException("Exactly two parameter are required for POST & PUT methods");
-		}
-
-		checkHttpAdapterParam(target);
+		checkMethodParam(target, 1, HttpAdapter.class, "HttpAdapter or one of its subclasses is required as the first parameter");
 
 	}
 

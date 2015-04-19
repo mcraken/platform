@@ -3,7 +3,7 @@
  */
 package org.cradle.platform.httpgateway;
 
-import org.cradle.platform.httpgateway.restful.client.AsynchronousReadingHttpClient;
+import org.cradle.platform.httpgateway.client.AsynchronousReadingHttpClient;
 
 /**
  * @author 	Sherief Shawky

@@ -4,9 +4,12 @@
 package org.cradle.platform.httpgateway;
 
 import java.nio.ByteBuffer;
+import java.util.Map;
 
-import org.cradle.platform.httpgateway.restful.exception.PathNotAccessibleException;
-import org.cradle.platform.httpgateway.restful.exception.RESTfulException;
+import org.cradle.platform.document.DocumentReader;
+import org.cradle.platform.httpgateway.exception.HttpException;
+import org.cradle.platform.httpgateway.exception.PathNotAccessibleException;
+import org.cradle.platform.httpgateway.spi.GatewayRequest;
 import org.cradle.security.AuthenticationFailureException;
 import org.cradle.security.User;
 
@@ -48,7 +51,7 @@ public interface HttpAdapter {
 	
 	public void setCookie(String name, String value);
 	
-	public void exception(RESTfulException exception);
+	public void exception(HttpException exception);
 	
 	public void error(Exception exception);
 	
@@ -57,4 +60,7 @@ public interface HttpAdapter {
 	public String getContentLangauge();
 	
 	public void sendRedirect(String uri);
+	
+	public GatewayRequest createGatewayRequest(
+			Map<String, DocumentReader> documentReaders, String tempFolder);
 }

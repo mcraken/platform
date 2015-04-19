@@ -16,8 +16,11 @@
 package org.cradle.platform.vertx.httpgateway;
 
 import java.nio.ByteBuffer;
+import java.util.Map;
 
+import org.cradle.platform.document.DocumentReader;
 import org.cradle.platform.httpgateway.spi.BasicHttpAdapter;
+import org.cradle.platform.httpgateway.spi.GatewayRequest;
 import org.vertx.java.core.buffer.Buffer;
 import org.vertx.java.core.http.HttpServerRequest;
 import org.vertx.java.core.http.HttpServerResponse;
@@ -202,6 +205,14 @@ public class VertxHttpAdapter extends BasicHttpAdapter{
 		response.putHeader("Location", uri);
 		
 		response.end();
+	}
+
+	/* (non-Javadoc)
+	 * @see org.cradle.platform.httpgateway.HttpAdapter#createGatewayRequest()
+	 */
+	@Override
+	public GatewayRequest createGatewayRequest(Map<String, DocumentReader> documentReaders, String tempFolder) {
+		return new VertxAsynchronusRequest(this, documentReaders, tempFolder);
 	}
 
 }

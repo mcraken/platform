@@ -17,13 +17,13 @@ package org.cradle.platform.httpgateway;
 
 import org.cradle.localization.LocalizationException;
 import org.cradle.localization.LocalizationService;
-import org.cradle.platform.httpgateway.restful.RESTfulRequest;
-import org.cradle.platform.httpgateway.restful.RESTfulResponse;
-import org.cradle.platform.httpgateway.restful.ResponseObject;
-import org.cradle.platform.httpgateway.restful.ServiceResponse;
-import org.cradle.platform.httpgateway.restful.exception.BadContentType;
-import org.cradle.platform.httpgateway.restful.exception.BadRequestException;
-import org.cradle.platform.httpgateway.restful.exception.UnauthorizedException;
+import org.cradle.platform.httpgateway.exception.BadContentType;
+import org.cradle.platform.httpgateway.exception.BadRequestException;
+import org.cradle.platform.httpgateway.exception.UnauthorizedException;
+import org.cradle.platform.httpgateway.spi.GatewayRequest;
+import org.cradle.platform.httpgateway.spi.GatewayResponse;
+import org.cradle.platform.httpgateway.spi.ResponseObject;
+import org.cradle.platform.httpgateway.spi.ServiceResponse;
 
 /**
  * @author 	Sherief Shawky
@@ -61,7 +61,7 @@ public abstract class BasicHttpHandler {
 	}
 
 	protected void writeServiceResponse(HttpAdapter httpAdapter,
-			RESTfulResponse response, ResponseObject responseObject, boolean chuncked) {
+			GatewayResponse response, ResponseObject responseObject, boolean chuncked) {
 
 		try {
 
@@ -112,7 +112,7 @@ public abstract class BasicHttpHandler {
 		return value;
 	}
 
-	public abstract void service(HttpAdapter httpAdapter, RESTfulRequest request, RESTfulResponse response)
+	public abstract void service(HttpAdapter httpAdapter, GatewayRequest request, GatewayResponse response)
 			throws BadRequestException, UnauthorizedException;
 
 }

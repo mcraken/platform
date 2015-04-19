@@ -19,7 +19,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import org.cradle.platform.eventbus.EventBusService;
-import org.cradle.platform.eventbus.spi.TextEventbusHandler;
+import org.cradle.platform.eventbus.TextEventbusHandler;
 import org.vertx.java.core.json.JsonArray;
 import org.vertx.java.core.json.JsonObject;
 

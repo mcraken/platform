@@ -3,7 +3,7 @@
  */
 package org.cradle.platform.vertx.eventbus;
 
-import org.cradle.platform.eventbus.spi.JsonEventbusHandler;
+import org.cradle.platform.eventbus.JsonEventbusHandler;
 import org.vertx.java.core.Handler;
 import org.vertx.java.core.eventbus.Message;
 import org.vertx.java.core.json.JsonObject;

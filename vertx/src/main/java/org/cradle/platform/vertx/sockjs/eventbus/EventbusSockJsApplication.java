@@ -16,7 +16,7 @@
 package org.cradle.platform.vertx.sockjs.eventbus;
 
 import org.cradle.platform.eventbus.EventBusService;
-import org.cradle.platform.eventbus.spi.TextEventbusHandler;
+import org.cradle.platform.eventbus.TextEventbusHandler;
 import org.cradle.platform.vertx.sockjs.SockJsAgent;
 import org.cradle.platform.vertx.sockjs.SockJsApplication;
 

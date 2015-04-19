@@ -13,30 +13,18 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package org.cradle.platform.eventbus.spi;
+package org.cradle.platform.eventbus;
 
-import org.cradle.platform.eventbus.EventBusService;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 
 /**
  * @author	Sherief Shawky
  * @email 	mcrakens@gmail.com
  * @date 	Apr 16, 2015
  */
-public abstract class JsonEventbusHandler<T> {
+public abstract class TextEventbusHandler {
 
 	protected EventBusService eventBusService;
-	private Gson gson;
-	private Class<T> messageType;
-	/**
-	 * 
-	 */
-	public JsonEventbusHandler(Class<T> messageType) {
-		gson = new GsonBuilder().create();
-		this.messageType = messageType;
-	}
 	
 	/**
 	 * @param eventBusService the eventBusService to set
@@ -45,25 +33,21 @@ public abstract class JsonEventbusHandler<T> {
 		this.eventBusService = eventBusService;
 	}
 	
-	protected void subscribe(String address) {
+	protected void publish(String address, String message) {
+	
+		eventBusService.publish(address, message);
+	}
+
+	public void subscribe(String address) {
 		
 		eventBusService.subscribe(address, this);
 	}
 
-	protected void unsubscribe(String address) {
+	public void unsubscribe(String address) {
 		
 		eventBusService.unsubscribe(address, this);
 	}
-	
-	private T unmarshall(String message){
-		
-		return gson.fromJson(message, messageType);
-	}
-	
-	public void recieve(String address, String message){
-		recieve(address, unmarshall(message));
-	}
-	
-	protected abstract void recieve(String address, T message);
+
+	public abstract void recieve(String message);
 
 }

@@ -15,7 +15,7 @@
  */
 package org.cradle.gateway.vertx.test;
 
-import org.cradle.platform.gateway.HttpGateway;
+import org.cradle.platform.httpgateway.HttpGateway;
 import org.cradle.platform.vertx.VertxCradlePlatform;
 import org.junit.After;
 import org.junit.Before;
@@ -39,7 +39,7 @@ public class StandaloneGatewayTest {
 
 		platform = VertxCradlePlatform.createDefaultInstance();
 
-		gateway = platform.gateway();
+		gateway = platform.httpGateway();
 
 	}
 

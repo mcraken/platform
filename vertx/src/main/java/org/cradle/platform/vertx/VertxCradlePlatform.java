@@ -15,34 +15,33 @@
  */
 package org.cradle.platform.vertx;
 
-import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.Map;
 
 import org.cradle.localization.LocalizationService;
 import org.cradle.platform.CradlePlatform;
-import org.cradle.platform.eventbus.EventBusService;
-import org.cradle.platform.eventbus.JsonEventbusHandler;
-import org.cradle.platform.eventbus.TextEventbusHandler;
-import org.cradle.platform.gateway.HttpGateway;
-import org.cradle.platform.gateway.HttpWebService;
-import org.cradle.platform.gateway.restful.client.AsynchronousReadingHttpClient;
-import org.cradle.platform.gateway.restful.document.DocumentReader;
-import org.cradle.platform.gateway.restful.document.DocumentWriter;
-import org.cradle.platform.gateway.restful.document.JsonDocumentReaderWriter;
-import org.cradle.platform.gateway.restful.filter.RESTfulFilterFactory;
-import org.cradle.platform.gateway.vertx.VertxHttpGateway;
-import org.cradle.platform.gateway.vertx.restful.client.VertxReadingHttpClient;
-import org.cradle.platform.vertx.eventbus.VertxJsonEventbusHandler;
-import org.cradle.platform.vertx.eventbus.VertxTextEventbusHandler;
+import org.cradle.platform.document.DocumentReader;
+import org.cradle.platform.document.DocumentWriter;
+import org.cradle.platform.document.JsonDocumentReaderWriter;
+import org.cradle.platform.eventbus.EventbusService;
+import org.cradle.platform.httpgateway.HttpGateway;
+import org.cradle.platform.httpgateway.HttpWebService;
+import org.cradle.platform.httpgateway.restful.client.AsynchronousReadingHttpClient;
+import org.cradle.platform.httpgateway.restful.filter.RESTfulFilterFactory;
+import org.cradle.platform.sockjsgateway.SockJsGateway;
+import org.cradle.platform.vertx.eventbus.VertxEventbusService;
+import org.cradle.platform.vertx.httpgateway.RemovableRouteMatcher;
+import org.cradle.platform.vertx.httpgateway.VertxHttpGateway;
+import org.cradle.platform.vertx.httpgateway.restful.client.VertxReadingHttpClient;
+import org.cradle.platform.vertx.sockjsgateway.VertxSockJsGateway;
 import org.cradle.reporting.SystemReportingService;
-import org.vertx.java.core.AsyncResult;
-import org.vertx.java.core.Handler;
 import org.vertx.java.core.Vertx;
 import org.vertx.java.core.eventbus.EventBus;
 import org.vertx.java.core.file.FileSystem;
 import org.vertx.java.core.http.HttpClient;
+import org.vertx.java.core.http.HttpServer;
 import org.vertx.java.core.json.JsonObject;
+import org.vertx.java.core.sockjs.SockJSServer;
 import org.vertx.java.platform.PlatformLocator;
 import org.vertx.java.platform.PlatformManager;
 
@@ -51,7 +50,7 @@ import org.vertx.java.platform.PlatformManager;
  * @email 	mcrakens@gmail.com
  * @date 	Aug 14, 2014
  */
-public class VertxCradlePlatform implements CradlePlatform, EventBusService, HttpWebService{
+public class VertxCradlePlatform implements CradlePlatform, HttpWebService{
 
 	private static final String VERTX_HOME = "vertx.home";
 	private static final String VERTX_MODS = "vertx.mods";
@@ -63,16 +62,23 @@ public class VertxCradlePlatform implements CradlePlatform, EventBusService, Htt
 	private Vertx vertx;
 	private EventBus eventBus;
 	private VertxHttpGateway vertxGateway;
+	private VertxSockJsGateway sockJsGateway;
 	private String homePath;
 	private String modsPath;
 	private String fileSystemPath;
 	private String clusterManagerFactory;
 	private String host;
 	private int port;
+	
 	private LocalizationService localizationService;
 	private SystemReportingService reportingService;
 	private Map<String, DocumentReader> documentReaders;
 	private Map<String, DocumentWriter> documentWriters;
+	private VertxEventbusService eventbusSevice;
+	
+	private HttpServer httpServer;
+	private SockJSServer sockJSServer;
+	private RemovableRouteMatcher routeMatcher;
 
 
 	public static VertxCradlePlatform createDefaultInstance(){
@@ -219,26 +225,21 @@ public class VertxCradlePlatform implements CradlePlatform, EventBusService, Htt
 		vertx = platform.vertx();
 
 		eventBus = vertx.eventBus();
+		
+		routeMatcher = new RemovableRouteMatcher();
+		
+		httpServer = vertx.createHttpServer();
+		
+		httpServer.requestHandler(routeMatcher);
+		
+		sockJSServer = vertx.createSockJSServer(httpServer);
 
 	}
 
 
 	private void destroy(){
 
-		eventBus.close(new Handler<AsyncResult<Void>>() {
-
-			@Override
-			public void handle(AsyncResult<Void> event) {
-				
-				if(reportingService != null){
-					reportingService.info(this.getClass().getSimpleName(), SystemReportingService.CONSOLE, "Event bus closed");
-				}
-			}
-		});
-
-		vertxGateway.stop();
-
-		platform.stop();
+	
 	}
 
 	private void createVertxEnviornmentVariables() {
@@ -254,12 +255,13 @@ public class VertxCradlePlatform implements CradlePlatform, EventBusService, Htt
 	 * @see org.cradle.platform.CradlePlatform#gateway()
 	 */
 	@Override
-	public HttpGateway gateway() {
+	public HttpGateway httpGateway() {
 
 		if(vertxGateway == null){
 
 			vertxGateway = new VertxHttpGateway(
-					vertx, 
+					httpServer,
+					routeMatcher,
 					documentReaders, 
 					documentWriters
 					);
@@ -274,7 +276,7 @@ public class VertxCradlePlatform implements CradlePlatform, EventBusService, Htt
 	 * @see org.cradle.osgi.vertx.VertxService#vertxGateway(java.lang.String, int, java.lang.String, java.lang.String, java.lang.String, java.util.Map, java.util.Map)
 	 */
 	@Override
-	public HttpGateway gateway(
+	public HttpGateway httpGateway(
 			String host, 
 			int port, 
 			String fileRoot,
@@ -285,7 +287,8 @@ public class VertxCradlePlatform implements CradlePlatform, EventBusService, Htt
 		if(vertxGateway == null){
 
 			vertxGateway = new VertxHttpGateway(
-					vertx, 
+					httpServer,
+					routeMatcher,
 					documentReaders, 
 					documentWriters, 
 					fileRoot, 
@@ -302,25 +305,34 @@ public class VertxCradlePlatform implements CradlePlatform, EventBusService, Htt
 
 		return vertxGateway;
 	}
-
+	
 	/* (non-Javadoc)
-	 * @see org.cradle.osgi.vertx.VertxEventBusService#subscribe(java.lang.String, org.cradle.osgi.vertx.EventBusHandler)
+	 * @see org.cradle.platform.CradlePlatform#eventbus()
 	 */
 	@Override
-	public void subscribe(String address, TextEventbusHandler handler) {
-
-		eventBus.registerHandler(address, new VertxTextEventbusHandler(handler));
+	public EventbusService eventbus() {
+		
+		if(eventbusSevice == null){
+			eventbusSevice = new VertxEventbusService(eventBus, documentWriters, reportingService);
+		}
+		
+		return eventbusSevice;
 	}
 
 	/* (non-Javadoc)
-	 * @see org.cradle.osgi.vertx.VertxEventBusService#unsubscribe(java.lang.String, org.cradle.osgi.vertx.EventBusHandler)
+	 * @see org.cradle.platform.CradlePlatform#sockJsGateway()
 	 */
 	@Override
-	public void unsubscribe(String address, TextEventbusHandler handler) {
-
-		eventBus.unregisterHandler(address, new VertxTextEventbusHandler(handler));
+	public SockJsGateway sockJsGateway() {
+		
+		if(sockJsGateway == null){
+			
+			sockJsGateway = new VertxSockJsGateway(sockJSServer, documentWriters);
+		}
+		
+		return sockJsGateway;
 	}
-
+	
 	/* (non-Javadoc)
 	 * @see org.cradle.osgi.vertx.VertxService#deployModule(java.lang.String, java.util.HashMap)
 	 */
@@ -330,53 +342,7 @@ public class VertxCradlePlatform implements CradlePlatform, EventBusService, Htt
 
 		platform.deployModule(moduleName, config, 1, new DeploymentReporter(moduleName, reportingService));
 	}
-
-	/* (non-Javadoc)
-	 * @see org.cradle.osgi.vertx.eventbus.VertxEventBusService#subscribe(java.lang.String, org.cradle.osgi.vertx.eventbus.JsonEventbusHandler)
-	 */
-	@Override
-	public <T>void subscribe(String address, JsonEventbusHandler<T> handler) {
-		
-		eventBus.registerHandler(address, new VertxJsonEventbusHandler<T>(handler));
-	}
-
-	/* (non-Javadoc)
-	 * @see org.cradle.osgi.vertx.eventbus.VertxEventBusService#unsubscribe(java.lang.String, org.cradle.osgi.vertx.eventbus.JsonEventbusHandler)
-	 */
-	@Override
-	public <T>void unsubscribe(String address, JsonEventbusHandler<T> handler) {
-		
-		eventBus.unregisterHandler(address, new VertxJsonEventbusHandler<T>(handler));
-
-	}
-
-	/* (non-Javadoc)
-	 * @see org.cradle.osgi.vertx.eventbus.VertxEventBusService#publish(java.lang.String, org.vertx.java.core.json.JsonObject)
-	 */
-	@Override
-	public void publish(String address, String message) {
-		eventBus.publish(address, message);
-	}
-
-	/* (non-Javadoc)
-	 * @see org.cradle.osgi.vertx.eventbus.VertxEventBusService#publish(java.lang.String, java.lang.Object, java.lang.String)
-	 */
-	@Override
-	public void publish(String address, Object message, String contentType) {
-
-		DocumentWriter documentWriter = documentWriters.get(contentType);
-
-		StringBuffer output = new StringBuffer();
-
-		Map<String, Object> eventBusMessage = new HashMap<>();
-
-		eventBusMessage.put(address, message);
-
-		documentWriter.write(eventBusMessage, output);
-
-		eventBus.publish(address, output.toString());
-	}
-
+	
 	/* (non-Javadoc)
 	 * @see org.cradle.gateway.HttpGateway#createReadingHttpClient()
 	 */
@@ -398,7 +364,14 @@ public class VertxCradlePlatform implements CradlePlatform, EventBusService, Htt
 	 */
 	@Override
 	public void shutdown() {
-		destroy();
+		
+		eventbusSevice.shutdown();
+		
+		sockJsGateway.stop();
+		
+		vertxGateway.stop();
+
+		platform.stop();
 	}
 
 }

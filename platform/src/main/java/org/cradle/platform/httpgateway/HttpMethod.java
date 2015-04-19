@@ -13,30 +13,41 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package org.cradle.platform;
+package org.cradle.platform.httpgateway;
 
-import java.util.Map;
-
-import org.cradle.platform.eventbus.EventbusService;
-import org.cradle.platform.httpgateway.HttpGateway;
-import org.cradle.platform.httpgateway.restful.filter.RESTfulFilterFactory;
-import org.cradle.platform.sockjsgateway.SockJsGateway;
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
 
 /**
  * @author	Sherief Shawky
  * @email 	mcrakens@gmail.com
  * @date 	Apr 16, 2015
  */
-public interface CradlePlatform {
+@Retention(RetentionPolicy.RUNTIME)
+@Target(ElementType.METHOD)
+public @interface HttpMethod {
 	
-	public void shutdown();
+	enum Method{
+
+		GET("GET"), POST("POST"), MULTIPART_POST("POST"), PUT("PUT"), DELETE("DELETE");
+		
+		private String value;
+		
+		private Method(String value){
+			this.value = value;
+		}
+		
+		/**
+		 * @return the value
+		 */
+		public String getValue() {
+			return value;
+		}
+	};
 	
-	public HttpGateway httpGateway();
-	
-	public HttpGateway httpGateway(String host, int port, String fileRoot, String webRoot,
-			Map<String, RESTfulFilterFactory> filtersFactoryMap);
-	
-	public EventbusService eventbus();
-	
-	public SockJsGateway sockJsGateway();
+	Method method();
+	String path();
+	String contentType() default "application/json";
 }

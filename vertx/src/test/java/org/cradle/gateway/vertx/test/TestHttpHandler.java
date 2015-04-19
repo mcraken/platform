@@ -18,9 +18,9 @@ package org.cradle.gateway.vertx.test;
 import java.io.File;
 import java.util.List;
 
-import org.cradle.platform.gateway.HttpAdapter;
-import org.cradle.platform.gateway.HttpMethod;
-import org.cradle.platform.gateway.HttpMethod.Method;
+import org.cradle.platform.httpgateway.HttpAdapter;
+import org.cradle.platform.httpgateway.HttpMethod;
+import org.cradle.platform.httpgateway.HttpMethod.Method;
 
 /**
  * @author	Sherief Shawky
@@ -29,8 +29,8 @@ import org.cradle.platform.gateway.HttpMethod.Method;
  */
 public class TestHttpHandler {
 	
-	@org.cradle.platform.gateway.HttpMethod(method = Method.GET, path="/hello")
-	public String sayHello(org.cradle.platform.gateway.HttpAdapter adapter){
+	@org.cradle.platform.httpgateway.HttpMethod(method = Method.GET, path="/hello")
+	public String sayHello(org.cradle.platform.httpgateway.HttpAdapter adapter){
 		return "Hello, World!";
 	}
 	

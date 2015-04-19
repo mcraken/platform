@@ -25,7 +25,7 @@ import com.google.gson.GsonBuilder;
  */
 public abstract class JsonEventbusHandler<T> {
 
-	protected EventBusService eventBusService;
+	protected EventbusService eventBusService;
 	private Gson gson;
 	private Class<T> messageType;
 	/**
@@ -39,7 +39,7 @@ public abstract class JsonEventbusHandler<T> {
 	/**
 	 * @param eventBusService the eventBusService to set
 	 */
-	public void setEventBusService(EventBusService eventBusService) {
+	public void setEventBusService(EventbusService eventBusService) {
 		this.eventBusService = eventBusService;
 	}
 	

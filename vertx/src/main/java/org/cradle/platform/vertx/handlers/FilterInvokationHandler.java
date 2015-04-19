@@ -15,10 +15,10 @@
  */
 package org.cradle.platform.vertx.handlers;
 
-import org.cradle.platform.gateway.HttpAdapter;
-import org.cradle.platform.gateway.restful.exception.RESTfulException;
-import org.cradle.platform.gateway.restful.filter.RESTfulFilter;
-import org.cradle.platform.gateway.vertx.VertxHttpAdapter;
+import org.cradle.platform.httpgateway.HttpAdapter;
+import org.cradle.platform.httpgateway.restful.exception.RESTfulException;
+import org.cradle.platform.httpgateway.restful.filter.RESTfulFilter;
+import org.cradle.platform.vertx.httpgateway.VertxHttpAdapter;
 import org.cradle.reporting.SystemReportingService;
 import org.vertx.java.core.Handler;
 import org.vertx.java.core.http.HttpServerRequest;

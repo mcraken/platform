@@ -13,30 +13,16 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package org.cradle.platform;
+package org.cradle.platform.httpgateway.spi;
 
-import java.util.Map;
-
-import org.cradle.platform.eventbus.EventbusService;
-import org.cradle.platform.httpgateway.HttpGateway;
-import org.cradle.platform.httpgateway.restful.filter.RESTfulFilterFactory;
-import org.cradle.platform.sockjsgateway.SockJsGateway;
+import org.cradle.platform.httpgateway.BasicHttpHandler;
 
 /**
  * @author	Sherief Shawky
  * @email 	mcrakens@gmail.com
- * @date 	Apr 16, 2015
+ * @date 	Apr 15, 2015
  */
-public interface CradlePlatform {
+public interface RegistrationAgent {
 	
-	public void shutdown();
-	
-	public HttpGateway httpGateway();
-	
-	public HttpGateway httpGateway(String host, int port, String fileRoot, String webRoot,
-			Map<String, RESTfulFilterFactory> filtersFactoryMap);
-	
-	public EventbusService eventbus();
-	
-	public SockJsGateway sockJsGateway();
+	public void register(String method, String path, BasicHttpHandler httpHandler);
 }

@@ -6,7 +6,7 @@ package org.cradle.platform.vertx.handlers;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 
-import org.cradle.platform.gateway.vertx.AsyncInputStream;
+import org.cradle.platform.vertx.httpgateway.AsyncInputStream;
 import org.cradle.reporting.SystemReportingService;
 import org.cradle.repository.ModelRepository;
 import org.cradle.repository.exception.NoResultException;

@@ -22,7 +22,7 @@ import org.cradle.platform.httpgateway.HttpAdapter;
 import org.cradle.platform.httpgateway.exception.HttpException;
 import org.cradle.platform.httpgateway.spi.AsyncIOtHttpHandler;
 import org.cradle.platform.httpgateway.spi.ResponseObject;
-import org.cradle.platform.sockjsgateway.WebSocket;
+import org.cradle.platform.sockjsgateway.SockJS;
 import org.cradle.platform.spi.RegistrationAgent;
 import org.cradle.platform.spi.RegistrationPrincipal;
 
@@ -47,7 +47,7 @@ public class SockJsHandlerRegistrationPrinicipal extends RegistrationPrincipal{
 	protected void executePrincipal(RegistrationAgent agent, final Object handler,
 			final Method target) {
 		
-		WebSocket webSocket = target.getAnnotation(WebSocket.class);
+		SockJS webSocket = target.getAnnotation(SockJS.class);
 		
 		if(webSocket != null ){
 			

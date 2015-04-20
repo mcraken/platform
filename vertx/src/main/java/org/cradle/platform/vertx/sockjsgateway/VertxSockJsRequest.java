@@ -26,7 +26,6 @@ import org.cradle.platform.httpgateway.spi.GatewayRequest;
 import org.cradle.platform.httpgateway.spi.GatewayResponse;
 import org.cradle.platform.httpgateway.spi.MultipartRequestHandler;
 import org.vertx.java.core.Handler;
-import org.vertx.java.core.VoidHandler;
 import org.vertx.java.core.buffer.Buffer;
 import org.vertx.java.core.sockjs.SockJSSocket;
 
@@ -35,7 +34,7 @@ import org.vertx.java.core.sockjs.SockJSSocket;
  * @email 	mcrakens@gmail.com
  * @date 	Apr 19, 2015
  */
-public class VertxSockJsRequest extends GatewayRequest implements Handler<Buffer>{
+public class VertxSockJsRequest extends GatewayRequest {
 
 	private VertxSockJsAdapter sockJsAdapter;
 	
@@ -61,23 +60,27 @@ public class VertxSockJsRequest extends GatewayRequest implements Handler<Buffer
 		
 		SockJSSocket socket = sockJsAdapter.socket();
 		
-		socket.dataHandler(this);
-		
-		socket.endHandler(new VoidHandler() {
+		socket.dataHandler(new Handler<Buffer>(){
 
 			@Override
-			protected void handle() {
+			public void handle(Buffer buffer) {
+
+				byte[] input = buffer.getByteBuf().array();
+
+				appendInput(input);
+				
 				try {
-					
+
 					handler.handleDocument(readDocumentObject(documentType));
-					
+
 				} catch (DocumentReadingExcetion e) {
-					
+
 					sockJsAdapter.exception(new BadRequestException(e));
 				}
 			}
+			
 		});
-
+		
 	}
 
 	/* (non-Javadoc)
@@ -88,18 +91,6 @@ public class VertxSockJsRequest extends GatewayRequest implements Handler<Buffer
 			GatewayResponse response) {
 		
 		 throw new UnsupportedOperationException();
-
-	}
-
-	/* (non-Javadoc)
-	 * @see org.vertx.java.core.Handler#handle(java.lang.Object)
-	 */
-	@Override
-	public void handle(Buffer event) {
-		
-		byte[] input = event.getByteBuf().array();
-
-		appendInput(input);
 
 	}
 

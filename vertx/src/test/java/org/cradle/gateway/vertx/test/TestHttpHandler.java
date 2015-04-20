@@ -21,7 +21,7 @@ import java.util.List;
 import org.cradle.platform.httpgateway.HttpAdapter;
 import org.cradle.platform.httpgateway.HttpMethod;
 import org.cradle.platform.httpgateway.HttpMethod.Method;
-import org.cradle.platform.sockjsgateway.WebSocket;
+import org.cradle.platform.sockjsgateway.SockJS;
 
 /**
  * @author	Sherief Shawky
@@ -54,7 +54,7 @@ public class TestHttpHandler {
 		return multiply(adapter, form);
 	}
 	
-	@WebSocket(path="/socketcalc")
+	@SockJS(path="/socketcalc")
 	public TestDocument multiplySocket(HttpAdapter adapter, TestDocument document){
 		
 		document.calcResult();

@@ -55,7 +55,7 @@ public class StandaloneGatewayTest {
 		
 		websocketGateway.registerHandler(testHttpHandler);
 		
-		Thread.sleep(2 * 60 * 1000);
+		Thread.sleep(5 * 60 * 1000);
 	}
 
 	@After

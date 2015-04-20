@@ -6,7 +6,7 @@ Now, we will tap briefly on each bundle of the cradle framework.
 
 ## Gateway
 
-The gateway bundle exposes its services through the gateway interface which gives the capability for clients to register handlers and filters. Here is some code, here is a sample of how to run a standalone platform out of an OSGi container. 
+The gateway bundle exposes its services through the gateway interface which gives the capability for clients to register handlers and filters. Here is a sample of how to run a standalone platform out of an OSGi container. 
 ```java
 class HelloWorldController{
 	@HttpMethod(method = Method.GET, path="/hello")
@@ -21,7 +21,7 @@ gateway.registerHandler(new HelloWorldController());
 Thread.sleep(2 * 60 * 1000);
 platform.shutdown();
 ```
-The above code creates and registers a controller class which exposes one method that accepts GET requests. The path on which the service is accessible is /hello. In just easy 3 line we have a fully operational webservice endpoint running on the highly performant Vertx platform. The default vertx implementation of the cradle platform listenes to port 8080 on localhost. The operational URL of the above example is http://localhost:8080/hello. Try it for yourself.
+The above code creates and registers a controller class which exposes one method that accepts GET requests. The path on which the service is accessible is /hello. In just easy 3 line we have a fully operational webservice endpoint running on the highly performant Vertx http server. The default vertx implementation of the cradle platform listenes to port 8080 on localhost. The operational URL of the above example is http://localhost:8080/hello. Try it for yourself.
 
 Starting with the gateway bundle, which is an abstraction of a http gateway. The gateway bundle asbtracts three types of handlers:
 - Output only http handlers which are suitable for non-body requests like GET or DELETE.

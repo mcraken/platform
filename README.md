@@ -6,17 +6,38 @@ Now, we will tap briefly on each bundle of the cradle framework.
 
 ## Gateway
 
-The gateway bundle exposes its services through the gateway interface which gives the capability for clients to register handlers and filters. Here is a sample of how to run a standalone platform out of an OSGi container. 
+The gateway bundle exposes its services through the gateway interface which gives the capability for clients to register handlers and filters. Here is a sample of how to run a standalone platform and regitser a controller. 
 ```java
+class Calculation {
+	private int num1;
+	private int num2;
+	private int result;
+	
+	public void calcResult() {
+		this.result = num1 * num2;
+	}
+}	
+	
 class HelloWorldController{
 	@HttpMethod(method = Method.GET, path="/hello")
 	public String sayHello(HttpAdapter adapter){
 		return "Hello, World!";
 	}
+	@HttpMethod(method = Method.POST, path="/calc")
+	public Calculation multiply(HttpAdapter adapter, Calculation document){
+		document.calcResult();
+		return document;
+	}
+	@SockJS(path="/socketcalc")
+	public Calculation multiplySocket(HttpAdapter adapter, Calculation document){
+		document.calcResult();
+		return document;
+	} 
 }
 
 CradlePlatform platform = VertxCradlePlatform.createDefaultInstance();
-HttpGateway gateway = platform.gateway();
+CradleGateway httpGateway = platform.httpGateway();
+CradleGateway websocketGateway = platform.sockJsGateway();
 gateway.registerHandler(new HelloWorldController());
 Thread.sleep(2 * 60 * 1000);
 platform.shutdown();

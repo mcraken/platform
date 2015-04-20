@@ -38,11 +38,18 @@ class HelloWorldController{
 CradlePlatform platform = VertxCradlePlatform.createDefaultInstance();
 CradleGateway httpGateway = platform.httpGateway();
 CradleGateway websocketGateway = platform.sockJsGateway();
-gateway.registerHandler(new HelloWorldController());
+HelloWorldController controller = new HelloWorldController();
+httpGateway.registerHandler(controller);
+websocketGateway.registerHandler(controller);
 Thread.sleep(2 * 60 * 1000);
 platform.shutdown();
 ```
-The above code creates and registers a controller class which exposes one method that accepts GET requests. The path on which the service is accessible is /hello. In just easy 3 line we have a fully operational webservice endpoint running on the highly performant Vertx http server. The default vertx implementation of the cradle platform listenes to port 8080 on localhost. The operational URL of the above example is http://localhost:8080/hello. Try it for yourself.
+The above code creates and registers a controller class which exposes three methods:
+- sayHello, which controlls GET requests directed to /hello. It returns a string.
+- multiply, which controlls POST requests directed to /calc. It returns a JSON representation of Calculation instance.
+- multiplySocket, which is a websocket that does the same as multiply. 
+
+The path on which the service is accessible is /hello. In just easy 3 line we have a fully operational webservice endpoint running on the highly performant Vertx http server. The default vertx implementation of the cradle platform listenes to port 8080 on localhost. The operational URL of the above example is http://localhost:8080/hello. Try it for yourself.
 
 Starting with the gateway bundle, which is an abstraction of a http gateway. The gateway bundle asbtracts three types of handlers:
 - Output only http handlers which are suitable for non-body requests like GET or DELETE.

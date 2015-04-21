@@ -8,6 +8,18 @@ Now, we will tap briefly on each bundle of the cradle framework.
 
 The gateway bundle exposes its services through the gateway interface which gives the capability for clients to register handlers and filters. Here is a sample of how to run a standalone platform and regitser a controller. 
 ```java
+public class SocketMessage {
+	private String sender;
+	private String text;
+	public String getSender() {
+		return sender;
+	}
+	public String getText() {
+		return text;
+	}
+
+}
+
 class Calculation {
 	private int num1;
 	private int num2;
@@ -32,6 +44,10 @@ class HelloWorldController{
 	public Calculation multiplySocket(HttpAdapter adapter, Calculation document){
 		document.calcResult();
 		return document;
+	}
+	@SockJS(path="/message")
+	public void socketMessage(HttpAdapter adapter, SocketMessage message){
+		System.out.println(message.getSender() + ":" + message.getText());
 	} 
 }
 
@@ -48,6 +64,7 @@ The above code creates and registers a controller class which exposes three meth
 - sayHello, which controlls GET requests directed to /hello. It returns a string.
 - multiply, which controlls POST requests directed to /calc. It returns a JSON representation of Calculation instance.
 - multiplySocket, which is a websocket that does the same as multiply. 
+- sokcetMessage, which is an oiutput only socket controller.
 
 The path on which the service is accessible is /hello. In just easy 3 line we have a fully operational webservice endpoint running on the highly performant Vertx http server. The default vertx implementation of the cradle platform listenes to port 8080 on localhost. The operational URL of the above example is http://localhost:8080. Try it for yourself.
 

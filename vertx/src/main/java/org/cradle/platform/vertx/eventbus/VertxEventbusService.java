@@ -15,12 +15,11 @@
  */
 package org.cradle.platform.vertx.eventbus;
 
-import java.util.HashMap;
 import java.util.Map;
 
 import org.cradle.platform.document.DocumentWriter;
-import org.cradle.platform.eventbus.EventbusService;
-import org.cradle.platform.eventbus.JsonEventbusHandler;
+import org.cradle.platform.eventbus.CradleEventbus;
+import org.cradle.platform.eventbus.TypeEventbusHandler;
 import org.cradle.platform.eventbus.TextEventbusHandler;
 import org.cradle.reporting.SystemReportingService;
 import org.vertx.java.core.AsyncResult;
@@ -32,7 +31,7 @@ import org.vertx.java.core.eventbus.EventBus;
  * @email 	mcrakens@gmail.com
  * @date 	Apr 19, 2015
  */
-public class VertxEventbusService implements EventbusService {
+public class VertxEventbusService implements CradleEventbus {
 
 	private EventBus eventBus;
 	private Map<String, DocumentWriter> documentWriters;
@@ -74,7 +73,7 @@ public class VertxEventbusService implements EventbusService {
 	 * @see org.cradle.osgi.vertx.eventbus.VertxEventBusService#subscribe(java.lang.String, org.cradle.osgi.vertx.eventbus.JsonEventbusHandler)
 	 */
 	@Override
-	public <T>void subscribe(String address, JsonEventbusHandler<T> handler) {
+	public <T>void subscribe(String address, TypeEventbusHandler<T> handler) {
 		
 		eventBus.registerHandler(address, new VertxJsonEventbusHandler<T>(handler));
 	}
@@ -83,7 +82,7 @@ public class VertxEventbusService implements EventbusService {
 	 * @see org.cradle.osgi.vertx.eventbus.VertxEventBusService#unsubscribe(java.lang.String, org.cradle.osgi.vertx.eventbus.JsonEventbusHandler)
 	 */
 	@Override
-	public <T>void unsubscribe(String address, JsonEventbusHandler<T> handler) {
+	public <T>void unsubscribe(String address, TypeEventbusHandler<T> handler) {
 		
 		eventBus.unregisterHandler(address, new VertxJsonEventbusHandler<T>(handler));
 
@@ -101,17 +100,13 @@ public class VertxEventbusService implements EventbusService {
 	 * @see org.cradle.osgi.vertx.eventbus.VertxEventBusService#publish(java.lang.String, java.lang.Object, java.lang.String)
 	 */
 	@Override
-	public void publish(String address, Object message, String contentType) {
+	public <T>void publish(String address, T message, String contentType) {
 
 		DocumentWriter documentWriter = documentWriters.get(contentType);
 
 		StringBuffer output = new StringBuffer();
 
-		Map<String, Object> eventBusMessage = new HashMap<>();
-
-		eventBusMessage.put(address, message);
-
-		documentWriter.write(eventBusMessage, output);
+		documentWriter.write(message, output);
 
 		eventBus.publish(address, output.toString());
 	}

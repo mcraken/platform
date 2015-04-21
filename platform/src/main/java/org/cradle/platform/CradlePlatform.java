@@ -17,7 +17,7 @@ package org.cradle.platform;
 
 import java.util.Map;
 
-import org.cradle.platform.eventbus.EventbusService;
+import org.cradle.platform.eventbus.CradleEventbus;
 import org.cradle.platform.httpgateway.CradleGateway;
 import org.cradle.platform.httpgateway.filter.FilterFactory;
 
@@ -35,7 +35,7 @@ public interface CradlePlatform {
 	public CradleGateway httpGateway(String host, int port, String fileRoot, String webRoot,
 			Map<String, FilterFactory> filtersFactoryMap);
 	
-	public EventbusService eventbus();
+	public CradleEventbus eventbus();
 	
 	public CradleGateway sockJsGateway();
 }

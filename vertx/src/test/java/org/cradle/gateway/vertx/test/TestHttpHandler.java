@@ -32,17 +32,17 @@ public class TestHttpHandler {
 	
 	@org.cradle.platform.httpgateway.HttpMethod(method = Method.GET, path="/hello")
 	public String sayHello(org.cradle.platform.httpgateway.HttpAdapter adapter){
-		return "Hello, World!";
+		return "Hello, Samuel!";
 	}
 	
 	@HttpMethod(method = Method.PUT, path="/save")
-	public TestDocument update(HttpAdapter adapter, TestDocument document){
+	public Calculation update(HttpAdapter adapter, Calculation document){
 		document.setId(15);
 		return document;
 	}
 	
 	@HttpMethod(method = Method.POST, path="/calc")
-	public TestDocument multiply(HttpAdapter adapter, TestDocument document){
+	public Calculation multiply(HttpAdapter adapter, Calculation document){
 		
 		document.calcResult();
 		
@@ -50,15 +50,21 @@ public class TestHttpHandler {
 	}
 	
 	@HttpMethod(method = Method.MULTIPART_POST, path="/form")
-	public TestDocument submitForm(HttpAdapter adapter, TestDocument form, List<File> files){
+	public Calculation submitForm(HttpAdapter adapter, Calculation form, List<File> files){
 		return multiply(adapter, form);
 	}
 	
 	@SockJS(path="/socketcalc")
-	public TestDocument multiplySocket(HttpAdapter adapter, TestDocument document){
+	public Calculation multiplySocket(HttpAdapter adapter, Calculation document){
 		
 		document.calcResult();
 		
 		return document;
+	} 
+	
+	@SockJS(path="/message")
+	public void multiplySocket(HttpAdapter adapter, SocketMessage message){
+		
+		System.out.println(message.getSender() + ":" + message.getText());
 	} 
 }

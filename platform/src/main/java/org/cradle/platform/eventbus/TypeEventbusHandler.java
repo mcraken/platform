@@ -23,15 +23,15 @@ import com.google.gson.GsonBuilder;
  * @email 	mcrakens@gmail.com
  * @date 	Apr 16, 2015
  */
-public abstract class JsonEventbusHandler<T> {
+public abstract class TypeEventbusHandler<T> {
 
-	protected EventbusService eventBusService;
+	protected CradleEventbus eventBusService;
 	private Gson gson;
 	private Class<T> messageType;
 	/**
 	 * 
 	 */
-	public JsonEventbusHandler(Class<T> messageType) {
+	public TypeEventbusHandler(Class<T> messageType) {
 		gson = new GsonBuilder().create();
 		this.messageType = messageType;
 	}
@@ -39,7 +39,7 @@ public abstract class JsonEventbusHandler<T> {
 	/**
 	 * @param eventBusService the eventBusService to set
 	 */
-	public void setEventBusService(EventbusService eventBusService) {
+	public void setEventBusService(CradleEventbus eventBusService) {
 		this.eventBusService = eventBusService;
 	}
 	

@@ -21,6 +21,7 @@ import java.lang.reflect.Method;
 import org.cradle.platform.httpgateway.HttpAdapter;
 import org.cradle.platform.httpgateway.exception.HttpException;
 import org.cradle.platform.httpgateway.spi.AsyncIOtHttpHandler;
+import org.cradle.platform.httpgateway.spi.AsyncInputHttpHandler;
 import org.cradle.platform.httpgateway.spi.ResponseObject;
 import org.cradle.platform.sockjsgateway.SockJS;
 import org.cradle.platform.spi.RegistrationAgent;
@@ -46,48 +47,115 @@ public class SockJsHandlerRegistrationPrinicipal extends RegistrationPrincipal{
 	@Override
 	protected void executePrincipal(RegistrationAgent agent, final Object handler,
 			final Method target) {
-		
+
 		SockJS webSocket = target.getAnnotation(SockJS.class);
-		
+
 		if(webSocket != null ){
-			
-			checkMethodParamLength(target, 2, "Websocket handler require exactly two parameters");
-			
-			checkMethodParam(target, 1, HttpAdapter.class, "First parameter must be of type HttpAdapter");
-			
-			final Class<?> documentType = target.getParameterTypes()[1];
-			
-			agent.register("", webSocket.path(), new AsyncIOtHttpHandler() {
+
+			try{
+
+				registerInputOutputHandler(agent, handler, target, webSocket);
 				
-				@Override
-				protected Class<?> getDocumentType() {
-					return documentType;
-				}
+			} catch(RuntimeException e){
 				
-				@Override
-				protected ResponseObject execute(HttpAdapter adapter, Object document)
-						throws HttpException {
-					try{
-						
-						return new ResponseObject(target.invoke(handler, adapter, document));
-
-					} catch (IllegalAccessException | IllegalArgumentException e) {
-
-						throw new RuntimeException(e);
-
-					} catch (InvocationTargetException e) {
-
-						Throwable targetException  = e.getTargetException();
-					
-						if(targetException instanceof HttpException)
-							throw (HttpException) targetException;
-
-						throw new RuntimeException(e);
-					}
-				}
-			});
+				registerInputHttpHandler(agent, handler, target, webSocket);
+			}
 		}
+
+	}
+
+	/**
+	 * @param agent
+	 * @param handler
+	 * @param target
+	 * @param webSocket
+	 */
+	private void registerInputHttpHandler(RegistrationAgent agent,
+			final Object handler, final Method target, SockJS webSocket) {
 		
+		checkForVoidReturnType(target, "Invalid Web Socket method");
+		
+		checkMethodParamLength(target, 2, "IO Websocket handler require exactly two parameters");
+		
+		checkMethodParam(target, 1, HttpAdapter.class, "First parameter must be of type HttpAdapter");
+		
+		final Class<?> documentType = target.getParameterTypes()[1];
+		
+		agent.register("", webSocket.path(), new AsyncInputHttpHandler() {
+			
+			@Override
+			protected Class<?> getDocumentType() {
+				return documentType;
+			}
+			
+			@Override
+			protected void execute(HttpAdapter httpAdapter, Object document)
+					throws HttpException {
+				try{
+
+					target.invoke(handler, httpAdapter, document);
+
+				} catch (IllegalAccessException | IllegalArgumentException e) {
+
+					throw new RuntimeException(e);
+
+				} catch (InvocationTargetException e) {
+
+					Throwable targetException  = e.getTargetException();
+
+					if(targetException instanceof HttpException)
+						throw (HttpException) targetException;
+
+					throw new RuntimeException(e);
+				}
+			}
+		});
+	}
+
+	/**
+	 * @param agent
+	 * @param handler
+	 * @param target
+	 * @param webSocket
+	 */
+	private void registerInputOutputHandler(RegistrationAgent agent,
+			final Object handler, final Method target, SockJS webSocket) {
+		
+		checkMethodParamLength(target, 2, "IO Websocket handler require exactly two parameters");
+
+		checkMethodParam(target, 1, HttpAdapter.class, "First parameter must be of type HttpAdapter");
+
+		final Class<?> documentType = target.getParameterTypes()[1];
+
+		agent.register("", webSocket.path(), new AsyncIOtHttpHandler() {
+
+			@Override
+			protected Class<?> getDocumentType() {
+				return documentType;
+			}
+
+			@Override
+			protected ResponseObject execute(HttpAdapter adapter, Object document)
+					throws HttpException {
+				try{
+
+					return new ResponseObject(target.invoke(handler, adapter, document));
+
+				} catch (IllegalAccessException | IllegalArgumentException e) {
+
+					throw new RuntimeException(e);
+
+				} catch (InvocationTargetException e) {
+
+					Throwable targetException  = e.getTargetException();
+
+					if(targetException instanceof HttpException)
+						throw (HttpException) targetException;
+
+					throw new RuntimeException(e);
+				}
+			}
+		});
 	}
 
 }

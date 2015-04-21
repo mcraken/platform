@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Send Message Test</title>
+<script type="text/javascript" src="../js/sockjs/sockjs-0.3.min.js"></script>
+<script type="text/javascript">
+	var sock = new SockJS('http://localhost:8080/message');
+	sock.onopen = function() {
+		console.log('open');
+	};
+	sock.onmessage = function(e) {
+		console.log('message', e.data);
+	};
+	sock.onclose = function() {
+		console.log('close');
+	};
+
+	function sendMessage() {
+		sock.send(JSON.stringify({
+			"sender" : "mcplissken",
+			"text" : "hello"
+		}));
+	}
+</script>
+</head>
+<body>
+	<input type="button" value="Send" onclick="sendMessage()">
+</body>
+</html>

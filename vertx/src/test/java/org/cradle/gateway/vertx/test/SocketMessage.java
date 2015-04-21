@@ -18,64 +18,35 @@ package org.cradle.gateway.vertx.test;
 /**
  * @author	Sherief Shawky
  * @email 	mcrakens@gmail.com
- * @date 	Apr 16, 2015
+ * @date 	Apr 21, 2015
  */
-public class TestDocument {
-	
-	private int id;
-	
-	private int num1;
-	
-	private int num2;
-	
-	private int result;
-	
+public class SocketMessage {
+	private String sender;
+	private String text;
 	/**
-	 * @param id the id to set
+	 * @return the sender
 	 */
-	public void setId(int id) {
-		this.id = id;
-	}
-	
-	/**
-	 * @return the num1
-	 */
-	public int getNum1() {
-		return num1;
+	public String getSender() {
+		return sender;
 	}
 	/**
-	 * @return the num2
+	 * @param sender the sender to set
 	 */
-	public int getNum2() {
-		return num2;
+	public void setSender(String sender) {
+		this.sender = sender;
 	}
 	/**
-	 * @return the id
+	 * @return the text
 	 */
-	public int getId() {
-		return id;
+	public String getText() {
+		return text;
 	}
 	/**
-	 * @param num1 the num1 to set
+	 * @param text the text to set
 	 */
-	public void setNum1(int num1) {
-		this.num1 = num1;
-	}
-	/**
-	 * @param num2 the num2 to set
-	 */
-	public void setNum2(int num2) {
-		this.num2 = num2;
-	}
-	/**
-	 * @return the result
-	 */
-	public int getResult() {
-		return result;
+	public void setText(String text) {
+		this.text = text;
 	}
 	
-	public void calcResult() {
-		this.result = num1 * num2;
-	}
 	
 }

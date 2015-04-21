@@ -3,7 +3,7 @@
  */
 package org.cradle.platform.vertx.eventbus;
 
-import org.cradle.platform.eventbus.JsonEventbusHandler;
+import org.cradle.platform.eventbus.TypeEventbusHandler;
 import org.vertx.java.core.Handler;
 import org.vertx.java.core.eventbus.Message;
 import org.vertx.java.core.json.JsonObject;
@@ -15,12 +15,12 @@ import org.vertx.java.core.json.JsonObject;
  */
 public class VertxJsonEventbusHandler<T> implements Handler<Message<JsonObject>>{
 	
-	private JsonEventbusHandler<T> jsonEventbusHandler;
+	private TypeEventbusHandler<T> jsonEventbusHandler;
 	
 	/**
 	 * @param jsonEventbusHandler
 	 */
-	public VertxJsonEventbusHandler(JsonEventbusHandler<T> jsonEventbusHandler) {
+	public VertxJsonEventbusHandler(TypeEventbusHandler<T> jsonEventbusHandler) {
 		this.jsonEventbusHandler = jsonEventbusHandler;
 	}
 

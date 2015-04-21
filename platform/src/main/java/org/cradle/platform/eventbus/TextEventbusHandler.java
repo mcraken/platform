@@ -24,12 +24,12 @@ package org.cradle.platform.eventbus;
  */
 public abstract class TextEventbusHandler {
 
-	protected EventbusService eventBusService;
+	protected CradleEventbus eventBusService;
 	
 	/**
 	 * @param eventBusService the eventBusService to set
 	 */
-	public void setEventBusService(EventbusService eventBusService) {
+	public void setEventBusService(CradleEventbus eventBusService) {
 		this.eventBusService = eventBusService;
 	}
 	

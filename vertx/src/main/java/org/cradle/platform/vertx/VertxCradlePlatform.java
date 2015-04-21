@@ -23,7 +23,7 @@ import org.cradle.platform.CradlePlatform;
 import org.cradle.platform.document.DocumentReader;
 import org.cradle.platform.document.DocumentWriter;
 import org.cradle.platform.document.JsonDocumentReaderWriter;
-import org.cradle.platform.eventbus.EventbusService;
+import org.cradle.platform.eventbus.CradleEventbus;
 import org.cradle.platform.httpgateway.CradleGateway;
 import org.cradle.platform.httpgateway.HttpWebService;
 import org.cradle.platform.httpgateway.client.AsynchronousReadingHttpClient;
@@ -303,7 +303,7 @@ public class VertxCradlePlatform implements CradlePlatform, HttpWebService{
 	 * @see org.cradle.platform.CradlePlatform#eventbus()
 	 */
 	@Override
-	public EventbusService eventbus() {
+	public CradleEventbus eventbus() {
 
 		if(eventbusSevice == null){
 			eventbusSevice = new VertxEventbusService(eventBus, documentWriters, reportingService);

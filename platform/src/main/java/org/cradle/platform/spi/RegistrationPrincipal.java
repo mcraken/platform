@@ -61,6 +61,17 @@ public abstract class RegistrationPrincipal {
 	}
 	
 	/**
+	 * @param target
+	 */
+	protected void checkForVoidReturnType(final Method target, String errorMessage) {
+		
+		Class<?> returnType = target.getReturnType();
+		
+		if(returnType != Void.class)
+			throw new RuntimeException(errorMessage);
+	}
+	
+	/**
 	 * 
 	 */
 	protected abstract void executePrincipal(RegistrationAgent agent, Object handler, Method target);

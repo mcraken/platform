@@ -33,7 +33,8 @@ public abstract class RegistrationPrincipal {
 		this.next = next;
 	}
 	
-	public void execute(RegistrationAgent agent, Object handler, Method target){
+	public <T>void execute(RegistrationAgent agent, T handler, Method target){
+		
 		executePrincipal(agent, handler, target);
 		
 		if(next != null)
@@ -71,8 +72,5 @@ public abstract class RegistrationPrincipal {
 			throw new RuntimeException(errorMessage);
 	}
 	
-	/**
-	 * 
-	 */
-	protected abstract void executePrincipal(RegistrationAgent agent, Object handler, Method target);
+	protected abstract <T>void executePrincipal(RegistrationAgent agent, T handler, Method target);
 }

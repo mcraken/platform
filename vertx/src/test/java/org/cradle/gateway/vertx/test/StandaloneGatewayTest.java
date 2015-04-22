@@ -49,11 +49,11 @@ public class StandaloneGatewayTest {
 	@Test
 	public void testHandlerResgistration() throws InterruptedException{
 
-		TestHttpHandler testHttpHandler = new TestHttpHandler();
+		TestHttpController controller = new TestHttpController();
 		
-		httpGateway.registerHandler(testHttpHandler);
+		httpGateway.registerController(controller);
 		
-		websocketGateway.registerHandler(testHttpHandler);
+		websocketGateway.registerController(controller);
 		
 		Thread.sleep(5 * 60 * 1000);
 	}

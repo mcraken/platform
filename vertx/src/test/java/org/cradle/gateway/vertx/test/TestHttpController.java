@@ -28,11 +28,11 @@ import org.cradle.platform.sockjsgateway.SockJS;
  * @email 	mcrakens@gmail.com
  * @date 	Apr 15, 2015
  */
-public class TestHttpHandler {
+public class TestHttpController {
 	
 	@org.cradle.platform.httpgateway.HttpMethod(method = Method.GET, path="/hello")
 	public String sayHello(org.cradle.platform.httpgateway.HttpAdapter adapter){
-		return "Hello, Samuel!";
+		return "Hello, World!";
 	}
 	
 	@HttpMethod(method = Method.PUT, path="/save")

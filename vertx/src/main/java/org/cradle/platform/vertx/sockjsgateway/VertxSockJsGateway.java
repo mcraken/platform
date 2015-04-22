@@ -30,7 +30,7 @@ import org.cradle.platform.httpgateway.filter.FilterFactory;
 import org.cradle.platform.httpgateway.filter.ServiceFilterConfig;
 import org.cradle.platform.sockjsgateway.SockJS;
 import org.cradle.platform.sockjsgateway.spi.SockJsHandlerRegistrationPrinicipal;
-import org.cradle.platform.spi.BasicCradleGateway;
+import org.cradle.platform.spi.BasicHttpCradleGateway;
 import org.vertx.java.core.Handler;
 import org.vertx.java.core.json.JsonObject;
 import org.vertx.java.core.sockjs.SockJSServer;
@@ -41,7 +41,7 @@ import org.vertx.java.core.sockjs.SockJSSocket;
  * @email 	mcrakens@gmail.com
  * @date 	Apr 19, 2015
  */
-public class VertxSockJsGateway extends BasicCradleGateway  {
+public class VertxSockJsGateway extends BasicHttpCradleGateway  {
 
 	private SockJSServer sockJSServer;
 
@@ -67,10 +67,6 @@ public class VertxSockJsGateway extends BasicCradleGateway  {
 		return config;
 	}
 
-	/* (non-Javadoc)
-	 * @see org.cradle.platform.sockjsgateway.SockJsGateway#stop()
-	 */
-	@Override
 	public void stop() {
 
 		if(sockJSServer != null){

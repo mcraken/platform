@@ -17,8 +17,6 @@ package org.cradle.platform.spi;
 
 import java.lang.annotation.Annotation;
 
-import org.cradle.platform.httpgateway.BasicHttpHandler;
-
 /**
  * @author	Sherief Shawky
  * @email 	mcrakens@gmail.com
@@ -26,5 +24,5 @@ import org.cradle.platform.httpgateway.BasicHttpHandler;
  */
 public interface RegistrationAgent {
 	
-	public <T>void register(Annotation annotation, BasicHttpHandler httpHandler);
+	public <T>void register(Annotation annotation, T httpHandler);
 }

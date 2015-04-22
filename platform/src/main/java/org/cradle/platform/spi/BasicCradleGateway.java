@@ -19,16 +19,6 @@ import static com.google.common.base.Preconditions.checkNotNull;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
-import java.util.Map;
-
-import org.cradle.localization.LocalizationService;
-import org.cradle.platform.document.DocumentReader;
-import org.cradle.platform.document.DocumentWriter;
-import org.cradle.platform.httpgateway.BasicHttpHandler;
-import org.cradle.platform.httpgateway.filter.Filter;
-import org.cradle.platform.httpgateway.filter.FilterFactory;
-import org.cradle.platform.httpgateway.filter.ServiceFilter;
-import org.cradle.platform.httpgateway.filter.ServiceFilterConfig;
 /**
  * @author	Sherief Shawky
  * @email 	mcrakens@gmail.com
@@ -39,36 +29,17 @@ public abstract class BasicCradleGateway implements CradleGateway {
 	private RegistrationPrincipal principalChain;
 	private RegistrationAgent registrationAgent;
 	
-	private Map<String, DocumentReader> documentReaders;
-	private Map<String, DocumentWriter> documentWriters;
-	
-	private Map<String, FilterFactory> filtersFactoryMap;
-	private LocalizationService localizationService;
-	private String tempFolder;
-	
-	public BasicCradleGateway(
-			RegistrationPrincipal principalChain,
-			Map<String, DocumentReader> documentReaders,
-			Map<String, DocumentWriter> documentWriters,
-			Map<String, FilterFactory> filtersFactoryMap,
-			LocalizationService localizationService,
-			String tempFolder
-			) {
+	public BasicCradleGateway(RegistrationPrincipal principalChain) {
 		
-		this.documentReaders = documentReaders;
-		this.documentWriters = documentWriters;
-		this.filtersFactoryMap = filtersFactoryMap;
-		this.localizationService = localizationService;
-		this.tempFolder = tempFolder;
 		this.principalChain = principalChain;
 		
 		registrationAgent = new RegistrationAgent() {
 			
 			@Override
-			public void register(Annotation annotation,
-					BasicHttpHandler httpHandler) {
+			public <T>void register(Annotation annotation,
+					T httpHandler) {
 				
-				registerHttpHandler(annotation, httpHandler, new ServiceFilterConfig());
+				registerHandler(annotation, httpHandler);
 			}
 		};
 	}
@@ -77,7 +48,7 @@ public abstract class BasicCradleGateway implements CradleGateway {
 	 * @see org.cradle.gateway.HttpGateway#registerHandler(java.lang.Object)
 	 */
 	@Override
-	public void registerHandler(Object handler) {
+	public <T>void registerController(T handler) {
 
 		checkNotNull(handler);
 		
@@ -87,30 +58,6 @@ public abstract class BasicCradleGateway implements CradleGateway {
 		}
 	}
 	
-	/**
-	 * @param contentType
-	 * @return
-	 */
-	protected DocumentWriter getDocumentWriter(String contentType) {
-		return documentWriters.get(contentType);
-	}
-	
-	protected void registerHttpHandler(
-			Annotation annotation,
-			BasicHttpHandler httpHandler,
-			ServiceFilterConfig serviceConfig) {
+	protected abstract <T>void registerHandler(Annotation annotation, T handler);
 
-		ServiceFilter vertxFilter = new ServiceFilter(httpHandler, documentWriters, documentReaders, tempFolder);
-
-		Filter firstFilter = serviceConfig.buildChain(vertxFilter, filtersFactoryMap);
-
-		httpHandler.setLocalizationService(localizationService);
-
-		registerFilterChain(annotation, serviceConfig, firstFilter);
-	}
-	
-	protected abstract void registerFilterChain(Annotation annotation,
-			ServiceFilterConfig serviceConfig, Filter firstFilter);
-	
-	protected abstract void unregisterHttpHandler(String method, String path);
 }

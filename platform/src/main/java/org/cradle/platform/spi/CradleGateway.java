@@ -23,7 +23,6 @@ package org.cradle.platform.spi;
  */
 public interface CradleGateway {
 
-	public void registerHandler(Object handler);
+	public <T>void registerController(T handler);
 	
-	public void stop();
 }

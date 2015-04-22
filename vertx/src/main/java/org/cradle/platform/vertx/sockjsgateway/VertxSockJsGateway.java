@@ -47,16 +47,15 @@ public class VertxSockJsGateway extends BasicHttpCradleGateway  {
 
 	public VertxSockJsGateway(Map<String, DocumentReader> documentReaders,
 			Map<String, DocumentWriter> documentWriters,
-			LocalizationService localizationService, String tempFolder,
+			LocalizationService localizationService,
 			SockJSServer sockJSServer) {
 
-		super(
+		super( 
 				new SockJsHandlerRegistrationPrinicipal(null),
 				documentReaders, 
 				documentWriters, 
 				new HashMap<String, FilterFactory>(),
-				localizationService, 
-				tempFolder
+				localizationService
 				);
 
 		this.sockJSServer = sockJSServer;

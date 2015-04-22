@@ -211,8 +211,8 @@ public class VertxHttpAdapter extends BasicHttpAdapter{
 	 * @see org.cradle.platform.httpgateway.HttpAdapter#createGatewayRequest()
 	 */
 	@Override
-	public GatewayRequest createGatewayRequest(Map<String, DocumentReader> documentReaders, String tempFolder) {
-		return new VertxAsynchronusRequest(this, documentReaders, tempFolder);
+	public GatewayRequest createGatewayRequest(Map<String, DocumentReader> documentReaders) {
+		return new VertxAsynchronusRequest(this, documentReaders);
 	}
 
 }

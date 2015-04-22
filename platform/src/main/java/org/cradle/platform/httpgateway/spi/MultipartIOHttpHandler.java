@@ -30,6 +30,16 @@ import org.cradle.platform.httpgateway.exception.UnauthorizedException;
  * @date 	Jan 20, 2015
  */
 public abstract  class MultipartIOHttpHandler extends BasicHttpHandler implements MultipartRequestHandler{
+	
+	private String tempFolder;
+	
+	/**
+	 * @param tempFolder
+	 */
+	public MultipartIOHttpHandler(String tempFolder) {
+		super();
+		this.tempFolder = tempFolder;
+	}
 
 	/* (non-Javadoc)
 	 * @see org.cradle.gateway.BasicHttpHandler#service(org.cradle.gateway.HttpAdapter, org.cradle.gateway.restful.RESTfulRequest, org.cradle.gateway.restful.RESTfulResponse)
@@ -41,7 +51,7 @@ public abstract  class MultipartIOHttpHandler extends BasicHttpHandler implement
 			final GatewayResponse response) throws BadRequestException,
 			UnauthorizedException {
 
-		request.readMultipartRequest(this, response);
+		request.readMultipartRequest(tempFolder, this, response);
 
 	}
 

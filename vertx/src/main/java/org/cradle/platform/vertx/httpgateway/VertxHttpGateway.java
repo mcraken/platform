@@ -16,7 +16,6 @@
 package org.cradle.platform.vertx.httpgateway;
 
 import java.lang.annotation.Annotation;
-import java.util.HashMap;
 import java.util.Map;
 
 import org.cradle.localization.LocalizationService;
@@ -58,28 +57,6 @@ public class VertxHttpGateway extends BasicHttpCradleGateway {
 			HttpServer httpServer,
 			RemovableRouteMatcher routeMatcher,
 			Map<String, DocumentReader> documentReaders,
-			Map<String, DocumentWriter> documentWriters
-			) {
-		this(
-				httpServer,
-				routeMatcher,
-				documentReaders,
-				documentWriters,
-				"root",
-				"vertx_temp",
-				"/cradle",
-				"localhost",
-				8080,
-				new HashMap<String, FilterFactory>(),
-				null,
-				null
-				);
-	}
-
-	public VertxHttpGateway(
-			HttpServer httpServer,
-			RemovableRouteMatcher routeMatcher,
-			Map<String, DocumentReader> documentReaders,
 			Map<String, DocumentWriter> documentWriters, 
 			String fileRoot,
 			String fileTemp,
@@ -93,14 +70,13 @@ public class VertxHttpGateway extends BasicHttpCradleGateway {
 		super(
 				new OutputHttpHandlerResgistrationPrincipal(
 						new IOHttpHandlerRegistrationPrincipal(
-								new MultipartHttpHandlerRegistrationPrincipal(null)
+								new MultipartHttpHandlerRegistrationPrincipal(null, fileTemp)
 								)
 						),
 				documentReaders, 
 				documentWriters, 
 				filtersFactoryMap, 
-				localizationService, 
-				fileTemp);
+				localizationService);
 
 		this.fileRoot = fileRoot;
 		this.webRoot = webRoot;

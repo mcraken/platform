@@ -61,6 +61,5 @@ public interface HttpAdapter {
 	
 	public void sendRedirect(String uri);
 	
-	public GatewayRequest createGatewayRequest(
-			Map<String, DocumentReader> documentReaders, String tempFolder);
+	public GatewayRequest createGatewayRequest(Map<String, DocumentReader> documentReaders);
 }

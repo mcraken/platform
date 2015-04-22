@@ -34,11 +34,18 @@ import org.cradle.platform.spi.RegistrationPrincipal;
  */
 public class MultipartHttpHandlerRegistrationPrincipal extends HttpHandlerResgisterationPrinicipal{
 
+	private String tempFolder;
+	
 	/**
 	 * @param next
+	 * @param tempFolder
 	 */
-	public MultipartHttpHandlerRegistrationPrincipal(RegistrationPrincipal next) {
+	public MultipartHttpHandlerRegistrationPrincipal(
+			RegistrationPrincipal next, String tempFolder) {
+		
 		super(next);
+		
+		this.tempFolder = tempFolder;
 	}
 
 	/* (non-Javadoc)
@@ -79,7 +86,7 @@ public class MultipartHttpHandlerRegistrationPrincipal extends HttpHandlerResgis
 
 		final Class<?> formType = target.getParameterTypes()[1];
 
-		return new MultipartIOHttpHandler() {
+		return new MultipartIOHttpHandler(tempFolder) {
 
 			@Override
 			public Object createFormInstance() {

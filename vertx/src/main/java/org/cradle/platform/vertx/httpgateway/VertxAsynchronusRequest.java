@@ -51,10 +51,9 @@ public class VertxAsynchronusRequest extends GatewayRequest implements Handler<B
 	 */
 	public VertxAsynchronusRequest(
 			HttpAdapter httpAdapter,
-			Map<String, DocumentReader> documentReaders, 
-			String tempFolder) {
+			Map<String, DocumentReader> documentReaders) {
 
-		super(httpAdapter, documentReaders, tempFolder);
+		super(httpAdapter, documentReaders);
 		
 		this.vertxHttpAdapter = ((VertxHttpAdapter) httpAdapter);
 	}
@@ -103,7 +102,7 @@ public class VertxAsynchronusRequest extends GatewayRequest implements Handler<B
 	 * @see org.cradle.gateway.restful.RESTfulRequest#readMultipartRequest(org.cradle.gateway.multipart.MultipartRequestHandler)
 	 */
 	@Override
-	public void readMultipartRequest(final MultipartRequestHandler handler, final GatewayResponse response) {
+	public void readMultipartRequest(final String tempFolder, final MultipartRequestHandler handler, final GatewayResponse response) {
 		
 		final HttpServerRequest request =  vertxHttpAdapter.getRequest();
 		
@@ -118,7 +117,7 @@ public class VertxAsynchronusRequest extends GatewayRequest implements Handler<B
 			@Override
 			public void handle(HttpServerFileUpload upload) {
 
-				String fileFullPath = createUploadName(upload.filename());
+				String fileFullPath = createUploadName(tempFolder, upload.filename());
 
 				upload.streamToFileSystem(fileFullPath);
 

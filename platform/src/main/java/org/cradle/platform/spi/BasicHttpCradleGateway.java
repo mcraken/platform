@@ -39,7 +39,6 @@ public abstract class BasicHttpCradleGateway extends BasicCradleGateway{
 	
 	private Map<String, FilterFactory> filtersFactoryMap;
 	private LocalizationService localizationService;
-	private String tempFolder;
 	
 	/**
 	 * @param principalChain
@@ -53,7 +52,7 @@ public abstract class BasicHttpCradleGateway extends BasicCradleGateway{
 			Map<String, DocumentReader> documentReaders,
 			Map<String, DocumentWriter> documentWriters,
 			Map<String, FilterFactory> filtersFactoryMap,
-			LocalizationService localizationService, String tempFolder) {
+			LocalizationService localizationService) {
 		
 		super(principalChain);
 		
@@ -61,7 +60,6 @@ public abstract class BasicHttpCradleGateway extends BasicCradleGateway{
 		this.documentWriters = documentWriters;
 		this.filtersFactoryMap = filtersFactoryMap;
 		this.localizationService = localizationService;
-		this.tempFolder = tempFolder;
 	}
 
 	/**
@@ -82,7 +80,7 @@ public abstract class BasicHttpCradleGateway extends BasicCradleGateway{
 		
 		BasicHttpHandler httpHandler = (BasicHttpHandler) handler;
 		
-		ServiceFilter vertxFilter = new ServiceFilter(httpHandler, documentWriters, documentReaders, tempFolder);
+		ServiceFilter vertxFilter = new ServiceFilter(httpHandler, documentWriters, documentReaders);
 
 		Filter firstFilter = serviceConfig.buildChain(vertxFilter, filtersFactoryMap);
 

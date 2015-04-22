@@ -37,13 +37,12 @@ public class ServiceFilter extends BasicFilter {
 	private BasicHttpHandler handler;
 	private Map<String, DocumentReader> documentReaders;
 	private Map<String, DocumentWriter> documentWriters;
-	private String tempFolder;
 	
 	public ServiceFilter(
 			BasicHttpHandler handler,
 			Map<String, DocumentWriter> documentWriters,
-			Map<String, DocumentReader> documentReaders, 
-			String tempFolder) {
+			Map<String, DocumentReader> documentReaders
+			) {
 
 		this.handler = handler;
 
@@ -51,7 +50,6 @@ public class ServiceFilter extends BasicFilter {
 
 		this.documentWriters = documentWriters;
 
-		this.tempFolder = tempFolder;
 	}
 	
 	/* (non-Javadoc)
@@ -64,7 +62,7 @@ public class ServiceFilter extends BasicFilter {
 		
 		GatewayResponse response = new GatewayResponse(httpAdapter, documentWriters);
 
-		GatewayRequest request = httpAdapter.createGatewayRequest(documentReaders, tempFolder);
+		GatewayRequest request = httpAdapter.createGatewayRequest(documentReaders);
 		
 		handler.service(httpAdapter, request, response);
 	}

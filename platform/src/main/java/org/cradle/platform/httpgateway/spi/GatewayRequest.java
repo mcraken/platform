@@ -39,16 +39,13 @@ public abstract class GatewayRequest {
 
 	private Map<String, DocumentReader> documentReaders;
 
-	private String tempFolder;
-
 	private ArrayList<File> uploads;
 
 	public GatewayRequest(HttpAdapter httpAdapter,
-			Map<String, DocumentReader> documentReaders, String tempFolder) {
+			Map<String, DocumentReader> documentReaders) {
 
 		this.httpAdapter = httpAdapter;
 		this.documentReaders = documentReaders;
-		this.tempFolder = tempFolder;
 		
 		this.uploads = new ArrayList<>();
 		
@@ -92,12 +89,12 @@ public abstract class GatewayRequest {
 		uploads.add(new File(fileFullPath));
 	}
 
-	protected String createUploadName(String fileName) {
+	protected String createUploadName(String tempFolder, String fileName) {
 
 		return tempFolder + "/" + System.currentTimeMillis() + "_" + fileName;
 	}
 
 	public abstract void readDocumentObjectAsynchronously(AsynchronusRequestHandler handler, Class<?> documentType);
 	
-	public abstract void readMultipartRequest(MultipartRequestHandler handler, GatewayResponse response);
+	public abstract void readMultipartRequest(String tempFolder, MultipartRequestHandler handler, GatewayResponse response);
 }

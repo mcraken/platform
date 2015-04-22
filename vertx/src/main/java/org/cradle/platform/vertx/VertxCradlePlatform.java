@@ -15,6 +15,8 @@
  */
 package org.cradle.platform.vertx;
 
+import java.io.File;
+import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.Map;
 
@@ -53,6 +55,7 @@ public class VertxCradlePlatform implements CradlePlatform, HttpWebService{
 
 	private static final String VERTX_HOME = "vertx.home";
 	private static final String VERTX_MODS = "vertx.mods";
+	private static final String VERTX_TEMP = "vertx_temp";
 	private static final String CLUSTER_FACTORY = "vertx.clusterManagerFactory";
 
 	private static VertxCradlePlatform cradlePlatform;
@@ -97,11 +100,18 @@ public class VertxCradlePlatform implements CradlePlatform, HttpWebService{
 
 		Hashtable<String, DocumentWriter> documentWriters = new Hashtable<String, DocumentWriter>();
 		documentWriters.put("application/json", jdrw);
-
+		
+		File tempFolder = new File(VERTX_TEMP);
+		
+		if(!tempFolder.exists() && !tempFolder.mkdir()){
+			
+			throw new RuntimeException("Could not create vertx temp folder");
+		}
+		
 		cradlePlatform = new VertxCradlePlatform(
 				"vertx/home", 
 				"vertx/mods", 
-				"vertx_temp", 
+				VERTX_TEMP, 
 				"org.vertx.java.spi.cluster.impl.hazelcast.HazelcastClusterManagerFactory",
 				"localhost", 
 				9090, 
@@ -256,7 +266,15 @@ public class VertxCradlePlatform implements CradlePlatform, HttpWebService{
 					httpServer,
 					routeMatcher,
 					documentReaders, 
-					documentWriters
+					documentWriters,
+					"root",
+					VERTX_TEMP,
+					"/cradle",
+					"localhost",
+					8080,
+					new HashMap<String, FilterFactory>(),
+					localizationService,
+					reportingService
 					);
 
 			vertxHttpGateway.start();
@@ -320,7 +338,11 @@ public class VertxCradlePlatform implements CradlePlatform, HttpWebService{
 
 		if(sockJsGateway == null){
 
-			sockJsGateway = new VertxSockJsGateway(documentReaders, documentWriters, localizationService, "", sockJSServer);
+			sockJsGateway = new VertxSockJsGateway(
+					documentReaders, 
+					documentWriters, 
+					localizationService,  
+					sockJSServer);
 		}
 
 		return sockJsGateway;

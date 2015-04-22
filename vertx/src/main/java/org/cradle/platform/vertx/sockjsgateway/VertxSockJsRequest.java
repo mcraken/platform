@@ -44,9 +44,9 @@ public class VertxSockJsRequest extends GatewayRequest {
 	 * @param tempFolder
 	 */
 	public VertxSockJsRequest(HttpAdapter httpAdapter,
-			Map<String, DocumentReader> documentReaders, String tempFolder) {
+			Map<String, DocumentReader> documentReaders) {
 		
-		super(httpAdapter, documentReaders, tempFolder);
+		super(httpAdapter, documentReaders);
 		
 		sockJsAdapter = (VertxSockJsAdapter) httpAdapter;
 	}
@@ -84,14 +84,14 @@ public class VertxSockJsRequest extends GatewayRequest {
 	}
 
 	/* (non-Javadoc)
-	 * @see org.cradle.platform.httpgateway.spi.GatewayRequest#readMultipartRequest(org.cradle.platform.httpgateway.spi.MultipartRequestHandler, org.cradle.platform.httpgateway.spi.GatewayResponse)
+	 * @see org.cradle.platform.httpgateway.spi.GatewayRequest#readMultipartRequest(java.lang.String, org.cradle.platform.httpgateway.spi.MultipartRequestHandler, org.cradle.platform.httpgateway.spi.GatewayResponse)
 	 */
 	@Override
-	public void readMultipartRequest(MultipartRequestHandler handler,
-			GatewayResponse response) {
+	public void readMultipartRequest(String tempFolder,
+			MultipartRequestHandler handler, GatewayResponse response) {
 		
-		 throw new UnsupportedOperationException();
-
+		throw new UnsupportedOperationException();
+		
 	}
 
 }

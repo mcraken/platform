@@ -166,9 +166,9 @@ public class VertxSockJsAdapter extends BasicHttpAdapter {
 	 */
 	@Override
 	public GatewayRequest createGatewayRequest(
-			Map<String, DocumentReader> documentReaders, String tempFolder) {
+			Map<String, DocumentReader> documentReaders) {
 		
-		return new VertxSockJsRequest(this, documentReaders, tempFolder);
+		return new VertxSockJsRequest(this, documentReaders);
 	}
 
 }

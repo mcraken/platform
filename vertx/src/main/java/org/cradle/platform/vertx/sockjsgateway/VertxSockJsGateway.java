@@ -15,6 +15,7 @@
  */
 package org.cradle.platform.vertx.sockjsgateway;
 
+import java.lang.annotation.Annotation;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -27,8 +28,9 @@ import org.cradle.platform.httpgateway.exception.UnknownResourceException;
 import org.cradle.platform.httpgateway.filter.Filter;
 import org.cradle.platform.httpgateway.filter.FilterFactory;
 import org.cradle.platform.httpgateway.filter.ServiceFilterConfig;
+import org.cradle.platform.sockjsgateway.SockJS;
 import org.cradle.platform.sockjsgateway.spi.SockJsHandlerRegistrationPrinicipal;
-import org.cradle.platform.spi.BasicGateway;
+import org.cradle.platform.spi.BasicCradleGateway;
 import org.vertx.java.core.Handler;
 import org.vertx.java.core.json.JsonObject;
 import org.vertx.java.core.sockjs.SockJSServer;
@@ -39,7 +41,7 @@ import org.vertx.java.core.sockjs.SockJSSocket;
  * @email 	mcrakens@gmail.com
  * @date 	Apr 19, 2015
  */
-public class VertxSockJsGateway extends BasicGateway  {
+public class VertxSockJsGateway extends BasicCradleGateway  {
 
 	private SockJSServer sockJSServer;
 
@@ -80,10 +82,10 @@ public class VertxSockJsGateway extends BasicGateway  {
 	 * @see org.cradle.platform.spi.BasicGateway#registerFilterChain(java.lang.String, java.lang.String, org.cradle.platform.httpgateway.filter.ServiceFilterConfig, org.cradle.platform.httpgateway.filter.Filter)
 	 */
 	@Override
-	protected void registerFilterChain(String method, String path,
+	protected void registerFilterChain(Annotation annotation,
 			ServiceFilterConfig serviceConfig, final Filter firstFilter) {
 
-		JsonObject config = createSockJsConfig(path);
+		JsonObject config = createSockJsConfig(((SockJS) annotation).path());
 
 		sockJSServer.installApp(config, new Handler<SockJSSocket>(){
 

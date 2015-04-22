@@ -18,8 +18,8 @@ package org.cradle.platform;
 import java.util.Map;
 
 import org.cradle.platform.eventbus.CradleEventbus;
-import org.cradle.platform.httpgateway.CradleGateway;
 import org.cradle.platform.httpgateway.filter.FilterFactory;
+import org.cradle.platform.spi.CradleGateway;
 
 /**
  * @author	Sherief Shawky

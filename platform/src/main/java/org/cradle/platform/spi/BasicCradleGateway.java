@@ -17,6 +17,7 @@ package org.cradle.platform.spi;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
+import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
 import java.util.Map;
 
@@ -24,7 +25,6 @@ import org.cradle.localization.LocalizationService;
 import org.cradle.platform.document.DocumentReader;
 import org.cradle.platform.document.DocumentWriter;
 import org.cradle.platform.httpgateway.BasicHttpHandler;
-import org.cradle.platform.httpgateway.CradleGateway;
 import org.cradle.platform.httpgateway.filter.Filter;
 import org.cradle.platform.httpgateway.filter.FilterFactory;
 import org.cradle.platform.httpgateway.filter.ServiceFilter;
@@ -34,7 +34,7 @@ import org.cradle.platform.httpgateway.filter.ServiceFilterConfig;
  * @email 	mcrakens@gmail.com
  * @date 	Apr 15, 2015
  */
-public abstract class BasicGateway implements CradleGateway {
+public abstract class BasicCradleGateway implements CradleGateway {
 
 	private RegistrationPrincipal principalChain;
 	private RegistrationAgent registrationAgent;
@@ -46,7 +46,7 @@ public abstract class BasicGateway implements CradleGateway {
 	private LocalizationService localizationService;
 	private String tempFolder;
 	
-	public BasicGateway(
+	public BasicCradleGateway(
 			RegistrationPrincipal principalChain,
 			Map<String, DocumentReader> documentReaders,
 			Map<String, DocumentWriter> documentWriters,
@@ -65,10 +65,10 @@ public abstract class BasicGateway implements CradleGateway {
 		registrationAgent = new RegistrationAgent() {
 			
 			@Override
-			public void register(String method, String path,
+			public void register(Annotation annotation,
 					BasicHttpHandler httpHandler) {
 				
-				registerHttpHandler(method, path, httpHandler, new ServiceFilterConfig());
+				registerHttpHandler(annotation, httpHandler, new ServiceFilterConfig());
 			}
 		};
 	}
@@ -96,8 +96,7 @@ public abstract class BasicGateway implements CradleGateway {
 	}
 	
 	protected void registerHttpHandler(
-			String method, 
-			String path,
+			Annotation annotation,
 			BasicHttpHandler httpHandler,
 			ServiceFilterConfig serviceConfig) {
 
@@ -107,10 +106,10 @@ public abstract class BasicGateway implements CradleGateway {
 
 		httpHandler.setLocalizationService(localizationService);
 
-		registerFilterChain(method, path, serviceConfig, firstFilter);
+		registerFilterChain(annotation, serviceConfig, firstFilter);
 	}
 	
-	protected abstract void registerFilterChain(String method, String path,
+	protected abstract void registerFilterChain(Annotation annotation,
 			ServiceFilterConfig serviceConfig, Filter firstFilter);
 	
 	protected abstract void unregisterHttpHandler(String method, String path);

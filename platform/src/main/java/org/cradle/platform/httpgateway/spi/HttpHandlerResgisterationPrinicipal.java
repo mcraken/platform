@@ -55,7 +55,7 @@ public abstract class HttpHandlerResgisterationPrinicipal extends
 
 				isAnnotationValid(target, annotation);
 
-				agent.register(annotation.method().getValue(), annotation.path(), createHttpHandler(handler, target, annotation));
+				agent.register(annotation, createHttpHandler(handler, target, annotation));
 			}
 
 		}

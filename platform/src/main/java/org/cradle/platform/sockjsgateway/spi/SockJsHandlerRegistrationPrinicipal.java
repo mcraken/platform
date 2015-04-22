@@ -81,7 +81,7 @@ public class SockJsHandlerRegistrationPrinicipal extends RegistrationPrincipal{
 		
 		final Class<?> documentType = target.getParameterTypes()[1];
 		
-		agent.register("", webSocket.path(), new AsyncInputHttpHandler() {
+		agent.register(webSocket, new AsyncInputHttpHandler() {
 			
 			@Override
 			protected Class<?> getDocumentType() {
@@ -127,7 +127,7 @@ public class SockJsHandlerRegistrationPrinicipal extends RegistrationPrincipal{
 
 		final Class<?> documentType = target.getParameterTypes()[1];
 
-		agent.register("", webSocket.path(), new AsyncIOtHttpHandler() {
+		agent.register(webSocket, new AsyncIOtHttpHandler() {
 
 			@Override
 			protected Class<?> getDocumentType() {

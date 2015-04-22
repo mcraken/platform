@@ -15,6 +15,8 @@
  */
 package org.cradle.platform.spi;
 
+import java.lang.annotation.Annotation;
+
 import org.cradle.platform.httpgateway.BasicHttpHandler;
 
 /**
@@ -24,5 +26,5 @@ import org.cradle.platform.httpgateway.BasicHttpHandler;
  */
 public interface RegistrationAgent {
 	
-	public void register(String method, String path, BasicHttpHandler httpHandler);
+	public <T>void register(Annotation annotation, BasicHttpHandler httpHandler);
 }

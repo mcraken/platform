@@ -15,7 +15,7 @@
  */
 package org.cradle.gateway.vertx.test;
 
-import org.cradle.platform.httpgateway.CradleGateway;
+import org.cradle.platform.spi.CradleGateway;
 import org.cradle.platform.vertx.VertxCradlePlatform;
 import org.junit.After;
 import org.junit.Before;

@@ -36,7 +36,7 @@ import com.google.common.collect.Multimap;
  * @email 	mcrakens@gmail.com
  * @date 	Apr 26, 2015
  */
-public class FilterInvokationHandler {
+public class FilterInvokationHandler implements Filter{
 
 	private String path;
 	
@@ -80,24 +80,7 @@ public class FilterInvokationHandler {
 		
 		if(refreshFilters){
 			
-			String patterns[] = filters.keySet().toArray(new String[]{});
-			
-			for(String pattern : patterns){
-				
-				if(path.matches(pattern)){	
-					operationalFilters.addAll(filters.get(pattern));
-				}
-			}
-			
-			operationalFilters.sort(new Comparator<PrecedenceFilter>() {
-
-				@Override
-				public int compare(PrecedenceFilter o1, PrecedenceFilter o2) {
-					return o1.compare(o2);
-				}
-			});
-			
-			refreshFilters = false;
+			refreshFilters();
 		}
 		
 		if(operationalFilters != null){
@@ -108,6 +91,31 @@ public class FilterInvokationHandler {
 
 		executeHttpHandler(httpAdapter);
 
+	}
+
+	/**
+	 * 
+	 */
+	private void refreshFilters() {
+		
+		String patterns[] = filters.keySet().toArray(new String[]{});
+		
+		for(String pattern : patterns){
+			
+			if(path.matches(pattern)){	
+				operationalFilters.addAll(filters.get(pattern));
+			}
+		}
+		
+		operationalFilters.sort(new Comparator<PrecedenceFilter>() {
+
+			@Override
+			public int compare(PrecedenceFilter o1, PrecedenceFilter o2) {
+				return o1.compare(o2);
+			}
+		});
+		
+		refreshFilters = false;
 	}
 
 	/**

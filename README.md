@@ -32,31 +32,54 @@ class Calculation {
 	
 class HelloWorldController{
 	@HttpMethod(method = Method.GET, path="/hello")
-	public String sayHello(HttpAdapter adapter){
+	public String sayHello(org.cradle.platform.httpgateway.HttpAdapter adapter){
 		return "Hello, World!";
 	}
+	
 	@HttpMethod(method = Method.POST, path="/calc")
 	public Calculation multiply(HttpAdapter adapter, Calculation document){
+		
 		document.calcResult();
+		
 		return document;
 	}
-	@SockJS(path="/socketcalc")
+	
+	@HttpMethod(method = Method.MULTIPART_POST, path="/form")
+	public Calculation submitForm(HttpAdapter adapter, Calculation form, List<File> files){
+		return multiply(adapter, form);
+	}
+	
+	@WebSocket(type=Type.SYNCHRONOUS, path="/socketcalc")
 	public Calculation multiplySocket(HttpAdapter adapter, Calculation document){
+		
 		document.calcResult();
+		
 		return document;
-	}
-	@SockJS(path="/message")
-	public void socketMessage(HttpAdapter adapter, SocketMessage message){
-		System.out.println(message.getSender() + ":" + message.getText());
 	} 
+	
+	@WebSocket(type=Type.RECEIVER, path="/message")
+	public void sayHello(HttpAdapter adapter, SocketMessage message){
+		
+		System.out.println(message.getSender() + ":" + message.getText());
+	}
+	
+	@HttpFilter(pattern="^/(.)*")
+	public void filterAny(HttpAdapter adapter){
+		System.out.println("Should execute before any http method first");
+	}
+	
+	@HttpFilter(pattern="^/hello", precedence=1)
+	public void filterHello(HttpAdapter adapter){
+		System.out.println("Should execute before /hello second");
+	}
 }
 
 CradlePlatform platform = VertxCradlePlatform.createDefaultInstance();
-CradleGateway httpGateway = platform.httpGateway();
-CradleGateway websocketGateway = platform.sockJsGateway();
+CradleProvider httpGateway = platform.httpGateway();
+CradleProvider websocketGateway = platform.sockJsGateway();
 HelloWorldController controller = new HelloWorldController();
-httpGateway.registerHandler(controller);
-websocketGateway.registerHandler(controller);
+httpGateway.registerController(controller);
+websocketGateway.registerController(controller);
 Thread.sleep(2 * 60 * 1000);
 platform.shutdown();
 ```

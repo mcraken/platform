@@ -30,20 +30,20 @@ import org.cradle.platform.websocketgateway.WebSocket.Type;
  * @email 	mcrakens@gmail.com
  * @date 	Apr 15, 2015
  */
-public class TestHttpController {
+public class HelloWorldController {
 	
-	@org.cradle.platform.httpgateway.HttpMethod(method = Method.GET, path="/hello")
+	@HttpMethod(method = Method.GET, path="/hello", contentType="application/json")
 	public String sayHello(org.cradle.platform.httpgateway.HttpAdapter adapter){
 		return "Hello, World!";
 	}
 	
-	@HttpMethod(method = Method.PUT, path="/save")
+	@HttpMethod(method = Method.PUT, path="/save", contentType="application/json")
 	public Calculation update(HttpAdapter adapter, Calculation document){
 		document.setId(15);
 		return document;
 	}
 	
-	@HttpMethod(method = Method.POST, path="/calc")
+	@HttpMethod(method = Method.POST, path="/calc", contentType="application/json")
 	public Calculation multiply(HttpAdapter adapter, Calculation document){
 		
 		document.calcResult();
@@ -51,12 +51,12 @@ public class TestHttpController {
 		return document;
 	}
 	
-	@HttpMethod(method = Method.MULTIPART_POST, path="/form")
+	@HttpMethod(method = Method.MULTIPART_POST, path="/form", contentType="application/json")
 	public Calculation submitForm(HttpAdapter adapter, Calculation form, List<File> files){
 		return multiply(adapter, form);
 	}
 	
-	@WebSocket(type=Type.SYNCHRONOUS, path="/socketcalc")
+	@WebSocket(type=Type.SYNCHRONOUS, path="/socketcalc", contentType="application/json")
 	public Calculation multiplySocket(HttpAdapter adapter, Calculation document){
 		
 		document.calcResult();
@@ -64,7 +64,7 @@ public class TestHttpController {
 		return document;
 	} 
 	
-	@WebSocket(type=Type.RECEIVER, path="/message")
+	@WebSocket(type=Type.RECEIVER, path="/message", contentType="application/json")
 	public void sayHello(HttpAdapter adapter, SocketMessage message){
 		
 		System.out.println(message.getSender() + ":" + message.getText());

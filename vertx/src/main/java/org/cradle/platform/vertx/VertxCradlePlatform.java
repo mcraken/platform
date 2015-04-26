@@ -329,7 +329,7 @@ public class VertxCradlePlatform implements CradlePlatform, HttpWebService{
 	 * @see org.cradle.platform.CradlePlatform#sockJsGateway()
 	 */
 	@Override
-	public CradleProvider sockJsGateway() {
+	public CradleProvider websocketGateway() {
 
 		if(sockJsGateway == null){
 

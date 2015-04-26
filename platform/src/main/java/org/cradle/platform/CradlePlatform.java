@@ -33,5 +33,5 @@ public interface CradlePlatform {
 	
 	public CradleEventbus eventbus();
 	
-	public CradleProvider sockJsGateway();
+	public CradleProvider websocketGateway();
 }

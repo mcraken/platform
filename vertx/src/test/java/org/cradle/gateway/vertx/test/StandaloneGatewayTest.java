@@ -42,14 +42,14 @@ public class StandaloneGatewayTest {
 
 		httpGateway = platform.httpGateway();
 		
-		websocketGateway = platform.sockJsGateway();
+		websocketGateway = platform.websocketGateway();
 
 	}
 
 	@Test
 	public void testHandlerResgistration() throws InterruptedException{
 
-		TestHttpController controller = new TestHttpController();
+		HelloWorldController controller = new HelloWorldController();
 		
 		httpGateway.registerController(controller);
 		

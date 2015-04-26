@@ -76,7 +76,7 @@ class HelloWorldController{
 
 CradlePlatform platform = VertxCradlePlatform.createDefaultInstance();
 CradleProvider httpGateway = platform.httpGateway();
-CradleProvider websocketGateway = platform.sockJsGateway();
+CradleProvider websocketGateway = platform.websocketGateway();
 HelloWorldController controller = new HelloWorldController();
 httpGateway.registerController(controller);
 websocketGateway.registerController(controller);

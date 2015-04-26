@@ -184,22 +184,3 @@ The good thing about the schedule bundle that it provides number of classes that
 ![alt tag](https://cloud.githubusercontent.com/assets/6278849/7105494/6078d558-e11d-11e4-9855-b5b3114c3b03.png)
 
 A session is an operation that is only operable within a pre-defined time period.
-
-
-
-Apache shiro is used as a mean of session clustering and user based security. Having shiro makes it possible to provide seamless user management between identical nodes.
-
-
-
-The oauth bundle provides an abstraction for any services accessible using the oauth protocol. Built on top of scribe, the oauth bundle should provide support for multiple social networks. The bundle models oauth services as authorizers and invokers. Authorizers are used to execute the 3-way handshake and obtain a valid oauth access tokens. Oauth invokers use access tokens, previously obtained by authorizers, to access resources protected by oauth providers.
-
-Cradle framework is built on:
-- OSGi. 
-- Vertx.io. 
-- Cassandra. 
-- Ehcache 
-- Apache SOLR. 
-- Apache Shiro.
-- Spring data. 
-- LMAX disruptor. 
-- Quartz. 

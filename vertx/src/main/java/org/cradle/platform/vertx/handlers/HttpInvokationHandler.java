@@ -17,7 +17,7 @@ package org.cradle.platform.vertx.handlers;
 
 import org.cradle.platform.httpgateway.HttpAdapter;
 import org.cradle.platform.httpgateway.exception.HttpException;
-import org.cradle.platform.httpgateway.filter.Filter;
+import org.cradle.platform.httpgateway.filter.FilterInvokationHandler;
 import org.cradle.platform.vertx.httpgateway.VertxHttpAdapter;
 import org.cradle.reporting.SystemReportingService;
 import org.vertx.java.core.Handler;
@@ -28,15 +28,15 @@ import org.vertx.java.core.http.HttpServerRequest;
  * @email mcrakens@gmail.com
  * @date Aug 25, 2014
  */
-public class FilterInvokationHandler implements Handler<HttpServerRequest> {
+public class HttpInvokationHandler implements Handler<HttpServerRequest> {
 
-	private Filter filter;
+	private FilterInvokationHandler filterInvokationHandler;
 
 	private SystemReportingService reportingService;
 
-	public FilterInvokationHandler(Filter startFilter, SystemReportingService reportingService) {
+	public HttpInvokationHandler(FilterInvokationHandler startFilter, SystemReportingService reportingService) {
 
-		filter = startFilter;
+		filterInvokationHandler = startFilter;
 
 		this.reportingService = reportingService;
 
@@ -54,7 +54,7 @@ public class FilterInvokationHandler implements Handler<HttpServerRequest> {
 
 		try {
 
-			filter.filter(httpAdapter);
+			filterInvokationHandler.filter(httpAdapter);
 
 		} catch (HttpException e) {
 

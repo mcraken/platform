@@ -15,22 +15,20 @@
  */
 package org.cradle.platform.vertx.httpgateway;
 
-import java.lang.annotation.Annotation;
 import java.util.Map;
 
 import org.cradle.localization.LocalizationService;
 import org.cradle.platform.document.DocumentReader;
 import org.cradle.platform.document.DocumentWriter;
 import org.cradle.platform.httpgateway.HttpMethod;
-import org.cradle.platform.httpgateway.filter.Filter;
-import org.cradle.platform.httpgateway.filter.FilterFactory;
-import org.cradle.platform.httpgateway.filter.ServiceFilterConfig;
+import org.cradle.platform.httpgateway.filter.FilterInvokationHandler;
+import org.cradle.platform.httpgateway.spi.FilterRegistartionPrinicipal;
 import org.cradle.platform.httpgateway.spi.IOHttpHandlerRegistrationPrincipal;
 import org.cradle.platform.httpgateway.spi.MultipartHttpHandlerRegistrationPrincipal;
 import org.cradle.platform.httpgateway.spi.OutputHttpHandlerResgistrationPrincipal;
 import org.cradle.platform.spi.BasicHttpCradleGateway;
 import org.cradle.platform.vertx.handlers.FileRequestHandler;
-import org.cradle.platform.vertx.handlers.FilterInvokationHandler;
+import org.cradle.platform.vertx.handlers.HttpInvokationHandler;
 import org.cradle.reporting.SystemReportingService;
 import org.vertx.java.core.Handler;
 import org.vertx.java.core.http.HttpServer;
@@ -63,19 +61,20 @@ public class VertxHttpGateway extends BasicHttpCradleGateway {
 			String webRoot, 
 			String host,
 			int port,
-			Map<String, FilterFactory> filtersFactoryMap,
 			LocalizationService localizationService,
 			SystemReportingService reportingService) {
 		
 		super(
 				new OutputHttpHandlerResgistrationPrincipal(
 						new IOHttpHandlerRegistrationPrincipal(
-								new MultipartHttpHandlerRegistrationPrincipal(null, fileTemp)
+								new MultipartHttpHandlerRegistrationPrincipal(
+										new FilterRegistartionPrinicipal(null), 
+										fileTemp
+										)
 								)
 						),
 				documentReaders, 
 				documentWriters, 
-				filtersFactoryMap, 
 				localizationService);
 
 		this.fileRoot = fileRoot;
@@ -124,14 +123,14 @@ public class VertxHttpGateway extends BasicHttpCradleGateway {
 
 	}
 
-	protected void registerFilterChain(Annotation annotation,
-			ServiceFilterConfig serviceConfig, Filter firstFilter) {
+	protected void registerHttpHandler(HttpMethod annotation,
+			 FilterInvokationHandler invokationHandler) {
 		
-		Handler<HttpServerRequest> requestHandler = new FilterInvokationHandler(firstFilter, reportingService);
+		Handler<HttpServerRequest> requestHandler = new HttpInvokationHandler(invokationHandler, reportingService);
 		
-		String method = ((HttpMethod) annotation).method().getValue();
+		String method =  annotation.method().getValue();
 		
-		String path = ((HttpMethod) annotation).path();
+		String path = annotation.path();
 		
 		switch (method) {
 

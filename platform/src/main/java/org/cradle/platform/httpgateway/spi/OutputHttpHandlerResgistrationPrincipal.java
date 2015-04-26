@@ -15,10 +15,10 @@
  */
 package org.cradle.platform.httpgateway.spi;
 
+import java.lang.annotation.Annotation;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
-import org.cradle.platform.httpgateway.BasicHttpHandler;
 import org.cradle.platform.httpgateway.HttpAdapter;
 import org.cradle.platform.httpgateway.HttpMethod;
 import org.cradle.platform.httpgateway.exception.HttpException;
@@ -40,12 +40,14 @@ public class OutputHttpHandlerResgistrationPrincipal extends HttpHandlerResgiste
 	}
 
 	/**
-	 * @param method
+	 * @param target
 	 * @return
 	 */
-	protected boolean isMethodSupported(HttpMethod.Method method) {
-
-		return method.equals(HttpMethod.Method.GET) || method.equals(HttpMethod.Method.DELETE);
+	protected boolean isAnnotationSupported(Method target, Annotation annotation) {
+		
+		HttpMethod.Method targetMethod = ((HttpMethod) annotation).method();
+		
+		return targetMethod.equals(HttpMethod.Method.GET) || target.equals(HttpMethod.Method.DELETE);
 	}
 
 	/**
@@ -93,7 +95,7 @@ public class OutputHttpHandlerResgistrationPrincipal extends HttpHandlerResgiste
 	 * @see org.cradle.gateway.spi.HttpHandlerResgisterationPrinicipal#isAnnotationValid(java.lang.reflect.Method, org.cradle.gateway.HttpMethod)
 	 */
 	@Override
-	protected void isAnnotationValid(Method target, HttpMethod annotation) {
+	protected void isMethodValid(Method target, Annotation annotation) {
 		
 		checkMethodParamLength(target, 1, "One parameter is allowed for GET & DELETE methods");
 		

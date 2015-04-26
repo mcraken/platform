@@ -13,11 +13,11 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package org.cradle.platform.vertx.sockjsgateway;
+package org.cradle.platform.vertx.websocketgateway;
 
 import org.cradle.platform.document.DocumentWriter;
-import org.cradle.platform.sockjsgateway.spi.SockJsAgent;
-import org.cradle.platform.sockjsgateway.spi.SockJsAgentFactory;
+import org.cradle.platform.websocketgateway.spi.WebsokcetAgent;
+import org.cradle.platform.websocketgateway.spi.WebsocketAgentFactory;
 import org.vertx.java.core.Handler;
 import org.vertx.java.core.sockjs.SockJSSocket;
 import org.vertx.java.core.streams.Pump;
@@ -27,16 +27,16 @@ import org.vertx.java.core.streams.Pump;
  * @email 	mcrakens@gmail.com
  * @date 	Aug 14, 2014
  */
-public  class VertxSockJsApplication  implements Handler<SockJSSocket> {
+public  class VertxWebsocketApplication  implements Handler<SockJSSocket> {
 	
-	private SockJsAgentFactory agentFactory;
+	private WebsocketAgentFactory agentFactory;
 	private DocumentWriter writer;
 	
 	/**
 	 * @param agentFactory
 	 * @param writer
 	 */
-	public VertxSockJsApplication(SockJsAgentFactory agentFactory,
+	public VertxWebsocketApplication(WebsocketAgentFactory agentFactory,
 			DocumentWriter writer) {
 		
 		this.agentFactory = agentFactory;
@@ -51,11 +51,11 @@ public  class VertxSockJsApplication  implements Handler<SockJSSocket> {
 		
 		initConnection(socket);
 		
-		SockJsAgent agent = agentFactory.createAgent();
+		WebsokcetAgent agent = agentFactory.createAgent();
 		
 		agent.setWriter(writer);
 		
-		new VertxSockJsAgent(socket, agent);
+		new VertxWebsocketAgent(socket, agent);
 		
 	}
 

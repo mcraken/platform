@@ -21,7 +21,7 @@ package org.cradle.platform.spi;
  * @email 	mcrakens@gmail.com
  * @date 	Aug 5, 2014
  */
-public interface CradleGateway {
+public interface CradleProvider {
 
 	public <T>void registerController(T handler);
 	

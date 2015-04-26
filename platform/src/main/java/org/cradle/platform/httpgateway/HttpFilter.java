@@ -13,16 +13,21 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package org.cradle.platform.sockjsgateway.spi;
+package org.cradle.platform.httpgateway;
 
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
 
 /**
  * @author	Sherief Shawky
  * @email 	mcrakens@gmail.com
- * @date 	Apr 19, 2015
+ * @date 	Apr 22, 2015
  */
-public interface SockJsAgentFactory {
-
-	public  SockJsAgent createAgent();
-
+@Retention(RetentionPolicy.RUNTIME)
+@Target(ElementType.METHOD)
+public @interface HttpFilter {
+	String pattern();
+	int precedence() default 0;
 }

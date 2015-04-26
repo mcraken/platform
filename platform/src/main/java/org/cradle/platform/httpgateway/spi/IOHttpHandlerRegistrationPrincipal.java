@@ -15,12 +15,11 @@
  */
 package org.cradle.platform.httpgateway.spi;
 
+import java.lang.annotation.Annotation;
 import java.lang.reflect.InvocationTargetException;
 
-import org.cradle.platform.httpgateway.BasicHttpHandler;
 import org.cradle.platform.httpgateway.HttpAdapter;
 import org.cradle.platform.httpgateway.HttpMethod;
-import org.cradle.platform.httpgateway.HttpMethod.Method;
 import org.cradle.platform.httpgateway.exception.HttpException;
 import org.cradle.platform.spi.RegistrationPrincipal;
 
@@ -42,9 +41,11 @@ public class IOHttpHandlerRegistrationPrincipal  extends HttpHandlerResgisterati
 	 * @see org.cradle.gateway.spi.HttpHandlerResgisterationPrinicipal#isMethodSupported(org.cradle.gateway.HttpMethod.Method)
 	 */
 	@Override
-	protected boolean isMethodSupported(Method method) {
-
-		return method.equals(HttpMethod.Method.POST) || method.equals(HttpMethod.Method.PUT);
+	protected boolean isAnnotationSupported(java.lang.reflect.Method target, Annotation annotation) {
+		
+		HttpMethod.Method targetMethod = ((HttpMethod) annotation).method();
+		
+		return targetMethod.equals(HttpMethod.Method.POST) || target.equals(HttpMethod.Method.PUT);
 	}
 
 	/* (non-Javadoc)
@@ -92,8 +93,8 @@ public class IOHttpHandlerRegistrationPrincipal  extends HttpHandlerResgisterati
 	 * @see org.cradle.gateway.spi.HttpHandlerResgisterationPrinicipal#isAnnotationValid(java.lang.reflect.Method, org.cradle.gateway.HttpMethod)
 	 */
 	@Override
-	protected void isAnnotationValid(java.lang.reflect.Method target,
-			HttpMethod annotation) {
+	protected void isMethodValid(java.lang.reflect.Method target,
+			Annotation annotation) {
 		
 		checkMethodParamLength(target, 2, "Exactly two parameter are required for POST & PUT methods");
 

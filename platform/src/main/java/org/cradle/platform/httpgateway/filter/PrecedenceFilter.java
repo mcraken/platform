@@ -13,19 +13,34 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package org.cradle.platform.httpgateway.filter.tracking;
+package org.cradle.platform.httpgateway.filter;
 
-import java.util.List;
-
-import org.cradle.platform.httpgateway.HttpAdapter;
-import org.cradle.repository.models.RestModel;
 
 /**
- * @author 	Sherief Shawky
+ * @author	Sherief Shawky
  * @email 	mcrakens@gmail.com
- * @date 	Jan 12, 2015
+ * @date 	Apr 26, 2015
  */
-public interface TrackingLogCreator {
+public abstract class PrecedenceFilter implements Filter {
 
-	public List<RestModel> create(HttpAdapter httpAdapter);
+	private int precedence;
+	
+	/**
+	 * @param precedence
+	 */
+	public PrecedenceFilter(int precedence) {
+		this.precedence = precedence;
+	}
+
+	public int compare(PrecedenceFilter filter){
+		
+		if(precedence < filter.precedence){
+			return -1;
+		} else if(precedence == filter.precedence){
+			return 0;
+		} else {
+			return 1;
+		}
+	}
+
 }

@@ -17,7 +17,6 @@ package org.cradle.platform.httpgateway.spi;
 
 import java.lang.reflect.Method;
 
-import org.cradle.platform.httpgateway.BasicHttpHandler;
 import org.cradle.platform.httpgateway.HttpAdapter;
 import org.cradle.platform.httpgateway.HttpMethod;
 import org.cradle.platform.spi.RegistrationAgent;
@@ -28,16 +27,17 @@ import org.cradle.platform.spi.RegistrationPrincipal;
  * @email 	mcrakens@gmail.com
  * @date 	Apr 16, 2015
  */
-public abstract class HttpHandlerResgisterationPrinicipal extends
-		RegistrationPrincipal {
+public abstract class HttpHandlerResgisterationPrinicipal extends RegistrationPrincipal {
 
 	/**
 	 * @param next
+	 * @param annotationClass
 	 */
 	public HttpHandlerResgisterationPrinicipal(RegistrationPrincipal next) {
-		super(next);
+		
+		super(next, HttpMethod.class);
 	}
-	
+
 	/* (non-Javadoc)
 	 * @see org.cradle.gateway.spi.ResgistrationPrincipal#executePrincipal(org.cradle.gateway.spi.RegistrationAgent, java.lang.Object, java.lang.reflect.Method)
 	 */
@@ -47,18 +47,7 @@ public abstract class HttpHandlerResgisterationPrinicipal extends
 
 		HttpMethod annotation = target.getAnnotation(HttpMethod.class);
 
-		if(annotation != null ){
-
-			HttpMethod.Method method = annotation.method();
-
-			if(isMethodSupported(method)){
-
-				isAnnotationValid(target, annotation);
-
-				agent.register(annotation, createHttpHandler(handler, target, annotation));
-			}
-
-		}
+		agent.register(annotation, createHttpHandler(handler, target, annotation));
 
 	}
 
@@ -66,18 +55,14 @@ public abstract class HttpHandlerResgisterationPrinicipal extends
 	 * @param target
 	 */
 	protected void checkHttpAdapterParam(Method target) {
-	
+
 		Class<?> paramType = target.getParameterTypes()[0];
-	
+
 		if(paramType != HttpAdapter.class){
 			throw new RuntimeException("HttpAdapter or one of its subclasses is required as the first parameter");
 		}
 	}
-	
-	protected abstract boolean isMethodSupported(HttpMethod.Method method);
-	
-	protected abstract void isAnnotationValid(Method target, HttpMethod annotation);
-	
+
 	protected abstract BasicHttpHandler createHttpHandler(final Object handler,
 			final Method target, final HttpMethod annotation);
 

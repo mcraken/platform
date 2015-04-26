@@ -15,11 +15,8 @@
  */
 package org.cradle.platform;
 
-import java.util.Map;
-
 import org.cradle.platform.eventbus.CradleEventbus;
-import org.cradle.platform.httpgateway.filter.FilterFactory;
-import org.cradle.platform.spi.CradleGateway;
+import org.cradle.platform.spi.CradleProvider;
 
 /**
  * @author	Sherief Shawky
@@ -30,12 +27,11 @@ public interface CradlePlatform {
 	
 	public void shutdown();
 	
-	public CradleGateway httpGateway();
+	public CradleProvider httpGateway();
 	
-	public CradleGateway httpGateway(String host, int port, String fileRoot, String webRoot,
-			Map<String, FilterFactory> filtersFactoryMap);
+	public CradleProvider httpGateway(String host, int port, String fileRoot, String webRoot);
 	
 	public CradleEventbus eventbus();
 	
-	public CradleGateway sockJsGateway();
+	public CradleProvider sockJsGateway();
 }

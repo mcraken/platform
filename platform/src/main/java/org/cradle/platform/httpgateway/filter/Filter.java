@@ -4,9 +4,7 @@
 package org.cradle.platform.httpgateway.filter;
 
 import org.cradle.platform.httpgateway.HttpAdapter;
-import org.cradle.platform.httpgateway.exception.BadRequestException;
-import org.cradle.platform.httpgateway.exception.UnauthorizedException;
-import org.cradle.platform.httpgateway.exception.UnknownResourceException;
+import org.cradle.platform.httpgateway.exception.HttpException;
 
 /**
  * @author 	Sherief Shawky
@@ -15,12 +13,6 @@ import org.cradle.platform.httpgateway.exception.UnknownResourceException;
  */
 public interface Filter {
 	
-	public void filter(HttpAdapter httpAdapter) 
-			throws BadRequestException, UnauthorizedException, UnknownResourceException;
-	
-	public void next(HttpAdapter httpAdapter)
-			throws BadRequestException, UnauthorizedException, UnknownResourceException;
-	
-	public void setNextFilter(Filter nextFilter);
+	public void filter(HttpAdapter httpAdapter) throws HttpException;
 	
 }

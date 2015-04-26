@@ -13,13 +13,13 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package org.cradle.platform.sockjsgateway.spi;
+package org.cradle.platform.websocketgateway.spi;
 
 /**
  * @author	Sherief Shawky
  * @email 	mcrakens@gmail.com
  * @date 	Apr 19, 2015
  */
-public interface SockJsMessageWriter {
+public interface WebsocketMessageWriter {
 	public  void writeMessage(byte[] bytesBuff);
 }

@@ -6,7 +6,7 @@ package org.cradle.platform.httpgateway.filter.session;
 import org.cradle.platform.httpgateway.HttpAdapter;
 import org.cradle.platform.httpgateway.exception.BadRequestException;
 import org.cradle.platform.httpgateway.exception.UnauthorizedException;
-import org.cradle.platform.httpgateway.filter.BasicFilter;
+import org.cradle.platform.httpgateway.filter.Filter;
 import org.cradle.security.SecurityService;
 import org.cradle.security.User;
 
@@ -15,7 +15,7 @@ import org.cradle.security.User;
  * @email 	mcrakens@gmail.com
  * @date 	Nov 9, 2014
  */
-public class SessionFilter extends BasicFilter {
+public class SessionFilter implements Filter {
 
 	private SecurityService securityService;
 
@@ -27,7 +27,7 @@ public class SessionFilter extends BasicFilter {
 	 * @see org.cradle.gateway.restful.filter.RESTfulFilter#filter(org.cradle.gateway.HttpAdapter)
 	 */
 	@Override
-	public void doFilter(HttpAdapter httpAdapter) throws BadRequestException,
+	public void filter(HttpAdapter httpAdapter) throws BadRequestException,
 	UnauthorizedException {
 
 		String sessionId = httpAdapter.sessionId();

@@ -13,17 +13,14 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package org.cradle.platform.httpgateway;
+package org.cradle.platform.httpgateway.spi;
 
 import org.cradle.localization.LocalizationException;
 import org.cradle.localization.LocalizationService;
+import org.cradle.platform.httpgateway.HttpAdapter;
 import org.cradle.platform.httpgateway.exception.BadContentType;
 import org.cradle.platform.httpgateway.exception.BadRequestException;
 import org.cradle.platform.httpgateway.exception.UnauthorizedException;
-import org.cradle.platform.httpgateway.spi.GatewayRequest;
-import org.cradle.platform.httpgateway.spi.GatewayResponse;
-import org.cradle.platform.httpgateway.spi.ResponseObject;
-import org.cradle.platform.httpgateway.spi.ServiceResponse;
 
 /**
  * @author 	Sherief Shawky

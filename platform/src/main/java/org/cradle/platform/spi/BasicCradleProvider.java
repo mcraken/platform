@@ -24,12 +24,12 @@ import java.lang.reflect.Method;
  * @email 	mcrakens@gmail.com
  * @date 	Apr 15, 2015
  */
-public abstract class BasicCradleGateway implements CradleGateway {
+public abstract class BasicCradleProvider implements CradleProvider {
 
 	private RegistrationPrincipal principalChain;
 	private RegistrationAgent registrationAgent;
 	
-	public BasicCradleGateway(RegistrationPrincipal principalChain) {
+	public BasicCradleProvider(RegistrationPrincipal principalChain) {
 		
 		this.principalChain = principalChain;
 		

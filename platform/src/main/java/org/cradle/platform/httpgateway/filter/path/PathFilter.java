@@ -7,20 +7,20 @@ import org.cradle.platform.httpgateway.HttpAdapter;
 import org.cradle.platform.httpgateway.exception.BadRequestException;
 import org.cradle.platform.httpgateway.exception.PathNotAccessibleException;
 import org.cradle.platform.httpgateway.exception.UnauthorizedException;
-import org.cradle.platform.httpgateway.filter.BasicFilter;
+import org.cradle.platform.httpgateway.filter.Filter;
 
 /**
  * @author 	Sherief Shawky
  * @email 	mcrakens@gmail.com
  * @date 	Nov 10, 2014
  */
-public class PathFilter extends BasicFilter {
+public class PathFilter implements Filter {
 
 	/* (non-Javadoc)
 	 * @see org.cradle.gateway.restful.filter.BasicRESTfulFilter#doFilter(org.cradle.gateway.HttpAdapter)
 	 */
 	@Override
-	protected void doFilter(HttpAdapter httpAdapter)
+	public void filter(HttpAdapter httpAdapter)
 			throws BadRequestException, UnauthorizedException {
 		
 		try {

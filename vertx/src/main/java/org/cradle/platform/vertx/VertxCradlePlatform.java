@@ -16,7 +16,6 @@
 package org.cradle.platform.vertx;
 
 import java.io.File;
-import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.Map;
 
@@ -28,13 +27,12 @@ import org.cradle.platform.document.JsonDocumentReaderWriter;
 import org.cradle.platform.eventbus.CradleEventbus;
 import org.cradle.platform.httpgateway.HttpWebService;
 import org.cradle.platform.httpgateway.client.AsynchronousReadingHttpClient;
-import org.cradle.platform.httpgateway.filter.FilterFactory;
-import org.cradle.platform.spi.CradleGateway;
+import org.cradle.platform.spi.CradleProvider;
 import org.cradle.platform.vertx.eventbus.VertxEventbusService;
 import org.cradle.platform.vertx.httpgateway.RemovableRouteMatcher;
 import org.cradle.platform.vertx.httpgateway.VertxHttpGateway;
 import org.cradle.platform.vertx.httpgateway.client.VertxReadingHttpClient;
-import org.cradle.platform.vertx.sockjsgateway.VertxSockJsGateway;
+import org.cradle.platform.vertx.websocketgateway.VertxWebsocketGateway;
 import org.cradle.reporting.SystemReportingService;
 import org.vertx.java.core.Vertx;
 import org.vertx.java.core.eventbus.EventBus;
@@ -64,7 +62,7 @@ public class VertxCradlePlatform implements CradlePlatform, HttpWebService{
 	private Vertx vertx;
 	private EventBus eventBus;
 	private VertxHttpGateway vertxHttpGateway;
-	private VertxSockJsGateway sockJsGateway;
+	private VertxWebsocketGateway sockJsGateway;
 	private String homePath;
 	private String modsPath;
 	private String fileSystemPath;
@@ -258,7 +256,7 @@ public class VertxCradlePlatform implements CradlePlatform, HttpWebService{
 	 * @see org.cradle.platform.CradlePlatform#gateway()
 	 */
 	@Override
-	public CradleGateway httpGateway() {
+	public CradleProvider httpGateway() {
 
 		if(vertxHttpGateway == null){
 
@@ -272,7 +270,6 @@ public class VertxCradlePlatform implements CradlePlatform, HttpWebService{
 					"/cradle",
 					"localhost",
 					8080,
-					new HashMap<String, FilterFactory>(),
 					localizationService,
 					reportingService
 					);
@@ -287,12 +284,11 @@ public class VertxCradlePlatform implements CradlePlatform, HttpWebService{
 	 * @see org.cradle.osgi.vertx.VertxService#vertxGateway(java.lang.String, int, java.lang.String, java.lang.String, java.lang.String, java.util.Map, java.util.Map)
 	 */
 	@Override
-	public CradleGateway httpGateway(
+	public CradleProvider httpGateway(
 			String host, 
 			int port, 
 			String fileRoot,
-			String webRoot, 
-			Map<String, FilterFactory> filtersFactoryMap
+			String webRoot
 			) {
 
 		if(vertxHttpGateway == null){
@@ -307,7 +303,6 @@ public class VertxCradlePlatform implements CradlePlatform, HttpWebService{
 					webRoot, 
 					host, 
 					port,
-					filtersFactoryMap,
 					localizationService,
 					reportingService);
 
@@ -334,11 +329,11 @@ public class VertxCradlePlatform implements CradlePlatform, HttpWebService{
 	 * @see org.cradle.platform.CradlePlatform#sockJsGateway()
 	 */
 	@Override
-	public CradleGateway sockJsGateway() {
+	public CradleProvider sockJsGateway() {
 
 		if(sockJsGateway == null){
 
-			sockJsGateway = new VertxSockJsGateway(
+			sockJsGateway = new VertxWebsocketGateway(
 					documentReaders, 
 					documentWriters, 
 					localizationService,  

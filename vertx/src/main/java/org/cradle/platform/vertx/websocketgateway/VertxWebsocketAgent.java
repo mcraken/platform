@@ -13,10 +13,10 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package org.cradle.platform.vertx.sockjsgateway;
+package org.cradle.platform.vertx.websocketgateway;
 
-import org.cradle.platform.sockjsgateway.spi.SockJsAgent;
-import org.cradle.platform.sockjsgateway.spi.SockJsMessageWriter;
+import org.cradle.platform.websocketgateway.spi.WebsokcetAgent;
+import org.cradle.platform.websocketgateway.spi.WebsocketMessageWriter;
 import org.vertx.java.core.Handler;
 import org.vertx.java.core.buffer.Buffer;
 import org.vertx.java.core.sockjs.SockJSSocket;
@@ -25,16 +25,16 @@ import org.vertx.java.core.sockjs.SockJSSocket;
  * @email 	mcrakens@gmail.com
  * @date 	Aug 14, 2014
  */
-public class VertxSockJsAgent implements SockJsMessageWriter  {
+public class VertxWebsocketAgent implements WebsocketMessageWriter  {
 
 	private SockJSSocket socket;
-	private SockJsAgent sockJsAgent;
+	private WebsokcetAgent sockJsAgent;
 
 	/**
 	 * @param socket
 	 * @param sockJsAgent
 	 */
-	public VertxSockJsAgent(SockJSSocket socket, SockJsAgent sockJsAgent) {
+	public VertxWebsocketAgent(SockJSSocket socket, WebsokcetAgent sockJsAgent) {
 		this.socket = socket;
 		this.sockJsAgent = sockJsAgent;
 		

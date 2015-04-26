@@ -15,7 +15,7 @@
  */
 package org.cradle.gateway.vertx.test;
 
-import org.cradle.platform.spi.CradleGateway;
+import org.cradle.platform.spi.CradleProvider;
 import org.cradle.platform.vertx.VertxCradlePlatform;
 import org.junit.After;
 import org.junit.Before;
@@ -31,8 +31,8 @@ import org.mockito.runners.MockitoJUnitRunner;
 @RunWith(MockitoJUnitRunner.class)
 public class StandaloneGatewayTest {
 
-	private CradleGateway httpGateway;
-	private CradleGateway websocketGateway;
+	private CradleProvider httpGateway;
+	private CradleProvider websocketGateway;
 	private VertxCradlePlatform platform;
 
 	@Before

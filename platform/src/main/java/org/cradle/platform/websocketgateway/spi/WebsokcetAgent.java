@@ -13,7 +13,7 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package org.cradle.platform.sockjsgateway.spi;
+package org.cradle.platform.websocketgateway.spi;
 
 import java.nio.ByteBuffer;
 
@@ -24,11 +24,11 @@ import org.cradle.platform.document.DocumentWriter;
  * @email 	mcrakens@gmail.com
  * @date 	Apr 19, 2015
  */
-public abstract class SockJsAgent {
+public abstract class WebsokcetAgent {
 
 	private DocumentWriter writer;
 	
-	private SockJsMessageWriter sockJsMessageWriter;
+	private WebsocketMessageWriter sockJsMessageWriter;
 	
 	
 	/**
@@ -41,7 +41,7 @@ public abstract class SockJsAgent {
 	/**
 	 * @param sockJsMessageWriter the sockJsMessageWriter to set
 	 */
-	public void setSockJsMessageWriter(SockJsMessageWriter sockJsMessageWriter) {
+	public void setSockJsMessageWriter(WebsocketMessageWriter sockJsMessageWriter) {
 		this.sockJsMessageWriter = sockJsMessageWriter;
 	}
 	

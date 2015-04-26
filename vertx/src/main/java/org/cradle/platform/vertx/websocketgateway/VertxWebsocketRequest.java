@@ -13,7 +13,7 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package org.cradle.platform.vertx.sockjsgateway;
+package org.cradle.platform.vertx.websocketgateway;
 
 import java.util.Map;
 
@@ -34,21 +34,21 @@ import org.vertx.java.core.sockjs.SockJSSocket;
  * @email 	mcrakens@gmail.com
  * @date 	Apr 19, 2015
  */
-public class VertxSockJsRequest extends GatewayRequest {
+public class VertxWebsocketRequest extends GatewayRequest {
 
-	private VertxSockJsAdapter sockJsAdapter;
+	private VertxWebsocketAdapter sockJsAdapter;
 	
 	/**
 	 * @param httpAdapter
 	 * @param documentReaders
 	 * @param tempFolder
 	 */
-	public VertxSockJsRequest(HttpAdapter httpAdapter,
+	public VertxWebsocketRequest(HttpAdapter httpAdapter,
 			Map<String, DocumentReader> documentReaders) {
 		
 		super(httpAdapter, documentReaders);
 		
-		sockJsAdapter = (VertxSockJsAdapter) httpAdapter;
+		sockJsAdapter = (VertxWebsocketAdapter) httpAdapter;
 	}
 
 	/* (non-Javadoc)

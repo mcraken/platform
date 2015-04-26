@@ -16,14 +16,13 @@
 package org.cradle.platform.httpgateway.spi;
 
 import java.io.File;
+import java.lang.annotation.Annotation;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.ParameterizedType;
 import java.util.List;
 
-import org.cradle.platform.httpgateway.BasicHttpHandler;
 import org.cradle.platform.httpgateway.HttpAdapter;
 import org.cradle.platform.httpgateway.HttpMethod;
-import org.cradle.platform.httpgateway.HttpMethod.Method;
 import org.cradle.platform.httpgateway.exception.HttpException;
 import org.cradle.platform.spi.RegistrationPrincipal;
 
@@ -52,16 +51,19 @@ public class MultipartHttpHandlerRegistrationPrincipal extends HttpHandlerResgis
 	 * @see org.cradle.gateway.spi.HttpHandlerResgisterationPrinicipal#isMethodSupported(org.cradle.gateway.HttpMethod.Method)
 	 */
 	@Override
-	protected boolean isMethodSupported(Method method) {
-		return method.equals(HttpMethod.Method.MULTIPART_POST);
+	protected boolean isAnnotationSupported(java.lang.reflect.Method target, Annotation annotation) {
+		
+		HttpMethod.Method targetMethod = ((HttpMethod) annotation).method();
+		
+		return targetMethod.equals(HttpMethod.Method.MULTIPART_POST);
 	}
 
 	/* (non-Javadoc)
 	 * @see org.cradle.gateway.spi.HttpHandlerResgisterationPrinicipal#isAnnotationValid(java.lang.reflect.Method, org.cradle.gateway.HttpMethod)
 	 */
 	@Override
-	protected void isAnnotationValid(java.lang.reflect.Method target,
-			HttpMethod annotation) {
+	protected void isMethodValid(java.lang.reflect.Method target,
+			Annotation annotation) {
 		
 		checkMethodParamLength(target, 3, "Exactly 3 parameters are required for multipart POST methods");
 		

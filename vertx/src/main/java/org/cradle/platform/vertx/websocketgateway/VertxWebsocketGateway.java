@@ -13,24 +13,19 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package org.cradle.platform.vertx.sockjsgateway;
+package org.cradle.platform.vertx.websocketgateway;
 
-import java.lang.annotation.Annotation;
-import java.util.HashMap;
 import java.util.Map;
 
 import org.cradle.localization.LocalizationService;
 import org.cradle.platform.document.DocumentReader;
 import org.cradle.platform.document.DocumentWriter;
-import org.cradle.platform.httpgateway.exception.BadRequestException;
-import org.cradle.platform.httpgateway.exception.UnauthorizedException;
-import org.cradle.platform.httpgateway.exception.UnknownResourceException;
-import org.cradle.platform.httpgateway.filter.Filter;
-import org.cradle.platform.httpgateway.filter.FilterFactory;
-import org.cradle.platform.httpgateway.filter.ServiceFilterConfig;
-import org.cradle.platform.sockjsgateway.SockJS;
-import org.cradle.platform.sockjsgateway.spi.SockJsHandlerRegistrationPrinicipal;
+import org.cradle.platform.httpgateway.HttpMethod;
+import org.cradle.platform.httpgateway.exception.HttpException;
+import org.cradle.platform.httpgateway.filter.FilterInvokationHandler;
 import org.cradle.platform.spi.BasicHttpCradleGateway;
+import org.cradle.platform.websocketgateway.WebSocket;
+import org.cradle.platform.websocketgateway.spi.WebsocketHandlerRegistrationPrinicipal;
 import org.vertx.java.core.Handler;
 import org.vertx.java.core.json.JsonObject;
 import org.vertx.java.core.sockjs.SockJSServer;
@@ -41,20 +36,19 @@ import org.vertx.java.core.sockjs.SockJSSocket;
  * @email 	mcrakens@gmail.com
  * @date 	Apr 19, 2015
  */
-public class VertxSockJsGateway extends BasicHttpCradleGateway  {
+public class VertxWebsocketGateway extends BasicHttpCradleGateway  {
 
 	private SockJSServer sockJSServer;
 
-	public VertxSockJsGateway(Map<String, DocumentReader> documentReaders,
+	public VertxWebsocketGateway(Map<String, DocumentReader> documentReaders,
 			Map<String, DocumentWriter> documentWriters,
 			LocalizationService localizationService,
 			SockJSServer sockJSServer) {
 
 		super( 
-				new SockJsHandlerRegistrationPrinicipal(null),
+				new WebsocketHandlerRegistrationPrinicipal(null),
 				documentReaders, 
 				documentWriters, 
-				new HashMap<String, FilterFactory>(),
 				localizationService
 				);
 
@@ -77,24 +71,22 @@ public class VertxSockJsGateway extends BasicHttpCradleGateway  {
 	 * @see org.cradle.platform.spi.BasicGateway#registerFilterChain(java.lang.String, java.lang.String, org.cradle.platform.httpgateway.filter.ServiceFilterConfig, org.cradle.platform.httpgateway.filter.Filter)
 	 */
 	@Override
-	protected void registerFilterChain(Annotation annotation,
-			ServiceFilterConfig serviceConfig, final Filter firstFilter) {
+	protected void registerHttpHandler(HttpMethod annotation, final FilterInvokationHandler invokationHandler) {
 
-		JsonObject config = createSockJsConfig(((SockJS) annotation).path());
+		JsonObject config = createSockJsConfig(((WebSocket) annotation).path());
 
 		sockJSServer.installApp(config, new Handler<SockJSSocket>(){
 
 			@Override
 			public void handle(SockJSSocket socket) {
 
-				VertxSockJsAdapter httpAdapter = new VertxSockJsAdapter(socket);
+				VertxWebsocketAdapter httpAdapter = new VertxWebsocketAdapter(socket);
 
 				try {
 					
-					firstFilter.filter(httpAdapter);
+					invokationHandler.filter(httpAdapter);
 					
-				} catch (BadRequestException | UnauthorizedException
-						| UnknownResourceException e) {
+				} catch (HttpException e) {
 					
 					socket.close();
 				}

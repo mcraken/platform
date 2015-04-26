@@ -21,25 +21,29 @@ import java.util.Map;
 import org.cradle.localization.LocalizationService;
 import org.cradle.platform.document.DocumentReader;
 import org.cradle.platform.document.DocumentWriter;
-import org.cradle.platform.httpgateway.BasicHttpHandler;
-import org.cradle.platform.httpgateway.filter.Filter;
-import org.cradle.platform.httpgateway.filter.FilterFactory;
-import org.cradle.platform.httpgateway.filter.ServiceFilter;
-import org.cradle.platform.httpgateway.filter.ServiceFilterConfig;
+import org.cradle.platform.httpgateway.HttpFilter;
+import org.cradle.platform.httpgateway.HttpMethod;
+import org.cradle.platform.httpgateway.filter.FilterInvokationHandler;
+import org.cradle.platform.httpgateway.filter.PrecedenceFilter;
+import org.cradle.platform.httpgateway.spi.BasicHttpHandler;
+
+import com.google.common.collect.HashMultimap;
+import com.google.common.collect.Multimap;
 
 /**
  * @author	Sherief Shawky
  * @email 	mcrakens@gmail.com
  * @date 	Apr 22, 2015
  */
-public abstract class BasicHttpCradleGateway extends BasicCradleGateway{
-	
+public abstract class BasicHttpCradleGateway extends BasicCradleProvider{
+
 	private Map<String, DocumentReader> documentReaders;
 	private Map<String, DocumentWriter> documentWriters;
-	
-	private Map<String, FilterFactory> filtersFactoryMap;
+
 	private LocalizationService localizationService;
-	
+
+	private Multimap<String, PrecedenceFilter> filters;
+
 	/**
 	 * @param principalChain
 	 * @param documentReaders
@@ -51,15 +55,15 @@ public abstract class BasicHttpCradleGateway extends BasicCradleGateway{
 	public BasicHttpCradleGateway(RegistrationPrincipal principalChain,
 			Map<String, DocumentReader> documentReaders,
 			Map<String, DocumentWriter> documentWriters,
-			Map<String, FilterFactory> filtersFactoryMap,
 			LocalizationService localizationService) {
-		
+
 		super(principalChain);
-		
+
 		this.documentReaders = documentReaders;
 		this.documentWriters = documentWriters;
-		this.filtersFactoryMap = filtersFactoryMap;
 		this.localizationService = localizationService;
+
+		this.filters = HashMultimap.create();
 	}
 
 	/**
@@ -69,28 +73,39 @@ public abstract class BasicHttpCradleGateway extends BasicCradleGateway{
 	protected DocumentWriter getDocumentWriter(String contentType) {
 		return documentWriters.get(contentType);
 	}
-	
+
 	/* (non-Javadoc)
 	 * @see org.cradle.platform.spi.BasicCradleGateway#registerHandler(java.lang.annotation.Annotation, java.lang.Object)
 	 */
 	@Override
 	protected <T> void registerHandler(Annotation annotation, T handler) {
-		
-		ServiceFilterConfig serviceConfig = new ServiceFilterConfig();
-		
-		BasicHttpHandler httpHandler = (BasicHttpHandler) handler;
-		
-		ServiceFilter vertxFilter = new ServiceFilter(httpHandler, documentWriters, documentReaders);
 
-		Filter firstFilter = serviceConfig.buildChain(vertxFilter, filtersFactoryMap);
+		Class<? extends Annotation> annotationType = annotation.annotationType();
 
-		httpHandler.setLocalizationService(localizationService);
+		if(annotationType == HttpMethod.class){
+			
+			HttpMethod methodAnntoation = (HttpMethod) annotation;
+			
+			BasicHttpHandler httpHandler = (BasicHttpHandler) handler;
 
-		registerFilterChain(annotation, serviceConfig, firstFilter);
-		
+			httpHandler.setLocalizationService(localizationService);
+
+			registerHttpHandler(methodAnntoation, 
+					new FilterInvokationHandler(methodAnntoation.path(), documentReaders, documentWriters, httpHandler, filters));
+			
+		} else if(annotationType == HttpFilter.class){
+			
+			HttpFilter filterAnnotation = (HttpFilter) annotation;
+			
+			PrecedenceFilter filter = (PrecedenceFilter) handler;
+			
+			filters.put(filterAnnotation.pattern(), filter);
+			
+		} 
+
 	}
 
-	protected abstract void registerFilterChain(Annotation annotation, ServiceFilterConfig serviceConfig, Filter firstFilter);
-	
+	protected abstract void registerHttpHandler(HttpMethod annotation, FilterInvokationHandler invokkationHandler);
+
 	protected abstract void unregisterHttpHandler(String method, String path);
 }

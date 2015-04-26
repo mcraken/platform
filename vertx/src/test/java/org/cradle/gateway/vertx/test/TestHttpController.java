@@ -19,9 +19,11 @@ import java.io.File;
 import java.util.List;
 
 import org.cradle.platform.httpgateway.HttpAdapter;
+import org.cradle.platform.httpgateway.HttpFilter;
 import org.cradle.platform.httpgateway.HttpMethod;
 import org.cradle.platform.httpgateway.HttpMethod.Method;
-import org.cradle.platform.sockjsgateway.SockJS;
+import org.cradle.platform.websocketgateway.WebSocket;
+import org.cradle.platform.websocketgateway.WebSocket.Type;
 
 /**
  * @author	Sherief Shawky
@@ -54,7 +56,7 @@ public class TestHttpController {
 		return multiply(adapter, form);
 	}
 	
-	@SockJS(path="/socketcalc")
+	@WebSocket(type=Type.SYNCHRONOUS, path="/socketcalc")
 	public Calculation multiplySocket(HttpAdapter adapter, Calculation document){
 		
 		document.calcResult();
@@ -62,9 +64,19 @@ public class TestHttpController {
 		return document;
 	} 
 	
-	@SockJS(path="/message")
-	public void multiplySocket(HttpAdapter adapter, SocketMessage message){
+	@WebSocket(type=Type.RECEIVER, path="/message")
+	public void sayHello(HttpAdapter adapter, SocketMessage message){
 		
 		System.out.println(message.getSender() + ":" + message.getText());
-	} 
+	}
+	
+	@HttpFilter(pattern="^/(.)*")
+	public void filterAny(HttpAdapter adapter){
+		System.out.println("Should execute before any http method first");
+	}
+	
+	@HttpFilter(pattern="^/hello", precedence=1)
+	public void filterHello(HttpAdapter adapter){
+		System.out.println("Should execute before /hello second");
+	}
 }

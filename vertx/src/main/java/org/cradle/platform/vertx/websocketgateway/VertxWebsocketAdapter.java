@@ -13,7 +13,7 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package org.cradle.platform.vertx.sockjsgateway;
+package org.cradle.platform.vertx.websocketgateway;
 
 import java.nio.ByteBuffer;
 import java.util.Map;
@@ -29,14 +29,14 @@ import org.vertx.java.core.sockjs.SockJSSocket;
  * @email 	mcrakens@gmail.com
  * @date 	Apr 19, 2015
  */
-public class VertxSockJsAdapter extends BasicHttpAdapter {
+public class VertxWebsocketAdapter extends BasicHttpAdapter {
 
 	private SockJSSocket socket;
 	
 	/**
 	 * @param socket
 	 */
-	public VertxSockJsAdapter(SockJSSocket socket) {
+	public VertxWebsocketAdapter(SockJSSocket socket) {
 		this.socket = socket;
 	}
 
@@ -168,7 +168,7 @@ public class VertxSockJsAdapter extends BasicHttpAdapter {
 	public GatewayRequest createGatewayRequest(
 			Map<String, DocumentReader> documentReaders) {
 		
-		return new VertxSockJsRequest(this, documentReaders);
+		return new VertxWebsocketRequest(this, documentReaders);
 	}
 
 }

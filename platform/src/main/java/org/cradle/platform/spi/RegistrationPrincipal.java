@@ -15,6 +15,7 @@
  */
 package org.cradle.platform.spi;
 
+import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
 
 /**
@@ -25,17 +26,34 @@ import java.lang.reflect.Method;
 public abstract class RegistrationPrincipal {
 	
 	private RegistrationPrincipal next;
-
+	private Class<? extends Annotation> annotationClass;
+	
 	/**
 	 * @param next
+	 * @param annotationClass
 	 */
-	public RegistrationPrincipal(RegistrationPrincipal next) {
+	public RegistrationPrincipal(RegistrationPrincipal next,
+			Class<? extends Annotation> annotationClass) {
+		
 		this.next = next;
+		this.annotationClass = annotationClass;
 	}
-	
+
 	public <T>void execute(RegistrationAgent agent, T handler, Method target){
 		
-		executePrincipal(agent, handler, target);
+		Annotation annotation = target.getAnnotation(annotationClass);
+
+		if(annotation != null ){
+
+			if(isAnnotationSupported(target, annotation)){
+
+				isMethodValid(target, annotation);
+
+				executePrincipal(agent, handler, target);
+			}
+
+		}
+		
 		
 		if(next != null)
 			next.execute(agent, handler, target);
@@ -68,9 +86,13 @@ public abstract class RegistrationPrincipal {
 		
 		Class<?> returnType = target.getReturnType();
 		
-		if(returnType != Void.class)
+		if(!returnType.getName().equalsIgnoreCase("void"))
 			throw new RuntimeException(errorMessage);
 	}
+	
+	protected abstract boolean isAnnotationSupported(Method target, Annotation annotation);
+	
+	protected abstract void isMethodValid(Method target, Annotation annotation);
 	
 	protected abstract <T>void executePrincipal(RegistrationAgent agent, T handler, Method target);
 }

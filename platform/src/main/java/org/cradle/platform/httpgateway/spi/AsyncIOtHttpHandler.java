@@ -15,7 +15,6 @@
  */
 package org.cradle.platform.httpgateway.spi;
 
-import org.cradle.platform.httpgateway.BasicHttpHandler;
 import org.cradle.platform.httpgateway.HttpAdapter;
 import org.cradle.platform.httpgateway.exception.BadRequestException;
 import org.cradle.platform.httpgateway.exception.HttpException;

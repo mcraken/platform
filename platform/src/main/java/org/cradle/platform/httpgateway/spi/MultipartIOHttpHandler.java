@@ -18,7 +18,6 @@ package org.cradle.platform.httpgateway.spi;
 import java.io.File;
 import java.util.List;
 
-import org.cradle.platform.httpgateway.BasicHttpHandler;
 import org.cradle.platform.httpgateway.HttpAdapter;
 import org.cradle.platform.httpgateway.exception.BadRequestException;
 import org.cradle.platform.httpgateway.exception.HttpException;

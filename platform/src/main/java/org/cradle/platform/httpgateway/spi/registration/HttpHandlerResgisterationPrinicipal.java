@@ -13,12 +13,13 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package org.cradle.platform.httpgateway.spi;
+package org.cradle.platform.httpgateway.spi.registration;
 
 import java.lang.reflect.Method;
 
 import org.cradle.platform.httpgateway.HttpAdapter;
 import org.cradle.platform.httpgateway.HttpMethod;
+import org.cradle.platform.httpgateway.spi.handler.BasicHttpHandler;
 import org.cradle.platform.spi.RegistrationAgent;
 import org.cradle.platform.spi.RegistrationPrincipal;
 

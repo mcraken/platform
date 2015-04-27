@@ -37,9 +37,9 @@ public abstract class BasicCradleProvider implements CradleProvider {
 			
 			@Override
 			public <T>void register(Annotation annotation,
-					T httpHandler) {
+					T handler) {
 				
-				registerHandler(annotation, httpHandler);
+				registerHandler(annotation, handler);
 			}
 		};
 	}

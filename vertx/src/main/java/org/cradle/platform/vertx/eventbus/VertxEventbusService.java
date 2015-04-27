@@ -15,12 +15,15 @@
  */
 package org.cradle.platform.vertx.eventbus;
 
+import java.lang.annotation.Annotation;
 import java.util.Map;
 
 import org.cradle.platform.document.DocumentWriter;
 import org.cradle.platform.eventbus.CradleEventbus;
-import org.cradle.platform.eventbus.TypeEventbusHandler;
-import org.cradle.platform.eventbus.TextEventbusHandler;
+import org.cradle.platform.eventbus.EventbusListener;
+import org.cradle.platform.eventbus.spi.EventbusHandler;
+import org.cradle.platform.eventbus.spi.EventbusListenerRegistrationPrincipal;
+import org.cradle.platform.spi.BasicCradleProvider;
 import org.cradle.reporting.SystemReportingService;
 import org.vertx.java.core.AsyncResult;
 import org.vertx.java.core.Handler;
@@ -31,61 +34,26 @@ import org.vertx.java.core.eventbus.EventBus;
  * @email 	mcrakens@gmail.com
  * @date 	Apr 19, 2015
  */
-public class VertxEventbusService implements CradleEventbus {
+public class VertxEventbusService extends BasicCradleProvider implements CradleEventbus {
 
 	private EventBus eventBus;
 	private Map<String, DocumentWriter> documentWriters;
 	private SystemReportingService reportingService;
-	
 
 	/**
+	 * @param principalChain
 	 * @param eventBus
 	 * @param documentWriters
 	 * @param reportingService
 	 */
-	public VertxEventbusService(EventBus eventBus,
-			Map<String, DocumentWriter> documentWriters,
+	public VertxEventbusService(EventBus eventBus, Map<String, DocumentWriter> documentWriters,
 			SystemReportingService reportingService) {
+
+		super(new EventbusListenerRegistrationPrincipal(null));
+
 		this.eventBus = eventBus;
 		this.documentWriters = documentWriters;
 		this.reportingService = reportingService;
-	}
-
-	/* (non-Javadoc)
-	 * @see org.cradle.osgi.vertx.VertxEventBusService#subscribe(java.lang.String, org.cradle.osgi.vertx.EventBusHandler)
-	 */
-	@Override
-	public void subscribe(String address, TextEventbusHandler handler) {
-
-		eventBus.registerHandler(address, new VertxTextEventbusHandler(handler));
-	}
-
-	/* (non-Javadoc)
-	 * @see org.cradle.osgi.vertx.VertxEventBusService#unsubscribe(java.lang.String, org.cradle.osgi.vertx.EventBusHandler)
-	 */
-	@Override
-	public void unsubscribe(String address, TextEventbusHandler handler) {
-
-		eventBus.unregisterHandler(address, new VertxTextEventbusHandler(handler));
-	}
-
-	/* (non-Javadoc)
-	 * @see org.cradle.osgi.vertx.eventbus.VertxEventBusService#subscribe(java.lang.String, org.cradle.osgi.vertx.eventbus.JsonEventbusHandler)
-	 */
-	@Override
-	public <T>void subscribe(String address, TypeEventbusHandler<T> handler) {
-		
-		eventBus.registerHandler(address, new VertxJsonEventbusHandler<T>(handler));
-	}
-
-	/* (non-Javadoc)
-	 * @see org.cradle.osgi.vertx.eventbus.VertxEventBusService#unsubscribe(java.lang.String, org.cradle.osgi.vertx.eventbus.JsonEventbusHandler)
-	 */
-	@Override
-	public <T>void unsubscribe(String address, TypeEventbusHandler<T> handler) {
-		
-		eventBus.unregisterHandler(address, new VertxJsonEventbusHandler<T>(handler));
-
 	}
 
 	/* (non-Javadoc)
@@ -100,9 +68,9 @@ public class VertxEventbusService implements CradleEventbus {
 	 * @see org.cradle.osgi.vertx.eventbus.VertxEventBusService#publish(java.lang.String, java.lang.Object, java.lang.String)
 	 */
 	@Override
-	public <T>void publish(String address, T message, String contentType) {
+	public <T>void publish(String address, T message) {
 
-		DocumentWriter documentWriter = documentWriters.get(contentType);
+		DocumentWriter documentWriter = documentWriters.get("application/json");
 
 		StringBuffer output = new StringBuffer();
 
@@ -111,23 +79,33 @@ public class VertxEventbusService implements CradleEventbus {
 		eventBus.publish(address, output.toString());
 	}
 
-	/* (non-Javadoc)
-	 * @see org.cradle.platform.eventbus.EventbusService#shutdown()
-	 */
-	@Override
 	public void shutdown() {
-		
+
 		eventBus.close(new Handler<AsyncResult<Void>>() {
 
 			@Override
 			public void handle(AsyncResult<Void> event) {
-				
+
 				if(reportingService != null){
 					reportingService.info(this.getClass().getSimpleName(), SystemReportingService.CONSOLE, "Event bus closed");
 				}
 			}
 		});
-		
+
+	}
+
+	/* (non-Javadoc)
+	 * @see org.cradle.platform.spi.BasicCradleProvider#registerHandler(java.lang.annotation.Annotation, java.lang.Object)
+	 */
+	@Override
+	protected <T> void registerHandler(Annotation annotation, T handler) {
+
+		EventbusListener eventbusListener = (EventbusListener) annotation;
+
+		String path = eventbusListener.path();
+
+		eventBus.registerHandler(path, new VertxTextEventbusHandler((EventbusHandler) handler));
+
 	}
 
 }

@@ -1,7 +1,7 @@
 /**
  * 
  */
-package org.cradle.platform.httpgateway.spi;
+package org.cradle.platform.httpgateway.spi.handler;
 
 /**
  * @author 	Sherief Shawky

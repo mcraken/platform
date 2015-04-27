@@ -23,7 +23,7 @@ import org.cradle.platform.document.DocumentWriter;
 import org.cradle.platform.httpgateway.HttpMethod;
 import org.cradle.platform.httpgateway.exception.HttpException;
 import org.cradle.platform.httpgateway.filter.FilterInvokationHandler;
-import org.cradle.platform.spi.BasicHttpCradleGateway;
+import org.cradle.platform.httpgateway.spi.BasicHttpGateway;
 import org.cradle.platform.websocketgateway.WebSocket;
 import org.cradle.platform.websocketgateway.spi.WebsocketHandlerRegistrationPrinicipal;
 import org.vertx.java.core.Handler;
@@ -36,7 +36,7 @@ import org.vertx.java.core.sockjs.SockJSSocket;
  * @email 	mcrakens@gmail.com
  * @date 	Apr 19, 2015
  */
-public class VertxWebsocketGateway extends BasicHttpCradleGateway  {
+public class VertxWebsocketGateway extends BasicHttpGateway  {
 
 	private SockJSServer sockJSServer;
 

@@ -21,9 +21,9 @@ import java.lang.reflect.Method;
 
 import org.cradle.platform.httpgateway.HttpAdapter;
 import org.cradle.platform.httpgateway.exception.HttpException;
-import org.cradle.platform.httpgateway.spi.AsyncIOtHttpHandler;
-import org.cradle.platform.httpgateway.spi.AsyncInputHttpHandler;
 import org.cradle.platform.httpgateway.spi.ResponseObject;
+import org.cradle.platform.httpgateway.spi.handler.AsyncIOtHttpHandler;
+import org.cradle.platform.httpgateway.spi.handler.AsyncInputHttpHandler;
 import org.cradle.platform.spi.RegistrationAgent;
 import org.cradle.platform.spi.RegistrationPrincipal;
 import org.cradle.platform.websocketgateway.WebSocket;

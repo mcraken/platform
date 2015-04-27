@@ -13,7 +13,7 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package org.cradle.platform.eventbus;
+package org.cradle.platform.eventbus.spi;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -23,45 +23,31 @@ import com.google.gson.GsonBuilder;
  * @email 	mcrakens@gmail.com
  * @date 	Apr 16, 2015
  */
-public abstract class TypeEventbusHandler<T> {
+public abstract class TypeEventbusHandler implements EventbusHandler{
 
-	protected CradleEventbus eventBusService;
 	private Gson gson;
-	private Class<T> messageType;
+	private Class<?> messageType;
 	/**
 	 * 
 	 */
-	public TypeEventbusHandler(Class<T> messageType) {
+	public TypeEventbusHandler(Class<?> messageType) {
+		
 		gson = new GsonBuilder().create();
+		
 		this.messageType = messageType;
 	}
 	
-	/**
-	 * @param eventBusService the eventBusService to set
-	 */
-	public void setEventBusService(CradleEventbus eventBusService) {
-		this.eventBusService = eventBusService;
-	}
-	
-	protected void subscribe(String address) {
-		
-		eventBusService.subscribe(address, this);
-	}
-
-	protected void unsubscribe(String address) {
-		
-		eventBusService.unsubscribe(address, this);
-	}
-	
-	private T unmarshall(String message){
+	private Object unmarshall(String message){
 		
 		return gson.fromJson(message, messageType);
 	}
 	
-	public void recieve(String address, String message){
-		recieve(address, unmarshall(message));
+	@Override
+	public void recieve(String message){
+		
+		recieve(unmarshall(message));
 	}
 	
-	protected abstract void recieve(String address, T message);
+	protected abstract <T>void recieve(T message);
 
 }

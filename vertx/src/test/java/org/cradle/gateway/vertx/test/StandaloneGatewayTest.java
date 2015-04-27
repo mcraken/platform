@@ -15,6 +15,7 @@
  */
 package org.cradle.gateway.vertx.test;
 
+import org.cradle.platform.eventbus.CradleEventbus;
 import org.cradle.platform.spi.CradleProvider;
 import org.cradle.platform.vertx.VertxCradlePlatform;
 import org.junit.After;
@@ -33,6 +34,7 @@ public class StandaloneGatewayTest {
 
 	private CradleProvider httpGateway;
 	private CradleProvider websocketGateway;
+	private CradleEventbus eventbus;
 	private VertxCradlePlatform platform;
 
 	@Before
@@ -43,6 +45,8 @@ public class StandaloneGatewayTest {
 		httpGateway = platform.httpGateway();
 		
 		websocketGateway = platform.websocketGateway();
+		
+		eventbus = platform.eventbus();
 
 	}
 
@@ -54,6 +58,10 @@ public class StandaloneGatewayTest {
 		httpGateway.registerController(controller);
 		
 		websocketGateway.registerController(controller);
+		
+		eventbus.registerController(controller);
+		
+		eventbus.publish("/message", new Message("Mc", "Eventbus message."));
 		
 		Thread.sleep(5 * 60 * 1000);
 	}

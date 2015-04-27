@@ -59,16 +59,32 @@ public abstract class RegistrationPrincipal {
 			next.execute(agent, handler, target);
 	}
 	
+	protected Class<?> getParamType(Method target, int number){
+		
+		return target.getParameterTypes()[number - 1];
+	}
+	
 	/**
 	 * @param target
 	 */
 	protected void checkMethodParam(Method target, int number, Class<?> targetClass, String errorMessage) {
 	
-		Class<?> paramType = target.getParameterTypes()[number - 1];
+		Class<?> paramType = getParamType(target, number);
 	
 		if(paramType != targetClass){
 			throw new RuntimeException(errorMessage);
 		}
+	}
+	
+	protected boolean checkMethodParam(Method target, int number, Class<?> targetClass) {
+		
+		Class<?> paramType = getParamType(target, number);
+	
+		if(paramType != targetClass){
+			return false;
+		}
+		
+		return true;
 	}
 	
 	protected void checkMethodParamLength(Method target, int length, String errorMessage){

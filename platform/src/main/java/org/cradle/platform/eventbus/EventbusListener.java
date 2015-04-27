@@ -15,39 +15,18 @@
  */
 package org.cradle.platform.eventbus;
 
-
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
 
 /**
  * @author	Sherief Shawky
  * @email 	mcrakens@gmail.com
- * @date 	Apr 16, 2015
+ * @date 	Apr 27, 2015
  */
-public abstract class TextEventbusHandler {
-
-	protected CradleEventbus eventBusService;
-	
-	/**
-	 * @param eventBusService the eventBusService to set
-	 */
-	public void setEventBusService(CradleEventbus eventBusService) {
-		this.eventBusService = eventBusService;
-	}
-	
-	protected void publish(String address, String message) {
-	
-		eventBusService.publish(address, message);
-	}
-
-	public void subscribe(String address) {
-		
-		eventBusService.subscribe(address, this);
-	}
-
-	public void unsubscribe(String address) {
-		
-		eventBusService.unsubscribe(address, this);
-	}
-
-	public abstract void recieve(String message);
-
+@Retention(RetentionPolicy.RUNTIME)
+@Target(ElementType.METHOD)
+public @interface EventbusListener {
+	String path();
 }

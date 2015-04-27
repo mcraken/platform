@@ -13,16 +13,23 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package org.cradle.platform.spi;
+package org.cradle.platform.httpgateway.spi.handler;
 
-import java.lang.annotation.Annotation;
+import java.io.File;
+import java.util.List;
+
+import org.cradle.platform.httpgateway.HttpAdapter;
+import org.cradle.platform.httpgateway.spi.GatewayRequest;
+import org.cradle.platform.httpgateway.spi.GatewayResponse;
 
 /**
- * @author	Sherief Shawky
+ * @author 	Sherief Shawky
  * @email 	mcrakens@gmail.com
- * @date 	Apr 15, 2015
+ * @date 	Jan 4, 2015
  */
-public interface RegistrationAgent {
+public interface MultipartRequestHandler {
 	
-	public <T>void register(Annotation annotation, T handler);
+	public Object createFormInstance();
+	
+	public void handle(HttpAdapter httpAdapter, GatewayRequest request, GatewayResponse response, Object form, List<File> uploads);
 }

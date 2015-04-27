@@ -20,6 +20,7 @@ import org.cradle.platform.httpgateway.exception.BadRequestException;
 import org.cradle.platform.httpgateway.exception.HttpException;
 import org.cradle.platform.httpgateway.exception.RedirectException;
 import org.cradle.platform.httpgateway.exception.UnauthorizedException;
+import org.cradle.platform.httpgateway.spi.handler.BasicHttpHandler;
 
 
 /**

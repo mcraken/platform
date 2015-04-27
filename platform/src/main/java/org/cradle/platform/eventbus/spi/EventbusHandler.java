@@ -13,21 +13,18 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package org.cradle.platform.httpgateway.spi;
+package org.cradle.platform.eventbus.spi;
 
-import java.io.File;
-import java.util.List;
 
-import org.cradle.platform.httpgateway.HttpAdapter;
+
 
 /**
- * @author 	Sherief Shawky
+ * @author	Sherief Shawky
  * @email 	mcrakens@gmail.com
- * @date 	Jan 4, 2015
+ * @date 	Apr 16, 2015
  */
-public interface MultipartRequestHandler {
-	
-	public Object createFormInstance();
-	
-	public void handle(HttpAdapter httpAdapter, GatewayRequest request, GatewayResponse response, Object form, List<File> uploads);
+public interface EventbusHandler {
+
+	public void recieve(String message);
+
 }

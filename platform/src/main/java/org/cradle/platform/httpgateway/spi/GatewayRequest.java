@@ -25,6 +25,8 @@ import org.apache.commons.beanutils.BeanUtils;
 import org.cradle.platform.document.DocumentReader;
 import org.cradle.platform.document.DocumentReadingExcetion;
 import org.cradle.platform.httpgateway.HttpAdapter;
+import org.cradle.platform.httpgateway.spi.handler.AsynchronusRequestHandler;
+import org.cradle.platform.httpgateway.spi.handler.MultipartRequestHandler;
 
 /**
  * @author 	Sherief Shawky

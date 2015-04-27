@@ -18,6 +18,7 @@ package org.cradle.gateway.vertx.test;
 import java.io.File;
 import java.util.List;
 
+import org.cradle.platform.eventbus.EventbusListener;
 import org.cradle.platform.httpgateway.HttpAdapter;
 import org.cradle.platform.httpgateway.HttpFilter;
 import org.cradle.platform.httpgateway.HttpMethod;
@@ -33,14 +34,9 @@ import org.cradle.platform.websocketgateway.WebSocket.Type;
 public class HelloWorldController {
 	
 	@HttpMethod(method = Method.GET, path="/hello", contentType="application/json")
-	public String sayHello(org.cradle.platform.httpgateway.HttpAdapter adapter){
+	public String helloWorld(HttpAdapter adapter){
+		
 		return "Hello, World!";
-	}
-	
-	@HttpMethod(method = Method.PUT, path="/save", contentType="application/json")
-	public Calculation update(HttpAdapter adapter, Calculation document){
-		document.setId(15);
-		return document;
 	}
 	
 	@HttpMethod(method = Method.POST, path="/calc", contentType="application/json")
@@ -53,30 +49,56 @@ public class HelloWorldController {
 	
 	@HttpMethod(method = Method.MULTIPART_POST, path="/form", contentType="application/json")
 	public Calculation submitForm(HttpAdapter adapter, Calculation form, List<File> files){
+		
+		for(File file : files){
+			System.out.println("Recieved file: " + file.getName());
+		}
+		
 		return multiply(adapter, form);
 	}
 	
-	@WebSocket(type=Type.SYNCHRONOUS, path="/socketcalc", contentType="application/json")
-	public Calculation multiplySocket(HttpAdapter adapter, Calculation document){
+	@WebSocket(type=Type.SYNCHRONOUS, path="/sockethello", contentType="application/json")
+	public Message socketHello(HttpAdapter adapter, Message message){
 		
-		document.calcResult();
+		messageRecieved(message);
 		
-		return document;
+		String sender = message.getSender();
+		
+		message.setSender("Server");
+		
+		message.setText("Got your message " + sender);
+		
+		return message;
 	} 
 	
 	@WebSocket(type=Type.RECEIVER, path="/message", contentType="application/json")
-	public void sayHello(HttpAdapter adapter, SocketMessage message){
+	public void sayHello(HttpAdapter adapter, Message message){
 		
+		messageRecieved(message);
+	}
+
+	/**
+	 * @param message
+	 */
+	private void messageRecieved(Message message) {
 		System.out.println(message.getSender() + ":" + message.getText());
+	}
+	
+	@EventbusListener(path="/message")
+	public void sayHello(Message message){
+		
+		messageRecieved(message);
 	}
 	
 	@HttpFilter(pattern="^/(.)*")
 	public void filterAny(HttpAdapter adapter){
+		
 		System.out.println("Should execute before any http method first");
 	}
 	
 	@HttpFilter(pattern="^/hello", precedence=1)
 	public void filterHello(HttpAdapter adapter){
+		
 		System.out.println("Should execute before /hello second");
 	}
 }

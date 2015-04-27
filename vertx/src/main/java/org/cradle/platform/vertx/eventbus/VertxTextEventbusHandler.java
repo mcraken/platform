@@ -3,7 +3,7 @@
  */
 package org.cradle.platform.vertx.eventbus;
 
-import org.cradle.platform.eventbus.TextEventbusHandler;
+import org.cradle.platform.eventbus.spi.EventbusHandler;
 import org.vertx.java.core.Handler;
 import org.vertx.java.core.eventbus.Message;
 
@@ -14,12 +14,12 @@ import org.vertx.java.core.eventbus.Message;
  */
 public class VertxTextEventbusHandler implements Handler<Message<String>>{
 	
-	private TextEventbusHandler textEventbusHandler;
+	private EventbusHandler textEventbusHandler;
 	
 	/**
 	 * @param textEventbusHandler
 	 */
-	public VertxTextEventbusHandler(TextEventbusHandler textEventbusHandler) {
+	public VertxTextEventbusHandler(EventbusHandler textEventbusHandler) {
 		this.textEventbusHandler = textEventbusHandler;
 	}
 

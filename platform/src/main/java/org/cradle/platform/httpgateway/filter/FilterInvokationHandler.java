@@ -25,9 +25,9 @@ import org.cradle.platform.httpgateway.HttpAdapter;
 import org.cradle.platform.httpgateway.exception.BadRequestException;
 import org.cradle.platform.httpgateway.exception.HttpException;
 import org.cradle.platform.httpgateway.exception.UnauthorizedException;
-import org.cradle.platform.httpgateway.spi.BasicHttpHandler;
 import org.cradle.platform.httpgateway.spi.GatewayRequest;
 import org.cradle.platform.httpgateway.spi.GatewayResponse;
+import org.cradle.platform.httpgateway.spi.handler.BasicHttpHandler;
 
 import com.google.common.collect.Multimap;
 

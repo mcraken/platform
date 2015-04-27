@@ -13,7 +13,7 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package org.cradle.platform.httpgateway.spi;
+package org.cradle.platform.httpgateway.spi.registration;
 
 import java.io.File;
 import java.lang.annotation.Annotation;
@@ -24,6 +24,9 @@ import java.util.List;
 import org.cradle.platform.httpgateway.HttpAdapter;
 import org.cradle.platform.httpgateway.HttpMethod;
 import org.cradle.platform.httpgateway.exception.HttpException;
+import org.cradle.platform.httpgateway.spi.ResponseObject;
+import org.cradle.platform.httpgateway.spi.handler.BasicHttpHandler;
+import org.cradle.platform.httpgateway.spi.handler.MultipartIOHttpHandler;
 import org.cradle.platform.spi.RegistrationPrincipal;
 
 /**

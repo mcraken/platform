@@ -13,7 +13,7 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package org.cradle.platform.spi;
+package org.cradle.platform.httpgateway.spi;
 
 import java.lang.annotation.Annotation;
 import java.util.Map;
@@ -25,7 +25,9 @@ import org.cradle.platform.httpgateway.HttpFilter;
 import org.cradle.platform.httpgateway.HttpMethod;
 import org.cradle.platform.httpgateway.filter.FilterInvokationHandler;
 import org.cradle.platform.httpgateway.filter.PrecedenceFilter;
-import org.cradle.platform.httpgateway.spi.BasicHttpHandler;
+import org.cradle.platform.httpgateway.spi.handler.BasicHttpHandler;
+import org.cradle.platform.spi.BasicCradleProvider;
+import org.cradle.platform.spi.RegistrationPrincipal;
 
 import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Multimap;
@@ -35,7 +37,7 @@ import com.google.common.collect.Multimap;
  * @email 	mcrakens@gmail.com
  * @date 	Apr 22, 2015
  */
-public abstract class BasicHttpCradleGateway extends BasicCradleProvider{
+public abstract class BasicHttpGateway extends BasicCradleProvider{
 
 	private Map<String, DocumentReader> documentReaders;
 	private Map<String, DocumentWriter> documentWriters;
@@ -52,7 +54,7 @@ public abstract class BasicHttpCradleGateway extends BasicCradleProvider{
 	 * @param localizationService
 	 * @param tempFolder
 	 */
-	public BasicHttpCradleGateway(RegistrationPrincipal principalChain,
+	public BasicHttpGateway(RegistrationPrincipal principalChain,
 			Map<String, DocumentReader> documentReaders,
 			Map<String, DocumentWriter> documentWriters,
 			LocalizationService localizationService) {

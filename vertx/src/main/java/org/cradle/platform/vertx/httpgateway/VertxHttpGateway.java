@@ -22,11 +22,11 @@ import org.cradle.platform.document.DocumentReader;
 import org.cradle.platform.document.DocumentWriter;
 import org.cradle.platform.httpgateway.HttpMethod;
 import org.cradle.platform.httpgateway.filter.FilterInvokationHandler;
-import org.cradle.platform.httpgateway.spi.FilterRegistartionPrinicipal;
-import org.cradle.platform.httpgateway.spi.IOHttpHandlerRegistrationPrincipal;
-import org.cradle.platform.httpgateway.spi.MultipartHttpHandlerRegistrationPrincipal;
-import org.cradle.platform.httpgateway.spi.OutputHttpHandlerResgistrationPrincipal;
-import org.cradle.platform.spi.BasicHttpCradleGateway;
+import org.cradle.platform.httpgateway.spi.BasicHttpGateway;
+import org.cradle.platform.httpgateway.spi.registration.FilterRegistartionPrinicipal;
+import org.cradle.platform.httpgateway.spi.registration.IOHttpHandlerRegistrationPrincipal;
+import org.cradle.platform.httpgateway.spi.registration.MultipartHttpHandlerRegistrationPrincipal;
+import org.cradle.platform.httpgateway.spi.registration.OutputHttpHandlerResgistrationPrincipal;
 import org.cradle.platform.vertx.handlers.FileRequestHandler;
 import org.cradle.platform.vertx.handlers.HttpInvokationHandler;
 import org.cradle.reporting.SystemReportingService;
@@ -39,7 +39,7 @@ import org.vertx.java.core.http.HttpServerRequest;
  * @email 	mcrakens@gmail.com
  * @date 	Aug 2, 2014
  */
-public class VertxHttpGateway extends BasicHttpCradleGateway {
+public class VertxHttpGateway extends BasicHttpGateway {
 
 	private HttpServer httpServer;
 	private RemovableRouteMatcher routeMatcher;

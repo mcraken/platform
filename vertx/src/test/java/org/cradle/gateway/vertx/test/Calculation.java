@@ -22,20 +22,12 @@ package org.cradle.gateway.vertx.test;
  */
 public class Calculation {
 	
-	private int id;
-	
 	private int num1;
 	
 	private int num2;
 	
 	private int result;
 	
-	/**
-	 * @param id the id to set
-	 */
-	public void setId(int id) {
-		this.id = id;
-	}
 	
 	/**
 	 * @return the num1
@@ -49,12 +41,7 @@ public class Calculation {
 	public int getNum2() {
 		return num2;
 	}
-	/**
-	 * @return the id
-	 */
-	public int getId() {
-		return id;
-	}
+	
 	/**
 	 * @param num1 the num1 to set
 	 */

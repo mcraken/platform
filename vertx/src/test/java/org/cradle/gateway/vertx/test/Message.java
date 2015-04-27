@@ -20,9 +20,20 @@ package org.cradle.gateway.vertx.test;
  * @email 	mcrakens@gmail.com
  * @date 	Apr 21, 2015
  */
-public class SocketMessage {
+public class Message {
+	
 	private String sender;
 	private String text;
+	
+	/**
+	 * @param sender
+	 * @param text
+	 */
+	public Message(String sender, String text) {
+		this.sender = sender;
+		this.text = text;
+	}
+	
 	/**
 	 * @return the sender
 	 */

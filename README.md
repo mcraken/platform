@@ -8,31 +8,99 @@ Now, we will tap briefly on each bundle of the cradle framework.
 
 The gateway bundle exposes its services through the gateway interface which gives the capability for clients to register handlers and filters. Here is a sample of how to run a standalone platform and regitser a controller. 
 ```java
-public class SocketMessage {
+class Message {
+	
 	private String sender;
 	private String text;
+	
+	/**
+	 * @param sender
+	 * @param text
+	 */
+	public Message(String sender, String text) {
+		this.sender = sender;
+		this.text = text;
+	}
+	
+	/**
+	 * @return the sender
+	 */
 	public String getSender() {
 		return sender;
 	}
+	/**
+	 * @param sender the sender to set
+	 */
+	public void setSender(String sender) {
+		this.sender = sender;
+	}
+	/**
+	 * @return the text
+	 */
 	public String getText() {
 		return text;
 	}
-
+	/**
+	 * @param text the text to set
+	 */
+	public void setText(String text) {
+		this.text = text;
+	}
+	
+	
 }
 
 class Calculation {
+	
 	private int num1;
+	
 	private int num2;
+	
 	private int result;
+	
+	/**
+	 * @return the num1
+	 */
+	public int getNum1() {
+		return num1;
+	}
+	/**
+	 * @return the num2
+	 */
+	public int getNum2() {
+		return num2;
+	}
+	
+	/**
+	 * @param num1 the num1 to set
+	 */
+	public void setNum1(int num1) {
+		this.num1 = num1;
+	}
+	/**
+	 * @param num2 the num2 to set
+	 */
+	public void setNum2(int num2) {
+		this.num2 = num2;
+	}
+	/**
+	 * @return the result
+	 */
+	public int getResult() {
+		return result;
+	}
 	
 	public void calcResult() {
 		this.result = num1 * num2;
 	}
+	
 }	
 	
-class HelloWorldController{
+class HelloWorldController {
+	
 	@HttpMethod(method = Method.GET, path="/hello", contentType="application/json")
-	public String sayHello(org.cradle.platform.httpgateway.HttpAdapter adapter){
+	public String helloWorld(HttpAdapter adapter){
+		
 		return "Hello, World!";
 	}
 	
@@ -46,30 +114,56 @@ class HelloWorldController{
 	
 	@HttpMethod(method = Method.MULTIPART_POST, path="/form", contentType="application/json")
 	public Calculation submitForm(HttpAdapter adapter, Calculation form, List<File> files){
+		
+		for(File file : files){
+			System.out.println("Recieved file: " + file.getName());
+		}
+		
 		return multiply(adapter, form);
 	}
 	
-	@WebSocket(type=Type.SYNCHRONOUS, path="/socketcalc", contentType="application/json")
-	public Calculation multiplySocket(HttpAdapter adapter, Calculation document){
+	@WebSocket(type=Type.SYNCHRONOUS, path="/sockethello", contentType="application/json")
+	public Message socketHello(HttpAdapter adapter, Message message){
 		
-		document.calcResult();
+		messageRecieved(message);
 		
-		return document;
+		String sender = message.getSender();
+		
+		message.setSender("Server");
+		
+		message.setText("Got your message " + sender);
+		
+		return message;
 	} 
 	
 	@WebSocket(type=Type.RECEIVER, path="/message", contentType="application/json")
-	public void sayHello(HttpAdapter adapter, SocketMessage message){
+	public void sayHello(HttpAdapter adapter, Message message){
 		
+		messageRecieved(message);
+	}
+
+	/**
+	 * @param message
+	 */
+	private void messageRecieved(Message message) {
 		System.out.println(message.getSender() + ":" + message.getText());
+	}
+	
+	@EventbusListener(path="/message")
+	public void sayHello(Message message){
+		
+		messageRecieved(message);
 	}
 	
 	@HttpFilter(pattern="^/(.)*")
 	public void filterAny(HttpAdapter adapter){
+		
 		System.out.println("Should execute before any http method first");
 	}
 	
 	@HttpFilter(pattern="^/hello", precedence=1)
 	public void filterHello(HttpAdapter adapter){
+		
 		System.out.println("Should execute before /hello second");
 	}
 }
@@ -77,10 +171,22 @@ class HelloWorldController{
 CradlePlatform platform = VertxCradlePlatform.createDefaultInstance();
 CradleProvider httpGateway = platform.httpGateway();
 CradleProvider websocketGateway = platform.websocketGateway();
+CradleEventbus eventbus = platform.eventbus();
+
+// Create instance of the controller class
 HelloWorldController controller = new HelloWorldController();
+
+// Register controller in different cradle service providers 
 httpGateway.registerController(controller);
 websocketGateway.registerController(controller);
+eventbus.registerController(controller);
+
+// publish eventbus message
+eventbus.publish("/message", new Message("Mc", "Eventbus message."));
+
+// wait 2 minutes before shutting down the platform
 Thread.sleep(2 * 60 * 1000);
+
 platform.shutdown();
 ```
 The above code creates and registers a controller class which exposes three methods:

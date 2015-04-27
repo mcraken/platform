@@ -79,8 +79,7 @@ public class VertxCradlePlatform implements CradlePlatform, HttpWebService{
 	private HttpServer httpServer;
 	private SockJSServer sockJSServer;
 	private RemovableRouteMatcher routeMatcher;
-
-
+	
 	public static VertxCradlePlatform createDefaultInstance(){
 
 		if(cradlePlatform != null){
@@ -158,6 +157,7 @@ public class VertxCradlePlatform implements CradlePlatform, HttpWebService{
 		this.documentWriters = documentWriters;
 		this.localizationService = localizationService;
 		this.reportingService = reportingService;
+		
 	}
 
 
@@ -251,7 +251,7 @@ public class VertxCradlePlatform implements CradlePlatform, HttpWebService{
 
 		System.setProperty(CLUSTER_FACTORY, clusterManagerFactory);
 	}
-
+	
 	/* (non-Javadoc)
 	 * @see org.cradle.platform.CradlePlatform#gateway()
 	 */
@@ -337,7 +337,8 @@ public class VertxCradlePlatform implements CradlePlatform, HttpWebService{
 					documentReaders, 
 					documentWriters, 
 					localizationService,  
-					sockJSServer);
+					sockJSServer
+					);
 		}
 
 		return sockJsGateway;

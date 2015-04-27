@@ -2,10 +2,10 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Send to calculate</title>
+<title>Send Message Test</title>
 <script type="text/javascript" src="../js/sockjs/sockjs-0.3.min.js"></script>
 <script type="text/javascript">
-	var sock = new SockJS('http://localhost:8080/socketcalc');
+	var sock = new SockJS('http://localhost:8080/hello');
 	sock.onopen = function() {
 		console.log('open');
 	};
@@ -16,15 +16,15 @@
 		console.log('close');
 	};
 
-	function socketCalc() {
+	function sendMessage() {
 		sock.send(JSON.stringify({
-			"num1" : 2,
-			"num2" : 3
+			"sender" : "mcplissken",
+			"text" : "hello"
 		}));
 	}
 </script>
 </head>
 <body>
-	<input type="button" value="Send" onclick="socketCalc()">
+	<input type="button" value="Send" onclick="sendMessage()">
 </body>
 </html>

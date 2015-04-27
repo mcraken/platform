@@ -22,7 +22,7 @@ import java.lang.annotation.Annotation;
  * @email 	mcrakens@gmail.com
  * @date 	Apr 15, 2015
  */
-public interface RegistrationAgent {
+public interface RegistrationAgent<T, A extends Annotation> {
 	
-	public <T>void register(Annotation annotation, T handler);
+	public void register(A annotation, T handler);
 }

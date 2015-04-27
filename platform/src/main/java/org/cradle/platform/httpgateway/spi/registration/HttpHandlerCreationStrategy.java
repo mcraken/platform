@@ -13,30 +13,22 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package org.cradle.platform.spi;
+package org.cradle.platform.httpgateway.spi.registration;
 
-import static com.google.common.base.Preconditions.checkNotNull;
-
+import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
+
+import org.cradle.platform.httpgateway.HttpMethod;
+import org.cradle.platform.httpgateway.spi.handler.BasicHttpHandler;
+
 /**
  * @author	Sherief Shawky
  * @email 	mcrakens@gmail.com
- * @date 	Apr 15, 2015
+ * @date 	Apr 27, 2015
  */
-public abstract class BasicCradleProvider implements CradleProvider{
-
-
-	public void registerController(Object receiver, RegistrationPrincipal<?, ?>... principals) {
-
-		checkNotNull(receiver);
-
-		for (Method method : receiver.getClass().getMethods())
-		{
-			for(RegistrationPrincipal<?, ?> principal : principals){
-				
-				principal.execute(receiver, method);
-			}
-		}
-	}
-
+public interface HttpHandlerCreationStrategy {
+	
+	public BasicHttpHandler createHttpHandler(final Object handler, final Method target, final HttpMethod annotation);
+	
+	public void isMethodValid(Method target, Annotation annotation);
 }

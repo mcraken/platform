@@ -15,7 +15,6 @@
  */
 package org.cradle.platform.websocketgateway.spi;
 
-import java.lang.annotation.Annotation;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
@@ -24,6 +23,7 @@ import org.cradle.platform.httpgateway.exception.HttpException;
 import org.cradle.platform.httpgateway.spi.ResponseObject;
 import org.cradle.platform.httpgateway.spi.handler.AsyncIOtHttpHandler;
 import org.cradle.platform.httpgateway.spi.handler.AsyncInputHttpHandler;
+import org.cradle.platform.httpgateway.spi.handler.BasicHttpHandler;
 import org.cradle.platform.spi.RegistrationAgent;
 import org.cradle.platform.spi.RegistrationPrincipal;
 import org.cradle.platform.websocketgateway.WebSocket;
@@ -33,32 +33,13 @@ import org.cradle.platform.websocketgateway.WebSocket;
  * @email 	mcrakens@gmail.com
  * @date 	Apr 19, 2015
  */
-public class WebsocketHandlerRegistrationPrinicipal extends RegistrationPrincipal{
+public class WebsocketHandlerRegistrationPrinicipal extends RegistrationPrincipal<BasicHttpHandler, WebSocket>{
 
 	/**
 	 * @param next
 	 */
-	public WebsocketHandlerRegistrationPrinicipal(RegistrationPrincipal next) {
-		super(next, WebSocket.class);
-	}
-
-	/* (non-Javadoc)
-	 * @see org.cradle.platform.spi.RegistrationPrincipal#executePrincipal(org.cradle.platform.spi.RegistrationAgent, java.lang.Object, java.lang.reflect.Method)
-	 */
-	protected <T> void executePrincipal(RegistrationAgent agent, T handler,
-			Method target) {
-
-		WebSocket webSocket = target.getAnnotation(WebSocket.class);
-
-		switch(webSocket.type()){
-			case RECEIVER:
-				registerInputHttpHandler(agent, handler, target, webSocket);
-				break;
-			case SYNCHRONOUS:
-				registerInputOutputHandler(agent, handler, target, webSocket);
-				break;
-		};
-
+	public WebsocketHandlerRegistrationPrinicipal(RegistrationAgent<BasicHttpHandler, WebSocket> agent) {
+		super(WebSocket.class, agent);
 	}
 
 	/**
@@ -67,13 +48,12 @@ public class WebsocketHandlerRegistrationPrinicipal extends RegistrationPrincipa
 	 * @param target
 	 * @param webSocket
 	 */
-	private void registerInputHttpHandler(RegistrationAgent agent,
-			final Object handler, final Method target, WebSocket webSocket) {
+	private BasicHttpHandler registerInputHttpHandler(final Object handler, final Method target, WebSocket webSocket) {
 
 
 		final Class<?> documentType = target.getParameterTypes()[1];
 
-		agent.register(webSocket, new AsyncInputHttpHandler() {
+		return new AsyncInputHttpHandler() {
 
 			@Override
 			protected Class<?> getDocumentType() {
@@ -101,7 +81,7 @@ public class WebsocketHandlerRegistrationPrinicipal extends RegistrationPrincipa
 					throw new RuntimeException(e);
 				}
 			}
-		});
+		};
 	}
 
 	/**
@@ -110,12 +90,11 @@ public class WebsocketHandlerRegistrationPrinicipal extends RegistrationPrincipa
 	 * @param target
 	 * @param webSocket
 	 */
-	private void registerInputOutputHandler(RegistrationAgent agent,
-			final Object handler, final Method target, WebSocket webSocket) {
+	private BasicHttpHandler registerInputOutputHandler(final Object handler, final Method target, WebSocket webSocket) {
 
 		final Class<?> documentType = target.getParameterTypes()[1];
 
-		agent.register(webSocket, new AsyncIOtHttpHandler() {
+		 return new AsyncIOtHttpHandler() {
 
 			@Override
 			protected Class<?> getDocumentType() {
@@ -143,24 +122,15 @@ public class WebsocketHandlerRegistrationPrinicipal extends RegistrationPrincipa
 					throw new RuntimeException(e);
 				}
 			}
-		});
-	}
-
-	/* (non-Javadoc)
-	 * @see org.cradle.platform.spi.RegistrationPrincipal#isAnnotationSupported(java.lang.reflect.Method, java.lang.annotation.Annotation)
-	 */
-	@Override
-	protected boolean isAnnotationSupported(Method target, Annotation annotation) {
-
-		return true;
+		};
 	}
 
 	/* (non-Javadoc)
 	 * @see org.cradle.platform.spi.RegistrationPrincipal#isMethodValid(java.lang.reflect.Method, java.lang.annotation.Annotation)
 	 */
 	@Override
-	protected void isMethodValid(Method target, Annotation annotation) {
-
+	protected void isMethodValid(Method target, WebSocket annotation) {
+		
 		checkMethodParamLength(target, 2, "IO Websocket handler require exactly two parameters");
 
 		checkMethodParam(target, 1, HttpAdapter.class, "First parameter must be of type HttpAdapter");
@@ -169,7 +139,23 @@ public class WebsocketHandlerRegistrationPrinicipal extends RegistrationPrincipa
 
 		if(webSocket.type() == WebSocket.Type.RECEIVER)
 			checkForVoidReturnType(target, "Receiver weboscket methods should return nothing");
+	}
 
+	/* (non-Javadoc)
+	 * @see org.cradle.platform.spi.RegistrationPrincipal#executePrincipal(java.lang.Object, java.lang.reflect.Method, java.lang.annotation.Annotation)
+	 */
+	@Override
+	protected BasicHttpHandler executePrincipal(Object receiver, Method target,
+			WebSocket annotation) {
+		
+		switch(annotation.type()){
+		
+			case RECEIVER:
+				return registerInputHttpHandler(receiver, target, annotation);
+				
+			default:
+				return registerInputOutputHandler(receiver, target, annotation);
+		}
 	}
 
 

@@ -57,7 +57,7 @@ public class HelloWorldController {
 		return multiply(adapter, form);
 	}
 	
-	@WebSocket(type=Type.SYNCHRONOUS, path="/sockethello", contentType="application/json")
+	@WebSocket(type=Type.SYNCHRONOUS, path="/helloback", contentType="application/json")
 	public Message socketHello(HttpAdapter adapter, Message message){
 		
 		messageRecieved(message);
@@ -71,7 +71,7 @@ public class HelloWorldController {
 		return message;
 	} 
 	
-	@WebSocket(type=Type.RECEIVER, path="/message", contentType="application/json")
+	@WebSocket(type=Type.RECEIVER, path="/hello", contentType="application/json")
 	public void sayHello(HttpAdapter adapter, Message message){
 		
 		messageRecieved(message);
@@ -93,12 +93,12 @@ public class HelloWorldController {
 	@HttpFilter(pattern="^/(.)*")
 	public void filterAny(HttpAdapter adapter){
 		
-		System.out.println("Should execute before any http method first");
+		System.out.println("Should execute before any http method or websocket");
 	}
 	
 	@HttpFilter(pattern="^/hello", precedence=1)
 	public void filterHello(HttpAdapter adapter){
 		
-		System.out.println("Should execute before /hello second");
+		System.out.println("Should execute before /hello (http method or websocket) second");
 	}
 }

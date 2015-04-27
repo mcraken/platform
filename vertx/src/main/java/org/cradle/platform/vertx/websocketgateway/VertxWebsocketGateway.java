@@ -20,10 +20,15 @@ import java.util.Map;
 import org.cradle.localization.LocalizationService;
 import org.cradle.platform.document.DocumentReader;
 import org.cradle.platform.document.DocumentWriter;
-import org.cradle.platform.httpgateway.HttpMethod;
 import org.cradle.platform.httpgateway.exception.HttpException;
 import org.cradle.platform.httpgateway.filter.FilterInvokationHandler;
-import org.cradle.platform.httpgateway.spi.BasicHttpGateway;
+import org.cradle.platform.httpgateway.filter.PrecedenceFilter;
+import org.cradle.platform.httpgateway.spi.handler.BasicHttpHandler;
+import org.cradle.platform.httpgateway.spi.registration.FilterRegistartionPrinicipal;
+import org.cradle.platform.spi.BasicCradleProvider;
+import org.cradle.platform.spi.RegistrationAgent;
+import org.cradle.platform.spi.RegistrationPrincipal;
+import org.cradle.platform.vertx.HttpFilterAgent;
 import org.cradle.platform.websocketgateway.WebSocket;
 import org.cradle.platform.websocketgateway.spi.WebsocketHandlerRegistrationPrinicipal;
 import org.vertx.java.core.Handler;
@@ -31,28 +36,58 @@ import org.vertx.java.core.json.JsonObject;
 import org.vertx.java.core.sockjs.SockJSServer;
 import org.vertx.java.core.sockjs.SockJSSocket;
 
+import com.google.common.collect.HashMultimap;
+import com.google.common.collect.Multimap;
+
 /**
  * @author	Sherief Shawky
  * @email 	mcrakens@gmail.com
  * @date 	Apr 19, 2015
  */
-public class VertxWebsocketGateway extends BasicHttpGateway  {
+public class VertxWebsocketGateway extends BasicCradleProvider  {
 
+	private Map<String, DocumentReader> documentReaders;
+	private Map<String, DocumentWriter> documentWriters;
+	
+	private LocalizationService localizationService;
+	
 	private SockJSServer sockJSServer;
+	private Multimap<String, PrecedenceFilter> filters;
 
-	public VertxWebsocketGateway(Map<String, DocumentReader> documentReaders,
+	private RegistrationAgent<BasicHttpHandler, WebSocket> httpHandlerAgent = new RegistrationAgent<BasicHttpHandler, WebSocket>(){
+
+		@Override
+		public void register(WebSocket annotation, BasicHttpHandler handler) {
+			
+			handler.setLocalizationService(localizationService);
+			
+			registerHttpHandler(annotation, 
+					new FilterInvokationHandler(annotation.path(), documentReaders, documentWriters, handler, filters));
+		}
+		
+	};
+	
+	private RegistrationPrincipal<?, ?>[] principals;
+	
+	public VertxWebsocketGateway(
+			Map<String, DocumentReader> documentReaders,
 			Map<String, DocumentWriter> documentWriters,
-			LocalizationService localizationService,
+			LocalizationService localizationService, 
 			SockJSServer sockJSServer) {
-
-		super( 
-				new WebsocketHandlerRegistrationPrinicipal(null),
-				documentReaders, 
-				documentWriters, 
-				localizationService
-				);
-
+		
+		this.filters = HashMultimap.create();
+		
+		principals = new RegistrationPrincipal<?, ?>[]{ 
+				new WebsocketHandlerRegistrationPrinicipal(httpHandlerAgent),
+				new FilterRegistartionPrinicipal(new HttpFilterAgent(filters))
+		};
+		
+		this.documentReaders = documentReaders;
+		this.documentWriters = documentWriters;
+		this.localizationService = localizationService;
+		
 		this.sockJSServer = sockJSServer;
+		
 	}
 
 	private JsonObject createSockJsConfig(String path) {
@@ -67,13 +102,9 @@ public class VertxWebsocketGateway extends BasicHttpGateway  {
 		}
 	}
 
-	/* (non-Javadoc)
-	 * @see org.cradle.platform.spi.BasicGateway#registerFilterChain(java.lang.String, java.lang.String, org.cradle.platform.httpgateway.filter.ServiceFilterConfig, org.cradle.platform.httpgateway.filter.Filter)
-	 */
-	@Override
-	protected void registerHttpHandler(HttpMethod annotation, final FilterInvokationHandler invokationHandler) {
+	public void registerHttpHandler(WebSocket annotation, final FilterInvokationHandler invokationHandler) {
 
-		JsonObject config = createSockJsConfig(((WebSocket) annotation).path());
+		JsonObject config = createSockJsConfig(annotation.path());
 
 		sockJSServer.installApp(config, new Handler<SockJSSocket>(){
 
@@ -98,13 +129,11 @@ public class VertxWebsocketGateway extends BasicHttpGateway  {
 	}
 
 	/* (non-Javadoc)
-	 * @see org.cradle.platform.spi.BasicGateway#unregisterHttpHandler(java.lang.String, java.lang.String)
+	 * @see org.cradle.platform.spi.CradleProvider#registerController(java.lang.Object)
 	 */
 	@Override
-	protected void unregisterHttpHandler(String method, String path) {
-
-		throw new UnsupportedOperationException();
-
+	public <T> void registerController(T handler) {
+		registerController(handler, principals);
 	}
 
 }

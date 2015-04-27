@@ -28,7 +28,6 @@ public class Calculation {
 	
 	private int result;
 	
-	
 	/**
 	 * @return the num1
 	 */

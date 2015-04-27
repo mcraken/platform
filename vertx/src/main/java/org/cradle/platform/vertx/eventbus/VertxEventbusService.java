@@ -15,7 +15,6 @@
  */
 package org.cradle.platform.vertx.eventbus;
 
-import java.lang.annotation.Annotation;
 import java.util.Map;
 
 import org.cradle.platform.document.DocumentWriter;
@@ -24,6 +23,7 @@ import org.cradle.platform.eventbus.EventbusListener;
 import org.cradle.platform.eventbus.spi.EventbusHandler;
 import org.cradle.platform.eventbus.spi.EventbusListenerRegistrationPrincipal;
 import org.cradle.platform.spi.BasicCradleProvider;
+import org.cradle.platform.spi.RegistrationAgent;
 import org.cradle.reporting.SystemReportingService;
 import org.vertx.java.core.AsyncResult;
 import org.vertx.java.core.Handler;
@@ -39,7 +39,19 @@ public class VertxEventbusService extends BasicCradleProvider implements CradleE
 	private EventBus eventBus;
 	private Map<String, DocumentWriter> documentWriters;
 	private SystemReportingService reportingService;
+	private EventbusListenerRegistrationPrincipal eventbusListenerRegistrationPrincipal; 
+	
+	private RegistrationAgent<EventbusHandler, EventbusListener> listenerRegistrationAgent = new RegistrationAgent<EventbusHandler, EventbusListener>() {
 
+		@Override
+		public void register(EventbusListener annotation, EventbusHandler handler) {
+			
+			String path = annotation.path();
+
+			eventBus.registerHandler(path, new VertxTextEventbusHandler(handler));
+		}
+	};
+	
 	/**
 	 * @param principalChain
 	 * @param eventBus
@@ -49,7 +61,7 @@ public class VertxEventbusService extends BasicCradleProvider implements CradleE
 	public VertxEventbusService(EventBus eventBus, Map<String, DocumentWriter> documentWriters,
 			SystemReportingService reportingService) {
 
-		super(new EventbusListenerRegistrationPrincipal(null));
+		eventbusListenerRegistrationPrincipal = new EventbusListenerRegistrationPrincipal(listenerRegistrationAgent);
 
 		this.eventBus = eventBus;
 		this.documentWriters = documentWriters;
@@ -95,17 +107,12 @@ public class VertxEventbusService extends BasicCradleProvider implements CradleE
 	}
 
 	/* (non-Javadoc)
-	 * @see org.cradle.platform.spi.BasicCradleProvider#registerHandler(java.lang.annotation.Annotation, java.lang.Object)
+	 * @see org.cradle.platform.spi.CradleProvider#registerController(java.lang.Object)
 	 */
 	@Override
-	protected <T> void registerHandler(Annotation annotation, T handler) {
-
-		EventbusListener eventbusListener = (EventbusListener) annotation;
-
-		String path = eventbusListener.path();
-
-		eventBus.registerHandler(path, new VertxTextEventbusHandler((EventbusHandler) handler));
-
+	public <T> void registerController(T handler) {
+		
+		registerController(handler, eventbusListenerRegistrationPrincipal);
 	}
 
 }

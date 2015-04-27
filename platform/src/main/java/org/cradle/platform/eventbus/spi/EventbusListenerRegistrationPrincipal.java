@@ -15,7 +15,6 @@
  */
 package org.cradle.platform.eventbus.spi;
 
-import java.lang.annotation.Annotation;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
@@ -28,73 +27,15 @@ import org.cradle.platform.spi.RegistrationPrincipal;
  * @email 	mcrakens@gmail.com
  * @date 	Apr 27, 2015
  */
-public class EventbusListenerRegistrationPrincipal extends RegistrationPrincipal{
+public class EventbusListenerRegistrationPrincipal extends RegistrationPrincipal<EventbusHandler, EventbusListener>{
 
 	/**
 	 * @param next
 	 * @param annotationClass
 	 */
-	public EventbusListenerRegistrationPrincipal(RegistrationPrincipal next) {
-		
-		super(next, EventbusListener.class);
-	}
+	public EventbusListenerRegistrationPrincipal(RegistrationAgent<EventbusHandler, EventbusListener> agent) {
 
-	/* (non-Javadoc)
-	 * @see org.cradle.platform.spi.RegistrationPrincipal#isAnnotationSupported(java.lang.reflect.Method, java.lang.annotation.Annotation)
-	 */
-	@Override
-	protected boolean isAnnotationSupported(Method target, Annotation annotation) {
-		return true;
-	}
-
-	/* (non-Javadoc)
-	 * @see org.cradle.platform.spi.RegistrationPrincipal#isMethodValid(java.lang.reflect.Method, java.lang.annotation.Annotation)
-	 */
-	@Override
-	protected void isMethodValid(Method target, Annotation annotation) {
-		
-		checkForVoidReturnType(target, "Eventbus listener method should return nothing.");
-		
-		checkMethodParamLength(target, 1, "Eventbus listener method should accept only one parameter.");
-	}
-
-	/* (non-Javadoc)
-	 * @see org.cradle.platform.spi.RegistrationPrincipal#executePrincipal(org.cradle.platform.spi.RegistrationAgent, java.lang.Object, java.lang.reflect.Method)
-	 */
-	@Override
-	protected <T> void executePrincipal(RegistrationAgent agent, final T handler,
-			final Method target) {
-		
-		EventbusListener eventbusListener = target.getAnnotation(EventbusListener.class);
-		
-		if(checkMethodParam(target, 1, String.class)){
-			
-			agent.register(eventbusListener, createTextMessageHandler(handler, target));
-			
-		} else {
-			
-			agent.register(eventbusListener, new TypeEventbusHandler(getParamType(target, 1)) {
-				
-				@Override
-				protected void recieve(Object message) {
-					
-						try {
-							
-							target.invoke(handler, message);
-							
-						} catch (IllegalAccessException | IllegalArgumentException e) {
-							
-							throw new RuntimeException(e);
-							
-						} catch (InvocationTargetException e) {
-							
-							e.printStackTrace();
-						}
-				}
-			});
-			
-		}
-		
+		super(EventbusListener.class, agent);
 	}
 
 	/**
@@ -105,24 +46,79 @@ public class EventbusListenerRegistrationPrincipal extends RegistrationPrincipal
 	private <T> EventbusHandler createTextMessageHandler(final T handler,
 			final Method target) {
 		return new EventbusHandler() {
-			
+
 			@Override
 			public void recieve(String message) {
-				
+
 				try {
-					
+
 					target.invoke(handler, message);
-					
+
 				} catch (IllegalAccessException | IllegalArgumentException e) {
-					
+
 					throw new RuntimeException(e);
-					
+
 				} catch (InvocationTargetException e) {
-					
+
 					e.printStackTrace();
 				}
 			}
 		};
 	}
 
+	/* (non-Javadoc)
+	 * @see org.cradle.platform.spi.RegistrationPrincipal#isMethodValid(java.lang.reflect.Method, java.lang.annotation.Annotation)
+	 */
+	@Override
+	protected void isMethodValid(Method target, EventbusListener annotation) {
+
+		checkForVoidReturnType(target, "Eventbus listener method should return nothing.");
+
+		checkMethodParamLength(target, 1, "Eventbus listener method should accept only one parameter.");
+	}
+
+	/* (non-Javadoc)
+	 * @see org.cradle.platform.spi.RegistrationPrincipal#executePrincipal(java.lang.Object, java.lang.reflect.Method, java.lang.annotation.Annotation)
+	 */
+	@Override
+	protected EventbusHandler executePrincipal(Object receiver, Method target,
+			EventbusListener eventbusListener) {
+
+		if(checkMethodParam(target, 1, String.class)){
+
+			return createTextMessageHandler(receiver, target);
+
+		} else {
+
+			return createTypeEventbusHandler(target, receiver);
+		}
+
+	}
+
+	/**
+	 * @param target
+	 * @return
+	 */
+	private TypeEventbusHandler createTypeEventbusHandler(final Method target, final Object receiver) {
+
+		return new TypeEventbusHandler(getParamType(target, 1)) {
+
+			@Override
+			protected void recieve(Object message) {
+
+				try {
+
+					target.invoke(receiver, message);
+
+				} catch (IllegalAccessException | IllegalArgumentException e) {
+
+					throw new RuntimeException(e);
+
+				} catch (InvocationTargetException e) {
+
+					e.printStackTrace();
+				}
+			}
+		};
+	}
 }

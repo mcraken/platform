@@ -23,92 +23,84 @@ import java.lang.reflect.Method;
  * @email 	mcrakens@gmail.com
  * @date 	Apr 15, 2015
  */
-public abstract class RegistrationPrincipal {
-	
-	private RegistrationPrincipal next;
-	private Class<? extends Annotation> annotationClass;
-	
+public abstract class RegistrationPrincipal<T, A extends Annotation> {
+
+	private Class<A> annotationClass;
+	private RegistrationAgent<T, A> registrationAgent;
 	/**
 	 * @param next
 	 * @param annotationClass
 	 */
-	public RegistrationPrincipal(RegistrationPrincipal next,
-			Class<? extends Annotation> annotationClass) {
-		
-		this.next = next;
+	public RegistrationPrincipal(Class<A> annotationClass, RegistrationAgent<T, A> registrationAgent) {
+
 		this.annotationClass = annotationClass;
+		
+		this.registrationAgent = registrationAgent;
 	}
 
-	public <T>void execute(RegistrationAgent agent, T handler, Method target){
-		
-		Annotation annotation = target.getAnnotation(annotationClass);
+	public void execute(Object receiver, Method target){
+
+		A annotation = target.getAnnotation(annotationClass);
 
 		if(annotation != null ){
 
-			if(isAnnotationSupported(target, annotation)){
+			isMethodValid(target, annotation);
 
-				isMethodValid(target, annotation);
-
-				executePrincipal(agent, handler, target);
-			}
-
+			T handler = executePrincipal(receiver, target, annotation);
+			
+			registrationAgent.register(annotation, handler);
 		}
-		
-		
-		if(next != null)
-			next.execute(agent, handler, target);
+
 	}
-	
+
 	protected Class<?> getParamType(Method target, int number){
-		
+
 		return target.getParameterTypes()[number - 1];
 	}
-	
+
 	/**
 	 * @param target
 	 */
 	protected void checkMethodParam(Method target, int number, Class<?> targetClass, String errorMessage) {
-	
+
 		Class<?> paramType = getParamType(target, number);
-	
+
 		if(paramType != targetClass){
 			throw new RuntimeException(errorMessage);
 		}
 	}
-	
+
 	protected boolean checkMethodParam(Method target, int number, Class<?> targetClass) {
-		
+
 		Class<?> paramType = getParamType(target, number);
-	
+
 		if(paramType != targetClass){
 			return false;
 		}
-		
+
 		return true;
 	}
-	
+
 	protected void checkMethodParamLength(Method target, int length, String errorMessage){
-		
+
 		if(target.getParameterTypes().length != length){
 
 			throw new RuntimeException(errorMessage);
 		}
 	}
-	
+
 	/**
 	 * @param target
 	 */
 	protected void checkForVoidReturnType(final Method target, String errorMessage) {
-		
+
 		Class<?> returnType = target.getReturnType();
-		
+
 		if(!returnType.getName().equalsIgnoreCase("void"))
 			throw new RuntimeException(errorMessage);
 	}
-	
-	protected abstract boolean isAnnotationSupported(Method target, Annotation annotation);
-	
-	protected abstract void isMethodValid(Method target, Annotation annotation);
-	
-	protected abstract <T>void executePrincipal(RegistrationAgent agent, T handler, Method target);
+
+	protected abstract void isMethodValid(Method target, A annotation);
+
+	protected abstract T executePrincipal(Object receiver, Method target, A annotation);
 }

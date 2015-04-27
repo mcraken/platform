@@ -22,11 +22,14 @@ import org.cradle.platform.document.DocumentReader;
 import org.cradle.platform.document.DocumentWriter;
 import org.cradle.platform.httpgateway.HttpMethod;
 import org.cradle.platform.httpgateway.filter.FilterInvokationHandler;
-import org.cradle.platform.httpgateway.spi.BasicHttpGateway;
+import org.cradle.platform.httpgateway.filter.PrecedenceFilter;
+import org.cradle.platform.httpgateway.spi.handler.BasicHttpHandler;
 import org.cradle.platform.httpgateway.spi.registration.FilterRegistartionPrinicipal;
-import org.cradle.platform.httpgateway.spi.registration.IOHttpHandlerRegistrationPrincipal;
-import org.cradle.platform.httpgateway.spi.registration.MultipartHttpHandlerRegistrationPrincipal;
-import org.cradle.platform.httpgateway.spi.registration.OutputHttpHandlerResgistrationPrincipal;
+import org.cradle.platform.httpgateway.spi.registration.HttpHandlerResgisterationPrinicipal;
+import org.cradle.platform.spi.BasicCradleProvider;
+import org.cradle.platform.spi.RegistrationAgent;
+import org.cradle.platform.spi.RegistrationPrincipal;
+import org.cradle.platform.vertx.HttpFilterAgent;
 import org.cradle.platform.vertx.handlers.FileRequestHandler;
 import org.cradle.platform.vertx.handlers.HttpInvokationHandler;
 import org.cradle.reporting.SystemReportingService;
@@ -34,23 +37,48 @@ import org.vertx.java.core.Handler;
 import org.vertx.java.core.http.HttpServer;
 import org.vertx.java.core.http.HttpServerRequest;
 
+import com.google.common.collect.HashMultimap;
+import com.google.common.collect.Multimap;
+
 /**
  * @author 	Sherief Shawky
  * @email 	mcrakens@gmail.com
  * @date 	Aug 2, 2014
  */
-public class VertxHttpGateway extends BasicHttpGateway {
+public class VertxHttpGateway extends BasicCradleProvider {
 
 	private HttpServer httpServer;
 	private RemovableRouteMatcher routeMatcher;
-
+	private Multimap<String, PrecedenceFilter> filters;
+	
+	
 	private String fileRoot;
 	private String webRoot;
 	private String host;
 	private int port;
-
+	
+	private Map<String, DocumentReader> documentReaders;
+	private Map<String, DocumentWriter> documentWriters;
+	
+	private LocalizationService localizationService;
 	private SystemReportingService reportingService;
+	
+	private RegistrationPrincipal<?, ?>[] principals;
+	
+	private RegistrationAgent<BasicHttpHandler, HttpMethod> httpHandlerAgent = new RegistrationAgent<BasicHttpHandler, HttpMethod>() {
 
+		@Override
+		public void register(HttpMethod annotation, BasicHttpHandler handler) {
+			
+			handler.setLocalizationService(localizationService);
+			
+			registerHttpHandler(
+					annotation, 
+					new FilterInvokationHandler(annotation.path(), documentReaders, documentWriters, handler, filters));
+		}
+	
+	};
+	
 	public VertxHttpGateway(
 			HttpServer httpServer,
 			RemovableRouteMatcher routeMatcher,
@@ -63,27 +91,25 @@ public class VertxHttpGateway extends BasicHttpGateway {
 			int port,
 			LocalizationService localizationService,
 			SystemReportingService reportingService) {
-		
-		super(
-				new OutputHttpHandlerResgistrationPrincipal(
-						new IOHttpHandlerRegistrationPrincipal(
-								new MultipartHttpHandlerRegistrationPrincipal(
-										new FilterRegistartionPrinicipal(null), 
-										fileTemp
-										)
-								)
-						),
-				documentReaders, 
-				documentWriters, 
-				localizationService);
 
+		this.filters = HashMultimap.create();
+		
+		principals = new RegistrationPrincipal<?, ?>[]{ 
+				new HttpHandlerResgisterationPrinicipal(fileTemp, httpHandlerAgent),
+				new FilterRegistartionPrinicipal(new HttpFilterAgent(filters))
+		};
+		
 		this.fileRoot = fileRoot;
 		this.webRoot = webRoot;
 		this.host = host;
 		this.port = port;
 		this.httpServer = httpServer;
 		this.routeMatcher = routeMatcher;
+		this.documentReaders = documentReaders;
+		this.documentWriters = documentWriters;
 		this.reportingService = reportingService;
+		this.localizationService = localizationService;
+		
 	}
 
 	public void start(){
@@ -113,10 +139,6 @@ public class VertxHttpGateway extends BasicHttpGateway {
 
 	}
 
-	/* (non-Javadoc)
-	 * @see org.cradle.osgi.gateway.HttpGateway#unregisterRESTfulHandler(io.netty.handler.codec.http.HttpMethod, java.lang.String)
-	 */
-	@Override
 	protected void unregisterHttpHandler(String method, String path) {
 
 		routeMatcher.removeHandler(method, path);
@@ -124,14 +146,14 @@ public class VertxHttpGateway extends BasicHttpGateway {
 	}
 
 	protected void registerHttpHandler(HttpMethod annotation,
-			 FilterInvokationHandler invokationHandler) {
-		
+			FilterInvokationHandler invokationHandler) {
+
 		Handler<HttpServerRequest> requestHandler = new HttpInvokationHandler(invokationHandler, reportingService);
-		
+
 		String method =  annotation.method().getValue();
-		
+
 		String path = annotation.path();
-		
+
 		switch (method) {
 
 		case "GET":
@@ -147,6 +169,16 @@ public class VertxHttpGateway extends BasicHttpGateway {
 			routeMatcher.delete(path, requestHandler);
 			break;
 		}
+	}
+
+	/* (non-Javadoc)
+	 * @see org.cradle.platform.spi.CradleProvider#registerController(java.lang.Object)
+	 */
+	@Override
+	public <T> void registerController(T receiver) {
+		
+		registerController(receiver, principals);
+		
 	}
 
 }

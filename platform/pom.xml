@@ -40,6 +40,12 @@
 		</dependency>
 
 		<dependency>
+			<groupId>org.cradle</groupId>
+			<artifactId>cradle-reporting</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
+
+		<dependency>
 			<groupId>com.google.code.gson</groupId>
 			<artifactId>gson</artifactId>
 			<version>2.2.4</version>
@@ -58,14 +64,14 @@
 				</exclusion>
 			</exclusions>
 		</dependency>
-        
-        <dependency>
-            <groupId>com.google.guava</groupId>
-            <artifactId>guava</artifactId>
-            <version>${guava.version}</version>
-            <scope>provided</scope>
-        </dependency>
-        
+
+		<dependency>
+			<groupId>com.google.guava</groupId>
+			<artifactId>guava</artifactId>
+			<version>${guava.version}</version>
+			<scope>provided</scope>
+		</dependency>
+
 		<dependency>
 			<groupId>commons-beanutils</groupId>
 			<artifactId>commons-beanutils</artifactId>

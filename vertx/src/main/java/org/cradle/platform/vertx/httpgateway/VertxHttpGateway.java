@@ -63,8 +63,6 @@ public class VertxHttpGateway extends BasicCradleProvider {
 	private LocalizationService localizationService;
 	private SystemReportingService reportingService;
 	
-	private RegistrationPrincipal<?, ?>[] principals;
-	
 	private RegistrationAgent<BasicHttpHandler, HttpMethod> httpHandlerAgent = new RegistrationAgent<BasicHttpHandler, HttpMethod>() {
 
 		@Override
@@ -169,16 +167,6 @@ public class VertxHttpGateway extends BasicCradleProvider {
 			routeMatcher.delete(path, requestHandler);
 			break;
 		}
-	}
-
-	/* (non-Javadoc)
-	 * @see org.cradle.platform.spi.CradleProvider#registerController(java.lang.Object)
-	 */
-	@Override
-	public <T> void registerController(T receiver) {
-		
-		registerController(receiver, principals);
-		
 	}
 
 }

@@ -67,8 +67,6 @@ public class VertxWebsocketGateway extends BasicCradleProvider  {
 		
 	};
 	
-	private RegistrationPrincipal<?, ?>[] principals;
-	
 	public VertxWebsocketGateway(
 			Map<String, DocumentReader> documentReaders,
 			Map<String, DocumentWriter> documentWriters,
@@ -121,19 +119,10 @@ public class VertxWebsocketGateway extends BasicCradleProvider  {
 					
 					socket.close();
 				}
-
 			}
 
 		});
 
-	}
-
-	/* (non-Javadoc)
-	 * @see org.cradle.platform.spi.CradleProvider#registerController(java.lang.Object)
-	 */
-	@Override
-	public <T> void registerController(T handler) {
-		registerController(handler, principals);
 	}
 
 }

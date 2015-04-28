@@ -24,6 +24,7 @@ import org.cradle.platform.eventbus.spi.EventbusHandler;
 import org.cradle.platform.eventbus.spi.EventbusListenerRegistrationPrincipal;
 import org.cradle.platform.spi.BasicCradleProvider;
 import org.cradle.platform.spi.RegistrationAgent;
+import org.cradle.platform.spi.RegistrationPrincipal;
 import org.cradle.reporting.SystemReportingService;
 import org.vertx.java.core.AsyncResult;
 import org.vertx.java.core.Handler;
@@ -39,19 +40,18 @@ public class VertxEventbusService extends BasicCradleProvider implements CradleE
 	private EventBus eventBus;
 	private Map<String, DocumentWriter> documentWriters;
 	private SystemReportingService reportingService;
-	private EventbusListenerRegistrationPrincipal eventbusListenerRegistrationPrincipal; 
-	
+
 	private RegistrationAgent<EventbusHandler, EventbusListener> listenerRegistrationAgent = new RegistrationAgent<EventbusHandler, EventbusListener>() {
 
 		@Override
 		public void register(EventbusListener annotation, EventbusHandler handler) {
-			
+
 			String path = annotation.path();
 
 			eventBus.registerHandler(path, new VertxTextEventbusHandler(handler));
 		}
 	};
-	
+
 	/**
 	 * @param principalChain
 	 * @param eventBus
@@ -61,7 +61,9 @@ public class VertxEventbusService extends BasicCradleProvider implements CradleE
 	public VertxEventbusService(EventBus eventBus, Map<String, DocumentWriter> documentWriters,
 			SystemReportingService reportingService) {
 
-		eventbusListenerRegistrationPrincipal = new EventbusListenerRegistrationPrincipal(listenerRegistrationAgent);
+		principals = new RegistrationPrincipal<?, ?>[]{ 
+				new EventbusListenerRegistrationPrincipal(listenerRegistrationAgent)
+		};
 
 		this.eventBus = eventBus;
 		this.documentWriters = documentWriters;
@@ -103,16 +105,5 @@ public class VertxEventbusService extends BasicCradleProvider implements CradleE
 				}
 			}
 		});
-
 	}
-
-	/* (non-Javadoc)
-	 * @see org.cradle.platform.spi.CradleProvider#registerController(java.lang.Object)
-	 */
-	@Override
-	public <T> void registerController(T handler) {
-		
-		registerController(handler, eventbusListenerRegistrationPrincipal);
-	}
-
 }

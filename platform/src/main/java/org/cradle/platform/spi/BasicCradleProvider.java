@@ -23,13 +23,20 @@ import java.lang.reflect.Method;
  * @email 	mcrakens@gmail.com
  * @date 	Apr 15, 2015
  */
-public abstract class BasicCradleProvider implements CradleProvider{
+public class BasicCradleProvider implements CradleProvider{
 
-
-	public void registerController(Object receiver, RegistrationPrincipal<?, ?>... principals) {
-
+	protected RegistrationPrincipal<?, ?>[] principals;
+	
+	/* (non-Javadoc)
+	 * @see org.cradle.platform.spi.CradleProvider#registerController(java.lang.Object)
+	 */
+	@Override
+	public <T> void registerController(T receiver) {
+		
 		checkNotNull(receiver);
-
+		
+		checkNotNull(principals);
+		
 		for (Method method : receiver.getClass().getMethods())
 		{
 			for(RegistrationPrincipal<?, ?> principal : principals){

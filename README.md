@@ -55,9 +55,6 @@ class HelloWorldController {
 		messageRecieved(message);
 	}
 
-	/**
-	 * @param message
-	 */
 	private void messageRecieved(Message message) {
 		System.out.println(message.getSender() + ":" + message.getText());
 	}

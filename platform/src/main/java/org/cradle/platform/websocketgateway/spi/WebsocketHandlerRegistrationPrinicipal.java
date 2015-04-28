@@ -38,8 +38,13 @@ public class WebsocketHandlerRegistrationPrinicipal extends RegistrationPrincipa
 	/**
 	 * @param next
 	 */
-	public WebsocketHandlerRegistrationPrinicipal(RegistrationAgent<BasicHttpHandler, WebSocket> agent) {
+	public WebsocketHandlerRegistrationPrinicipal(
+			RegistrationAgent<BasicHttpHandler, 
+			WebSocket> agent
+			) {
+		
 		super(WebSocket.class, agent);
+		
 	}
 
 	/**
@@ -48,8 +53,7 @@ public class WebsocketHandlerRegistrationPrinicipal extends RegistrationPrincipa
 	 * @param target
 	 * @param webSocket
 	 */
-	private BasicHttpHandler registerInputHttpHandler(final Object handler, final Method target, WebSocket webSocket) {
-
+	private BasicHttpHandler createInputHttpHandler(final Object handler, final Method target, WebSocket webSocket) {
 
 		final Class<?> documentType = target.getParameterTypes()[1];
 
@@ -90,14 +94,14 @@ public class WebsocketHandlerRegistrationPrinicipal extends RegistrationPrincipa
 	 * @param target
 	 * @param webSocket
 	 */
-	private BasicHttpHandler registerInputOutputHandler(final Object handler, final Method target, WebSocket webSocket) {
+	private BasicHttpHandler createInputOutputHandler(final Object handler, final Method target, WebSocket webSocket) {
 
 		final Class<?> documentType = target.getParameterTypes()[1];
 
-		 return new AsyncIOtHttpHandler() {
+		return new AsyncIOtHttpHandler() {
 
 			@Override
-			protected Class<?> getDocumentType() {
+			public Class<?> getDocumentType() {
 				return documentType;
 			}
 
@@ -124,13 +128,13 @@ public class WebsocketHandlerRegistrationPrinicipal extends RegistrationPrincipa
 			}
 		};
 	}
-
+	
 	/* (non-Javadoc)
 	 * @see org.cradle.platform.spi.RegistrationPrincipal#isMethodValid(java.lang.reflect.Method, java.lang.annotation.Annotation)
 	 */
 	@Override
 	protected void isMethodValid(Method target, WebSocket annotation) {
-		
+
 		checkMethodParamLength(target, 2, "IO Websocket handler require exactly two parameters");
 
 		checkMethodParam(target, 1, HttpAdapter.class, "First parameter must be of type HttpAdapter");
@@ -147,16 +151,22 @@ public class WebsocketHandlerRegistrationPrinicipal extends RegistrationPrincipa
 	@Override
 	protected BasicHttpHandler executePrincipal(Object receiver, Method target,
 			WebSocket annotation) {
-		
+
 		switch(annotation.type()){
-		
-			case RECEIVER:
-				return registerInputHttpHandler(receiver, target, annotation);
-				
-			default:
-				return registerInputOutputHandler(receiver, target, annotation);
+
+		case RECEIVER:
+			return createInputHttpHandler(receiver, target, annotation);
+
+		case SYNCHRONOUS:
+			
+		case BROADCAST:
+			return createInputOutputHandler(receiver, target, annotation);
+			
+		default: 
+			throw new RuntimeException("Websocket type is not supported.");
 		}
 	}
+
 
 
 }

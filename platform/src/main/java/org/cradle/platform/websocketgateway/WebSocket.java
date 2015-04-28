@@ -30,7 +30,7 @@ import java.lang.annotation.Target;
 public @interface WebSocket {
 	
 	enum Type{
-		RECEIVER(), SYNCHRONOUS();
+		RECEIVER(), SYNCHRONOUS(), BROADCAST();
 		private Type(){
 		}
 	};

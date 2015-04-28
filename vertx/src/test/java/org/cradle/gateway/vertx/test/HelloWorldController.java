@@ -71,6 +71,14 @@ public class HelloWorldController {
 		return message;
 	} 
 	
+	@WebSocket(type=Type.BROADCAST, path="/broadcast")
+	public String socketBroadcast(HttpAdapter adapter, String message){
+		
+		return "We have got "
+				+ message
+				+ " You will recieve a message in a moment.";
+	} 
+	
 	@WebSocket(type=Type.RECEIVER, path="/hello", contentType="application/json")
 	public void sayHello(HttpAdapter adapter, Message message){
 		

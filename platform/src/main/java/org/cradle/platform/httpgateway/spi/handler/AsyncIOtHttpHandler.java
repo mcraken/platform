@@ -66,6 +66,6 @@ public abstract  class AsyncIOtHttpHandler extends BasicHttpHandler{
 
 	protected abstract ResponseObject execute(HttpAdapter adapter, Object document) throws HttpException;
 
-	protected abstract Class<?> getDocumentType();
+	public abstract Class<?> getDocumentType();
 
 }

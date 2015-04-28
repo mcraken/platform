@@ -61,7 +61,7 @@ public abstract class BasicHttpHandler {
 		this.localizationService = localizationService;
 	}
 
-	protected void writeServiceResponse(HttpAdapter httpAdapter,
+	public void writeServiceResponse(HttpAdapter httpAdapter,
 			GatewayResponse response, ResponseObject responseObject, boolean chuncked) {
 
 		try {

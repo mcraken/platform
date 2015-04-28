@@ -24,6 +24,7 @@ import org.cradle.platform.httpgateway.spi.GatewayRequest;
 import org.vertx.java.core.buffer.Buffer;
 import org.vertx.java.core.sockjs.SockJSSocket;
 
+
 /**
  * @author	Sherief Shawky
  * @email 	mcrakens@gmail.com
@@ -37,6 +38,7 @@ public class VertxWebsocketAdapter extends BasicHttpAdapter {
 	 * @param socket
 	 */
 	public VertxWebsocketAdapter(SockJSSocket socket) {
+		
 		this.socket = socket;
 	}
 
@@ -108,7 +110,18 @@ public class VertxWebsocketAdapter extends BasicHttpAdapter {
 	 */
 	@Override
 	public String sessionId() {
-		throw new UnsupportedOperationException();
+		
+		if(sessionId == null){
+			
+			String cookie = socket.headers().get(COOKIE);
+			
+			if(cookie != null)
+				extractSessionId(cookie);
+			else
+				return "";
+		}
+		
+		return sessionId;
 	}
 
 	/* (non-Javadoc)
@@ -116,7 +129,12 @@ public class VertxWebsocketAdapter extends BasicHttpAdapter {
 	 */
 	@Override
 	public void setCookie(String name, String value) {
-		throw new UnsupportedOperationException();
+		
+		String cookie = socket.headers().get(COOKIE);
+		
+		cookie = createCookie(name, value, cookie);
+		
+		socket.headers().add("Set-Cookie", cookie);
 
 	}
 

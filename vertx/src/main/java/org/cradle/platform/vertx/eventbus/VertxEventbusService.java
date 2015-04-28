@@ -47,8 +47,9 @@ public class VertxEventbusService extends BasicCradleProvider implements CradleE
 		public void register(EventbusListener annotation, EventbusHandler handler) {
 
 			String path = annotation.path();
-
-			eventBus.registerHandler(path, new VertxTextEventbusHandler(handler));
+			
+			subscribe(path, handler);
+			
 		}
 	};
 
@@ -82,10 +83,14 @@ public class VertxEventbusService extends BasicCradleProvider implements CradleE
 	 * @see org.cradle.osgi.vertx.eventbus.VertxEventBusService#publish(java.lang.String, java.lang.Object, java.lang.String)
 	 */
 	@Override
-	public <T>void publish(String address, T message) {
-
-		DocumentWriter documentWriter = documentWriters.get("application/json");
-
+	public <T>void publish(String address, T message, String contentType) {
+		
+		DocumentWriter documentWriter = documentWriters.get(contentType);
+		
+		if(documentWriter == null){
+			documentWriter = documentWriters.get("application/json");
+		}
+		
 		StringBuffer output = new StringBuffer();
 
 		documentWriter.write(message, output);
@@ -106,4 +111,10 @@ public class VertxEventbusService extends BasicCradleProvider implements CradleE
 			}
 		});
 	}
+
+	public void subscribe(String address, EventbusHandler handler) {
+		
+		eventBus.registerHandler(address, new VertxTextEventbusHandler(handler));
+	}
+
 }

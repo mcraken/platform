@@ -336,7 +336,8 @@ public class VertxCradlePlatform implements CradlePlatform, HttpWebService{
 			sockJsGateway = new VertxWebsocketGateway(
 					documentReaders, 
 					documentWriters, 
-					localizationService,  
+					localizationService,
+					eventbusSevice,
 					sockJSServer
 					);
 		}

@@ -103,7 +103,7 @@ public class HttpHandlerResgisterationPrinicipal extends RegistrationPrincipal<B
 			return new AsyncIOtHttpHandler() {
 
 				@Override
-				protected Class<?> getDocumentType() {
+				public Class<?> getDocumentType() {
 					return documentType;
 				}
 

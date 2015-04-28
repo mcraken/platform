@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Send to calculate</title>
+<script type="text/javascript" src="../js/sockjs/sockjs-0.3.min.js"></script>
+<script type="text/javascript" src="../js/jquery/jquery-2.1.1.js"></script>
+<script type="text/javascript">
+	var sock = new SockJS('http://localhost:8080/broadcast');
+	sock.onopen = function() {
+		sock.send("Mc")
+	};
+	sock.onmessage = function(e) {
+		$("#msg").text(e.data);
+	};
+	sock.onclose = function() {
+		console.log('close');
+	};
+
+</script>
+</head>
+<body>
+	<p id="msg"></p>
+</body>
+</html>

@@ -41,12 +41,12 @@ public class StandaloneGatewayTest {
 	public void setup(){
 
 		platform = VertxCradlePlatform.createDefaultInstance();
-
+		
+		eventbus = platform.eventbus();
+		
 		httpGateway = platform.httpGateway();
 		
 		websocketGateway = platform.websocketGateway();
-		
-		eventbus = platform.eventbus();
 
 	}
 
@@ -61,7 +61,25 @@ public class StandaloneGatewayTest {
 		
 		eventbus.registerController(controller);
 		
-		eventbus.publish("/message", new Message("Mc", "Eventbus message."));
+		eventbus.publish("/message", new Message("Mc", "Eventbus message."), "application/json");
+		
+		new Thread(new Runnable() {
+			
+			@Override
+			public void run() {
+				try {
+					
+					Thread.sleep(20 * 1000);
+					
+					eventbus.publish("ws:/broadcast", "This is a server message.");
+					
+					System.out.println("Message sent!");
+					
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+			}
+		}).start();
 		
 		Thread.sleep(5 * 60 * 1000);
 	}

@@ -16,5 +16,6 @@ public interface CradleEventbus extends CradleProvider{
 		
 	public void publish(String address, String message);
 	
-	public  <T>void publish(String address, T message);
+	public <T>void publish(String address, T message, String contentType);
+	
 }
